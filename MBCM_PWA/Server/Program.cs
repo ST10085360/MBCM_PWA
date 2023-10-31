@@ -1,6 +1,5 @@
-using MBCM_PWA.Client.Shared;
-using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.EntityFrameworkCore;
+using MBCM_PWA.Client.Shared;
 
 namespace MBCM_PWA
 {
@@ -10,20 +9,20 @@ namespace MBCM_PWA
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            // Add services to the container.
-
+            
             builder.Services.AddControllersWithViews();
-
+            builder.Services.AddRazorPages();
+            
+            // Add services to the container
             var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
             builder.Services.AddDbContext<MBCM_DbContext>(options =>
                 options.UseSqlServer(connectionString));
 
-            builder.Services.AddSession(options =>
+           /* builder.Services.AddSession(options =>
             {
                 options.IdleTimeout = TimeSpan.FromMinutes(30); //Times out after 30 minutes
-            });
-            
-            builder.Services.AddRazorPages();
+            });*/
+
 
             var app = builder.Build();
 
@@ -46,9 +45,24 @@ namespace MBCM_PWA
 
             app.UseRouting();
 
+            app.UseCors("AllowSpecificOrigin"); // Add this line to enable CORS
+            
+
+            // Add this line to use session
+            //app.UseSession();
 
             app.MapRazorPages();
             app.MapControllers();
+
+            app.Map("/api", api =>
+            {
+                api.UseRouting();
+                api.UseEndpoints(endpoints =>
+                {
+                    endpoints.MapControllers();
+                });
+            });
+
             app.MapFallbackToFile("index.html");
 
             app.Run();

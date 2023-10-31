@@ -1,5 +1,8 @@
 ﻿@page "/"
 @using MBCM_PWA.Client.Shared.Models
+@using Microsoft.AspNetCore.Components.Web.Extensions
+@using System.Net.Http.Json
+@inject HttpClient HttpClient
 
 <PageTitle>Home</PageTitle>
 <div class="main-container">
@@ -61,9 +64,12 @@
 @code {
     List<Project> projects;
 
-    protected override void OnInitialized()
+    // This method will be executed when the component is initialized
+    protected override async Task OnInitializedAsync()
     {
-        projects = DbContext.tblProjects.ToList();
+        projects = await HttpClient.GetFromJsonAsync<List<Project>>("api/projects");
+        var responseContent = await HttpClient.GetStringAsync("api/Projects");
+        Console.WriteLine(responseContent);
     }
 }
 

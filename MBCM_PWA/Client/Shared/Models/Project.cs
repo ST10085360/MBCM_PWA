@@ -9,7 +9,7 @@
         public string prjLocation { get; set; }
         public DateTime prjStartDate { get; set; }
 
-        // Assuming a navigation property to link to tblUser
-        public User Owner { get; set; }
+        /*public User Owner { get; set; }
+        public List<UserProjects> ProjectUsers { get; set; }*/
     }
 }

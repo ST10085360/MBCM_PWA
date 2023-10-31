@@ -1,6 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
-using System.Reflection.Emit;
 using MBCM_PWA.Client.Shared.Models;
 
 namespace MBCM_PWA.Client.Shared
@@ -11,18 +9,40 @@ namespace MBCM_PWA.Client.Shared
         {
         }
 
-        // Define DbSet properties for each of your model classes
-        public DbSet<Project> tblProjects { get; set; }
-        public DbSet<User> tblUsers { get; set; }
-        public DbSet<Review> tblReviews { get; set; }
-        public DbSet<UserProjects> tblUserProjects { get; set; }
+        public DbSet<Project> tblProject { get; set; }/*
+        public DbSet<User> tblUser { get; set; }
+        public DbSet<Review> tblReview { get; set; }
+        public DbSet<UserProjects> tblUserProject { get; set; }*/
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Project>()
+            /*modelBuilder.Entity<Project>()
                 .HasOne(p => p.Owner)
                 .WithMany(u => u.OwnedProjects)
                 .HasForeignKey(p => p.prjOwnerID);
+
+            modelBuilder.Entity<Review>()
+                .HasOne(r => r.User)
+                .WithMany(u => u.Reviews)
+                .HasForeignKey(r => r.UserID);
+
+            modelBuilder.Entity<Review>()
+                .HasOne(r => r.Reviewer)
+                .WithMany()
+                .HasForeignKey(r => r.ReviewerID);
+
+            modelBuilder.Entity<UserProjects>()
+                .HasKey(up => new { up.userID, up.projectID });
+
+            modelBuilder.Entity<UserProjects>()
+                .HasOne(up => up.User)
+                .WithMany(u => u.Projects)
+                .HasForeignKey(up => up.userID);
+
+            modelBuilder.Entity<UserProjects>()
+                .HasOne(up => up.Project)
+                .WithMany(p => p.ProjectUsers)
+                .HasForeignKey(up => up.projectID);*/
         }
     }
 }

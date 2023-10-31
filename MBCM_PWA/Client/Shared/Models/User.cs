@@ -15,6 +15,7 @@
         // Assuming you want to establish a relationship with tblProject
         public List<Project> OwnedProjects { get; set; }
         public List<Project> VolunteerProjects { get; set; }
-        public List<Project> Reviews { get; set; }
+        public List<Review> Reviews { get; set; }
+        public List<UserProjects> Projects { get; set; }
     }
 }
