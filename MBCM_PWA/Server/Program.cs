@@ -1,4 +1,6 @@
+using MBCM_PWA.Client.Shared;
 using Microsoft.AspNetCore.ResponseCompression;
+using Microsoft.EntityFrameworkCore;
 
 namespace MBCM_PWA
 {
@@ -11,6 +13,16 @@ namespace MBCM_PWA
             // Add services to the container.
 
             builder.Services.AddControllersWithViews();
+
+            var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+            builder.Services.AddDbContext<MBCM_DbContext>(options =>
+                options.UseSqlServer(connectionString));
+
+            builder.Services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromMinutes(30); //Times out after 30 minutes
+            });
+            
             builder.Services.AddRazorPages();
 
             var app = builder.Build();
