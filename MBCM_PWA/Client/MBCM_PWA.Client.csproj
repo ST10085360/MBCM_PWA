@@ -20,4 +20,14 @@
     <ServiceWorker Include="wwwroot\service-worker.js" PublishedContent="wwwroot\service-worker.published.js" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include="wwwroot\css\LINKING_ARMS.png" />
+    <None Include="wwwroot\css\LINKING_ARMS_BLURRED.png" />
+    <None Include="wwwroot\css\MBCM_LOGO.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\css\Images\" />
+  </ItemGroup>
+
 </Project>

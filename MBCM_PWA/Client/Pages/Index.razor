@@ -1,9 +1,33 @@
 ﻿@page "/"
 
-<PageTitle>Index</PageTitle>
+<PageTitle>Home</PageTitle>
+<div class="main-container">
+    <div class="splash-background">
+        <div class="main-logo">
+            <img id="logo" src="/css/MBCM_LOGO.png" alt="Logo" style="width:300px; height:auto"  />
+            <h2>Welcome to the MBCM volunteer portal.</h2>
+        </div>
+    </div>
+</div>
 
-<h1>Welcome to the MBCM project portal</h1>
 
-This application serves the purpose of keeping you, the volunteer, connected to our plans in the community
+<style>
+    .main-container {
+        position: relative;
+        height: 80vh;
+        overflow: auto;
+    }
+    .splash-background {
+        background-size: cover;
+        position: absolute;
+        height: 100%;
+        width: 100%;
+    }
+    .main-logo {
+        padding: 20px;
+        position: relative;
+        text-align: center;
+        margin-top: 100px;
+    }
 
-<SurveyPrompt Title="How is Blazor working for you?" />
+</style>
