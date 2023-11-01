@@ -22,15 +22,19 @@
                 <h3 id="ev" style="word-wrap: inherit">Event Date</h3>
             </div>
             <div class="date-div">
-                <h4 id="ev">@project.prjStartDate.ToShortDateString()</h4>
+                <h5 id="ev">@project.prjStartDate.ToShortDateString()</h5>
             </div>
             <div class="wrapper location">
                 <img class="pin" src="/css/pin.png" alt="location" style="width:20px; height:20px" />
-                <h4 class="location-text">@project.prjLocation</h4>
+                <h5 class="location-text">@project.prjLocation</h5>
             </div>
             <div class="participants">
                 <img class="members" src="/css/group.png" style="width:20px; height:20px" />
-                <h4 class="members-text">Number of Participants</h4>
+                <h5 class="members-text">Number of Participants</h5>
+            </div>
+            <div class="proj-btns">
+                <button class="btn btn-primary" style="margin-right:15px">More Details</button>
+                <button class="btn btn-primary" style="@ButtonColor" onclick="@OnClick">@ButtonText</button>
             </div>
         </div>
     </div>
@@ -45,6 +49,26 @@
         projects = await HttpClient.GetFromJsonAsync<List<Project>>("api/projects");
         var responseContent = await HttpClient.GetStringAsync("api/Projects");
         Console.WriteLine(responseContent);
+    }
+
+    public string ButtonText { get; set; } = "Request to Join";
+    string ButtonColor { get; set; } = "#1B6EC2";
+
+    public void OnClick()
+    {
+        SetText();
+        SetColor();
+    }
+
+    public void SetText()
+    {
+        ButtonText = "Request Pending...";
+        StateHasChanged();
+    }
+    public void SetColor()
+    {
+        ButtonColor = "background-color:#F6B000";
+        StateHasChanged();
     }
 }
 
@@ -142,7 +166,7 @@
     }
 
     .location {
-        margin-top: 20px;
+        margin-top: 10px;
         position: relative;
         width: fit-content;
         display: flex;
@@ -150,7 +174,6 @@
     }
 
     .pin {
-        margin-top: 4px;
         margin-right: 20px;
         left: 0;
     }
@@ -161,7 +184,6 @@
     }
 
     .participants {
-        margin-top: 20px;
         position: relative;
         width: fit-content;
         display: flex;
@@ -169,14 +191,25 @@
     }
 
     .members {
-        margin-top: 4px;
         margin-right: 20px;
         left: 0;
     }
 
-    .location-text {
+    .members-text {
         right: 0;
-        color: #ffffff
+        color: #ffffff;
     }
+
+    .proj-btns {
+        margin-top: 20px;
+        position: relative;
+        width: fit-content;
+        display: flex;
+        align-content: flex-start
+    }
+
+    
+
+
 
 </style>

@@ -1,0 +1,63 @@
+﻿@page "/adminuserpage"
+@using MBCM_PWA.Client.Shared.Models
+
+<h1>Active Volunteers</h1>
+<br />
+<hr />
+<br />
+
+<div class="volunteer-grid">
+    @foreach (var volunteer in volunteers)
+    {
+        <div class="volunteer-cell">
+            <p>@volunteer.FirstName</p>
+            <p>@volunteer.LastName</p>
+            <p>@volunteer.Email</p>
+            <p>@volunteer.PhoneNumber</p>
+        </div>
+    }
+</div>
+
+
+@code {
+    List<Volunteer> volunteers = new List<Volunteer>();
+
+    protected override void OnInitialized()
+    {
+        volunteers = GetActiveVolunteers();
+    }
+
+    List<Volunteer> GetActiveVolunteers()
+    {
+        var sampleVolunteers = new List<Volunteer>
+        {
+            new Volunteer { FirstName = "John", LastName = "Doe", Email = "john@example.com", PhoneNumber = "555-1234" },
+            new Volunteer { FirstName = "Jane", LastName = "Smith", Email = "jane@example.com", PhoneNumber = "555-5678" },
+            new Volunteer { FirstName = "Liam", LastName = "Erens", Email = "laim@example.com", PhoneNumber = "555-7258" },
+            new Volunteer { FirstName = "Boikokobetso", LastName = "Nojoko", Email = "koks@example.com", PhoneNumber = "555-1917" },
+            new Volunteer { FirstName = "Mikail", LastName = "Van Huyssteen", Email = "mikail@example.com", PhoneNumber = "555-7237" },
+            new Volunteer { FirstName = "Michael", LastName = "Kriel", Email = "koks@example.com", PhoneNumber = "555-9929" },
+            new Volunteer { FirstName = "Jordan", LastName = "Morris", Email = "jordan@example.com", PhoneNumber = "555-4219" },
+            // Add more volunteers as needed
+        };
+
+        return sampleVolunteers;
+    }
+}
+
+<style>
+    .volunteer-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px; /* Adjust the gap between cells */
+    }
+
+    .volunteer-cell {
+        border: 1px solid #ccc;
+        border-radius: 20px;
+        box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1), 2px 0 2px rgba(0, 0, 0, 0.1), -2px 0 2px rgba(0, 0, 0, 0.05);
+        padding: 10px;
+        text-align: center;
+        margin: 10px;
+    }
+</style>

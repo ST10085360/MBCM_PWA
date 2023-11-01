@@ -23,43 +23,9 @@
 
 <br>
 <br>
+<br>
 
-@* /* PROJECT TILE TEMPLATE STYLING */ *@
-@foreach (var project in projects)
-{
-    <div class="project-tile">
-        <div class="proj-left">
-            <h3 class="title-div">@project.prjTitle</h3>
-        </div>
-        <div class="proj-right">
-            <div class="event-div">
-                <h3 id="ev" style="word-wrap: inherit">Event Date</h3>
-            </div>
-            <div class="date-div">
-                <h4 id="ev">@project.prjStartDate.ToShortDateString()</h4>
-            </div>
-            <div class="wrapper location">
-                <img class="pin" src="/css/pin.png" alt="location" style="width:20px; height:20px" />
-                <h4 class="location-text">@project.prjLocation</h4>
-            </div>
-            <div class="participants">
-                <img class="members" src="/css/group.png" style="width:20px; height:20px" />
-                <h4 class="members-text">Number of Participants</h4>
-            </div>
-        </div>
-    </div>
-}
 
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
 
 @code {
     List<Project> projects = new List<Project>();
