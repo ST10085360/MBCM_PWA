@@ -1,0 +1,66 @@
+﻿@page "/adminprojects"
+@using MBCM_PWA.Client.Shared.Models
+
+<h1>Active Projects</h1>
+<br />
+<hr />
+<br />
+
+<div class="project-grid">
+    @foreach (var thing in projects)
+    {
+        <div class="project-cell">
+            <p class="h4">@thing.prjTitle</p>
+            <p>@thing.prjDescription</p>
+        </div>
+    }
+</div>
+
+
+
+@code {
+    List<Project> projects = new List<Project>();
+
+    protected override void OnInitialized()
+    {
+        projects = GetActiveProjects();
+    }
+
+    List<Project> GetActiveProjects()
+    {
+        var sampleProjects = new List<Project>
+        {
+            new Project { ProjectID = 1, prjTitle = "Community Garden Project", prjDescription = "Establish a community garden in an underprivileged area, providing residents with access to fresh produce, promoting healthy eating, and fostering a sense of community." },
+            new Project { ProjectID = 2, prjTitle = "Park Renovation Project", prjDescription = "Revitalize an existing park by adding new playground equipment, benches, and green spaces, creating a safe and enjoyable environment for families to gather and play." },       
+            new Project { ProjectID = 3, prjTitle = "Street Cleanup Initiative", prjDescription = "Organize regular street cleanup events, involving volunteers to pick up litter and maintain clean streets, making the community more attractive and eco-friendly." },       
+            new Project { ProjectID = 4, prjTitle = "Home Repair Assistance Program", prjDescription = "Start a program that helps low-income families repair and maintain their homes, ensuring safe and habitable living conditions." },       
+            new Project { ProjectID = 5, prjTitle = "Youth Sports Facility Project", prjDescription = "Build or renovate sports facilities for local youth, offering them a safe and positive outlet for physical activity and skill development." },       
+            new Project { ProjectID = 6, prjTitle = "Neighborhood Watch Program", prjDescription = "Establish a neighborhood watch program to enhance community safety, promote vigilance, and reduce crime in the area." },       
+            new Project { ProjectID = 7, prjTitle = "Public Library Expansion", prjDescription = "Expand and improve the local public library to provide more resources, educational programs, and a quiet space for residents to learn and grow." },       
+            new Project { ProjectID = 8, prjTitle = "Community Health Fair", prjDescription = "Organize an annual health fair that offers free health screenings, vaccinations, and educational resources to promote overall well-being in the community." },       
+            new Project { ProjectID = 9, prjTitle = "Technology Access Initiative", prjDescription = "Provide access to computers, internet, and digital literacy training for underserved populations, helping bridge the digital divide and enhance job prospects." },      
+            new Project { ProjectID = 10, prjTitle = "Bicycle Infrastructure Project", prjDescription = "Develop bike lanes, bike-sharing programs, and secure bike storage facilities to encourage eco-friendly transportation options and reduce traffic congestion." }
+
+        };
+
+        return sampleProjects;
+    }
+}
+
+
+<style>
+    .project-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px; /* Adjust the gap between cells */
+    }
+
+    .project-cell {
+        border: 1px solid #ccc;
+        border-radius: 20px;
+        box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1), 2px 0 2px rgba(0, 0, 0, 0.1), -2px 0 2px rgba(0, 0, 0, 0.05);
+        padding: 10px;
+        text-align: center;
+        margin: 10px;
+    }
+</style>
