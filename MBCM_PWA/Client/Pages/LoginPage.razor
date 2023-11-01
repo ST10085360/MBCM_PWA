@@ -1,10 +1,94 @@
-﻿@page "/loginpage"
+﻿@page "/registerpage"
 
-<PageTitle>Login</PageTitle>
+<PageTitle>Register</PageTitle>
 
+<body>
+    <div class="main-logo">
+        <img id="logo" src="/css/MBCM_LOGO.png" alt="Logo" style="width:300px; height:auto" />
+    </div>
+    <div class="login-container">
+        <div class="login-form">
+            <h1 class="text-center" style="color: white">Please enter your information</h1>
 
-<h3>LoginPage</h3>
+            <br />
+            <div class="row mb-3">
+                @* /* EMAIL */ *@
+                <label class="col-sm-3 col-form-label">
+                    <img src="/css/email-icon.png" alt="Email Icon" class="mr-2 small-icon"> Email:
+                </label>
+                <div class="col-sm-6">
+                    <div class="shadow-sm">
+                        <input type="text" class="form-control form-control-sm" name="EmployeeNumber" id="EmployeeNumber" />
+                    </div>
+                </div>
+            </div>
+            <div class="row mb-3">
+                @* /* PASSWORD */ *@
+                <label class="col-sm-3 col-form-label">
+                    <img src="/css/password-ico.png" alt="Password Icon" class="mr-2 small-icon"> Password:
+                </label>
+                <div class="col-sm-6">
+                    <div class="shadow-sm">
+                        <input type="text" class="form-control form-control-sm" name="EmployeeNumber" id="EmployeeNumber" />
+                    </div>
+                </div>
+            </div>
 
+            <br />
+
+            <div class="text-center">
+                <button style="width: 100px" type="submit" class="btn btn-dark">Login</button>
+            </div>
+            <br />
+        </div>
+    </div>
+</body>
 @code {
 
 }
+
+<style>
+    .main-logo {
+        padding: 20px;
+        position: relative;
+        text-align: center;
+        margin-top: 70px;
+    }
+
+    .small-icon {
+        width: 25px;
+        height: 25px;
+        margin-right: 5px;
+    }
+
+    body {
+        background-image: url("/css/LINKING_ARMS_BLURRED.png");
+        background-size: cover;
+        background-repeat: no-repeat;
+        margin: 0;
+    }
+
+    .login-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 30vh;
+    }
+
+    .login-form {
+        background-color: rgba(255, 255, 255, 0.1);
+        padding: 20px;
+        border-radius: 8px;
+        backdrop-filter: blur(10px);
+        background-color: #333F50;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        width: 650px;
+        max-width: 90%;
+    }
+
+        .login-form label {
+            font-weight: bold;
+            font-size: 14px;
+            color: white;
+        }
+</style>
