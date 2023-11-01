@@ -1,11 +1,214 @@
 ﻿@page "/suggestions"
-@using MBCM_PWA.Shared
+
+@using System.Net.Http.Json
+@using MBCM_PWA.Client.Shared.Models
+@using Microsoft.AspNetCore.Components.Web.Extensions
 @inject HttpClient Http
 
 <PageTitle>Suggestions</PageTitle>
 
 <h1>Community Project Suggestions</h1>
 
-@code {
+@foreach (var project in suggestedProjects)
+{
 
+    <div class="project-tile">
+        <div class="proj-left">
+            <h3 class="title-div">@project.Title</h3>
+        </div>
+        <div class="proj-right">
+            <div class="event-div">
+                <h3 id="ev" style="word-wrap: inherit">@($"{project.Recommender.firstName} {project.Recommender.lastName}")</h3>
+            </div>
+            <div class="desc-div">
+                <h5 id="ev">@project.Description</h5>
+            </div>
+            <div class="proj-btns">
+                <button class="btn btn-primary" @onclick="() => Upvote(project)">Upvote</button>
+                <span class="upvote-count">@project.Upvotes</span>
+            </div>
+        </div>
+    </div>
 }
+
+@code {
+    List<SuggestedProject> suggestedProjects;
+
+    protected override void OnInitialized()
+    {
+        suggestedProjects = new List<SuggestedProject>
+        {
+            new SuggestedProject
+            {
+                Recommender = new User { firstName = "John", lastName = "Doe" },
+                Title = "Helping Homeless on Main Street",
+                Description = "How about coming together to make a positive impact in our community? We can assist those experiencing homelessness on Main Street by providing them with essential supplies, warm meals, and a dose of hope. Your support could truly change the lives of those in need in our city.",
+                Upvotes = 18
+            },
+            new SuggestedProject
+            {
+                Recommender = new User { firstName = "Alice", lastName = "Smith" },
+                Title = "Maitlands Beach Cleanup",
+                Description = "What if we organize a beach cleanup at Maitland's Beach? It's a chance for us to show our love for the environment and our community. Let's work together to clear the shoreline of litter and plastic waste. Every piece of trash we collect is a step towards a cleaner, healthier environment.",
+                Upvotes = 5
+            },
+            new SuggestedProject
+            {
+                Recommender = new User { firstName = "Steve", lastName = "Willis" },
+                Title = "Clothing Drive at Protea Place of Safety",
+                Description = "How about spreading warmth and comfort to the children at Protea Place of Safety? We could initiate a clothing drive to collect new and gently-used clothing items for these kids. Your generosity could provide them with essential clothing and a sense of security during difficult times.",
+                Upvotes = 12
+            },
+        };
+    }
+
+    private void Upvote(SuggestedProject project)
+    {
+        project.Upvotes++;
+    }
+}
+
+<style>
+    .main-container {
+        position: relative;
+        height: 80vh;
+        overflow: auto;
+    }
+
+    .splash-background {
+        background-size: cover;
+        position: absolute;
+        height: 100%;
+        width: 100%;
+    }
+
+    .main-logo {
+        padding: 20px;
+        position: relative;
+        text-align: center;
+        margin-top: 100px;
+    }
+
+    .info-tile {
+        background-color: #ffffff;
+        border: 1px solid #e0e0e0;
+        border-radius: 20px;
+        box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1), 2px 0 2px rgba(0, 0, 0, 0.1), -2px 0 2px rgba(0, 0, 0, 0.05);
+        padding: 20px;
+        width: 70%;
+        height: 300px;
+        margin: auto;
+        margin-top: 100px;
+        align-self: center;
+    }
+
+
+
+    /* PROJECT TILE TEMPLATE STYLING */
+    .project-tile {
+        background-color: #ffffff;
+        border: 1px solid #e0e0e0;
+        border-radius: 20px;
+        box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1), 2px 0 2px rgba(0, 0, 0, 0.1), -2px 0 2px rgba(0, 0, 0, 0.05);
+        width: 50%;
+        padding: 5px;
+        height: 300px;
+        margin: auto;
+        margin-top: 100px;
+        align-self: center;
+        display: flex;
+    }
+
+    .proj-left {
+        width: 40%;
+        height: auto;
+        background-color: #ffffff;
+        float: left;
+        border-bottom-left-radius: 14px;
+        border-top-left-radius: 14px;
+        box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1), 2px 0 2px rgba(0, 0, 0, 0.1), -2px 0 2px rgba(0, 0, 0, 0.05);
+        text-align: center;
+        padding-top: 40px;
+    }
+
+    .title-div {
+        width: 50%;
+        margin: auto;
+    }
+
+    .proj-right {
+        position: relative;
+        height: auto;
+        width: 60%;
+        background-color: #333F50;
+        float: right;
+        padding: 40px;
+        padding-left: 50px;
+        border-bottom-right-radius: 14px;
+        border-top-right-radius: 14px;
+        box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1), 2px 0 2px rgba(0, 0, 0, 0.1), -2px 0 2px rgba(0, 0, 0, 0.05);
+        display: inline-block;
+    }
+
+    .event-div {
+        margin-top: -10px;
+        position: relative;
+        color: #ffffff;
+    }
+
+    .desc-div {
+        margin-top: 20px;
+        position: relative;
+        color: #ffffff
+    }
+
+    .location {
+        margin-top: 10px;
+        position: relative;
+        width: fit-content;
+        display: flex;
+        align-content: flex-start;
+    }
+
+    .pin {
+        margin-right: 20px;
+        left: 0;
+    }
+
+    .location-text {
+        right: 0;
+        color: #ffffff
+    }
+
+    .participants {
+        position: relative;
+        width: fit-content;
+        display: flex;
+        align-content: flex-start;
+    }
+
+    .members {
+        margin-right: 20px;
+        left: 0;
+    }
+
+    .members-text {
+        right: 0;
+        color: #ffffff;
+    }
+
+    .proj-btns {
+        margin-top: 20px;
+        position: relative;
+        width: fit-content;
+        display: flex;
+        align-content: flex-start;
+    }
+
+    .upvote-count {
+        margin-top: 8px;
+        margin-left: 10px; 
+        color: white;
+    }
+
+</style>
