@@ -6,8 +6,19 @@
     </div>
 
     <main>
+        @*FUNCTIONALITY TO CHECK WHETHER USER IS ALREADY SIGNED IN*@
         <div class="top-row px-4">
-            <a href="https://docs.microsoft.com/aspnet/" target="_blank">About</a>
+            @*DISPLAYS THIS IF THE USER IS NOT SIGNED IN*@
+            <NavLink class="nav-link" href="loginpage">
+                 Login
+            </NavLink>
+            <NavLink class="nav-link" href="loginpage">
+                 Register
+            </NavLink>
+
+            @*DISPLAYS THIS IF THE USER IS SIGNED IN*@
+
+
         </div>
 
         <article class="content px-4">
