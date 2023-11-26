@@ -9,40 +9,26 @@ namespace MBCM_PWA.Client.Shared
         {
         }
 
-        public DbSet<Project> tblProject { get; set; }/*
+        public DbSet<Project> tblProject { get; set; }
         public DbSet<User> tblUser { get; set; }
+        public DbSet<UserCredentials> tblUserCredentials { get; set; }
         public DbSet<Review> tblReview { get; set; }
-        public DbSet<UserProjects> tblUserProject { get; set; }*/
+        public DbSet<UserProjects> tblUserProject { get; set; }
+        public DbSet<Models.ProjectRequest> tblRequest { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            /*modelBuilder.Entity<Project>()
-                .HasOne(p => p.Owner)
-                .WithMany(u => u.OwnedProjects)
-                .HasForeignKey(p => p.prjOwnerID);
 
-            modelBuilder.Entity<Review>()
-                .HasOne(r => r.User)
-                .WithMany(u => u.Reviews)
-                .HasForeignKey(r => r.UserID);
+            modelBuilder.Entity<ProjectRequest>()
+                .Property(p => p.RequestID)
+                .ValueGeneratedOnAdd(); // This line configures RequestID as auto-generated
 
-            modelBuilder.Entity<Review>()
-                .HasOne(r => r.Reviewer)
-                .WithMany()
-                .HasForeignKey(r => r.ReviewerID);
-
-            modelBuilder.Entity<UserProjects>()
-                .HasKey(up => new { up.userID, up.projectID });
-
-            modelBuilder.Entity<UserProjects>()
-                .HasOne(up => up.User)
-                .WithMany(u => u.Projects)
-                .HasForeignKey(up => up.userID);
-
-            modelBuilder.Entity<UserProjects>()
-                .HasOne(up => up.Project)
-                .WithMany(p => p.ProjectUsers)
-                .HasForeignKey(up => up.projectID);*/
+            // Define foreign key relationship between tblUser and tblUserCredentials
+            modelBuilder.Entity<UserCredentials>()
+                .HasOne(uc => uc.User)
+                .WithOne(u => u.UserCredentials)
+                .HasForeignKey<UserCredentials>(uc => uc.UserID);
+            // Rest of your configurations...
         }
     }
 }

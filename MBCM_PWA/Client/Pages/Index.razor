@@ -28,15 +28,7 @@
 
 
 @code {
-    List<Project> projects = new List<Project>();
-
-    // This method will be executed when the component is initialized
-    protected override async Task OnInitializedAsync()
-    {
-        projects = await HttpClient.GetFromJsonAsync<List<Project>>("api/projects");
-        var responseContent = await HttpClient.GetStringAsync("api/Projects");
-        Console.WriteLine(responseContent);
-    }
+    
 }
 
 <style>

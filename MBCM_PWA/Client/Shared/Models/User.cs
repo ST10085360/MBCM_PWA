@@ -12,10 +12,6 @@
         public DateTime JoinedDate { get; set; }
         public string userType { get; set; }
 
-        // Assuming you want to establish a relationship with tblProject
-        public List<Project> OwnedProjects { get; set; }
-        public List<Project> VolunteerProjects { get; set; }
-        public List<Review> Reviews { get; set; }
-        public List<UserProjects> Projects { get; set; }
+        public UserCredentials UserCredentials { get; set; }
     }
 }

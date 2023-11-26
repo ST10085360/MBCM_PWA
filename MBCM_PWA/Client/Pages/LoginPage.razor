@@ -1,10 +1,16 @@
-﻿@page "/registerpage"
+﻿@page "/loginpage"
+@inject HttpClient httpClient
+@using MBCM_PWA.Client.Shared.Models;
+@inject NavigationManager NavigationManager
+@inject userService UserService
 
-<PageTitle>Register</PageTitle>
+
+
+<PageTitle>Login</PageTitle>
 
 <body>
     <div class="main-logo">
-        <img id="logo" src="/css/MBCM_LOGO.png" alt="Logo" style="width:300px; height:auto" />
+        <img id="logo" src="/css/MBCM_LOGO.png" alt="Logo" style="width: 300px; height: auto" />
     </div>
     <div class="login-container">
         <div class="login-form">
@@ -18,7 +24,7 @@
                 </label>
                 <div class="col-sm-6">
                     <div class="shadow-sm">
-                        <input type="text" class="form-control form-control-sm" name="EmployeeNumber" id="EmployeeNumber" />
+                        <input type="text" class="form-control form-control-sm" @bind="loginModel.Email" />
                     </div>
                 </div>
             </div>
@@ -29,7 +35,7 @@
                 </label>
                 <div class="col-sm-6">
                     <div class="shadow-sm">
-                        <input type="text" class="form-control form-control-sm" name="EmployeeNumber" id="EmployeeNumber" />
+                        <input type="password" class="form-control form-control-sm" @bind="loginModel.Password" />
                     </div>
                 </div>
             </div>
@@ -37,14 +43,49 @@
             <br />
 
             <div class="text-center">
-                <button style="width: 100px" type="submit" class="btn btn-dark">Login</button>
+                <button style="width: 100px" @onclick="Login" class="btn btn-dark">Login</button>
             </div>
             <br />
         </div>
     </div>
 </body>
-@code {
 
+@code {
+    private UserLogin loginModel = new UserLogin(); 
+
+    private async Task Login()
+    {
+        try
+        {
+            // Call your API endpoint here
+            var response = await httpClient.PostAsJsonAsync("api/Projects/login", loginModel);
+
+            if (response.IsSuccessStatusCode)
+            {
+                Console.WriteLine("User logged in successfully!");
+
+                // Use the email to fetch the corresponding userID from tblUser
+                var userEmail = loginModel.Email; // Assuming you have the email from the loginModel
+                var userIdResponse = await httpClient.GetStringAsync($"api/users/getUserId?email={userEmail}");
+
+                if (int.TryParse(userIdResponse, out var userId))
+                {
+                    UserService.SetUserId(userId);
+                    NavigationManager.NavigateTo($"/projects");
+                }
+            }
+            else
+            {
+                Console.WriteLine($"Error: {response.ReasonPhrase}");
+                // Handle the error as needed, e.g., display an error message to the user
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error: {ex.Message}");
+        }
+    }
+}
 }
 
 <style>
