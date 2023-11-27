@@ -1,10 +1,8 @@
 ﻿@page "/loginpage"
 @inject HttpClient httpClient
-@using MBCM_PWA.Client.Shared.Models;
+@using MBCM_PWA.Client.Shared.Models
 @inject NavigationManager NavigationManager
 @inject userService UserService
-
-
 
 <PageTitle>Login</PageTitle>
 
@@ -40,6 +38,13 @@
                 </div>
             </div>
 
+            @if (!string.IsNullOrEmpty(errorMessage))
+            {
+                <div class="alert alert-danger" role="alert">
+                    @errorMessage
+                </div>
+            }
+
             <br />
 
             <div class="text-center">
@@ -52,6 +57,7 @@
 
 @code {
     private UserLogin loginModel = new UserLogin();
+    private string errorMessage;
 
     private async Task Login()
     {
@@ -78,15 +84,15 @@
             else
             {
                 Console.WriteLine($"Error: {response.ReasonPhrase}");
-                // Handle the error as needed, e.g., display an error message to the user
+                errorMessage = "Login failed. Please check your credentials and try again.";
             }
         }
         catch (Exception ex)
         {
             Console.WriteLine($"Error: {ex.Message}");
+            errorMessage = "An unexpected error occurred. Please try again later.";
         }
     }
-}
 }
 
 <style>

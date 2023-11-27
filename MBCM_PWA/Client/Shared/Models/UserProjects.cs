@@ -1,5 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace MBCM_PWA.Client.Shared.Models
 {
@@ -9,7 +8,8 @@ namespace MBCM_PWA.Client.Shared.Models
         public int userProjectID { get; set; }
         public int userID { get; set; }
         public int projectID { get; set; }
-        
+
+        // Navigation properties
         public Project Project { get; set; }
         public User User { get; set; }
     }
