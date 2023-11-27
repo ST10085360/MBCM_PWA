@@ -1,4 +1,5 @@
 using MBCM_PWA.Client;
+using MBCM_PWA.Client.Shared.Models;
 using MBCM_PWA.Shared;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
@@ -15,6 +16,7 @@ namespace MBCM_PWA.Client
             builder.RootComponents.Add<HeadOutlet>("head::after");
 
             builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
+            builder.Services.AddSingleton<userService>();
             
             await builder.Build().RunAsync();
 

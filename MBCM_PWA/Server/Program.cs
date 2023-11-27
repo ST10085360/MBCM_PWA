@@ -9,20 +9,19 @@ namespace MBCM_PWA
         {
             var builder = WebApplication.CreateBuilder(args);
 
-            
             builder.Services.AddControllersWithViews();
             builder.Services.AddRazorPages();
-            
+
             // Add services to the container
             var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
             builder.Services.AddDbContext<MBCM_DbContext>(options =>
                 options.UseSqlServer(connectionString));
 
-           /* builder.Services.AddSession(options =>
+            builder.Services.AddCors(options =>
             {
-                options.IdleTimeout = TimeSpan.FromMinutes(30); //Times out after 30 minutes
-            });*/
-
+                options.AddPolicy("AllowAll",
+                    builder => builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+            });
 
             var app = builder.Build();
 
@@ -34,7 +33,6 @@ namespace MBCM_PWA
             else
             {
                 app.UseExceptionHandler("/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
 
@@ -45,11 +43,7 @@ namespace MBCM_PWA
 
             app.UseRouting();
 
-            app.UseCors("AllowSpecificOrigin"); // Add this line to enable CORS
-            
-
-            // Add this line to use session
-            //app.UseSession();
+            app.UseCors("AllowSpecificOrigin");
 
             app.MapRazorPages();
             app.MapControllers();

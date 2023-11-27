@@ -6,8 +6,5 @@
         public int UserID { get; set; }
         public string userReview { get; set; }
         public int ReviewerID { get; set; }
-
-        public User User { get; set; }
-        public User Reviewer { get; set; }
     }
 }
