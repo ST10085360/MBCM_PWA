@@ -22,7 +22,7 @@
     </button>
 </div>
         </div>
-<div class="active-grid">
+@* <div class="active-grid">
     @{
         var groupedUserProjects = userProjects.GroupBy(up => up.projectID);
     }
@@ -43,7 +43,67 @@
             </div>
         </div>
     }
-        </div>
+        </div> *@
+
+            @* <div class="active-grid">
+                @{
+                    var groupedUserProjects = projects.GroupBy(up => up.ProjectID);
+                }
+                @foreach (var projectState in projectStates)
+                {
+                    <div class="project-cell">
+                        <h4>@projectState.Project.prjTitle</h4>
+                        <p>@projectState.Project.prjDescription</p>
+                        <div class="members-dropdown">
+                            Members:
+                            @foreach (var user in userProjects)
+                            {
+                                bool isJoined = userProjects.Any(up => up.projectID == projectState.Project.ProjectID && up.userID == projectState.UserId);
+
+                                @if (isJoined)
+                                {
+                                    <div class="member" style="margin-top: 10px;">
+                                        @user.User.firstName @user.User.lastName
+                                        <button class="primary" title="Remove this volunteer from the member group" @onclick="() => ConfirmRemoveUserFromProject(user.userProjectID)">X</button>
+                                    </div>
+                                }
+                                
+                            }
+                        </div>
+                    </div>
+                }
+            </div> *@
+
+            <div class="active-grid">
+                @{
+                    var groupedUserProjects = userProjects.GroupBy(up => up.projectID);
+                }
+                @foreach (var projectState in projectStates)
+                {
+                    <div class="project-cell">
+                        <h4>@projectState.Project.prjTitle</h4>
+                        <p>@projectState.Project.prjDescription</p>
+                        <div class="members-dropdown">
+                            Members:
+                            @if (groupedUserProjects.Any())
+                            {
+                                var projectUsers = groupedUserProjects.SingleOrDefault(group => group.Key == projectState.Project.ProjectID)?.ToList();
+
+                                if (projectUsers != null)
+                                {
+                                    foreach (var user in projectUsers)
+                                    {
+                                        <div class="member" style="margin-top: 10px;">
+                                            @user.User.firstName @user.User.lastName
+                                            <button class="primary" title="Remove this volunteer from the member group" @onclick="() => ConfirmRemoveUserFromProject(user.userProjectID)">X</button>
+                                        </div>
+                                    }
+                                }
+                            }
+                        </div>
+                    </div>
+                }
+            </div>
 
         </div>
 
@@ -135,10 +195,11 @@ else
 
 
 @code {
+    List<ProjectState> projectStates = new List<ProjectState>();
     List<Project> projects;
     List<ProjectRequest> projectRequests;
     List<User> users;
-    List<UserProjects> userProjects;
+    private List<UserProjects> userProjects;
 
     bool showConfirmation;
     int userProjectIdToRemove;
@@ -148,10 +209,17 @@ else
 
     protected override async Task OnInitializedAsync()
     {
+        int? userId = UserService.UserId;
         projects = await HttpClient.GetFromJsonAsync<List<Project>>("api/projects");
         projectRequests = await HttpClient.GetFromJsonAsync<List<ProjectRequest>>("api/projects/project-requests");
         users = await HttpClient.GetFromJsonAsync<List<User>>("api/projects/users");
         userProjects = await HttpClient.GetFromJsonAsync<List<UserProjects>>("api/projects/user-projects");
+
+        projectStates = projects.Select(project => new ProjectState
+            {
+                Project = project,
+                UserId = userId.GetValueOrDefault()
+            }).ToList();
     }
 
     private async Task AcceptRequest(ProjectRequest request)
@@ -205,6 +273,12 @@ else
     private void CancelRemoveUser()
     {
         showUserRemoveConfirmation = false;
+    }
+
+    public class ProjectState
+    {
+        public Project Project { get; set; }
+        public int UserId { get; set; } // Add this property
     }
 }
 
