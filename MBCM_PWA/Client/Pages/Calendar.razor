@@ -5,7 +5,82 @@
 @inject HttpClient HttpClient
 @inject userService UserService;
 
+<style type="text/css">
+    #tblParent tbody tr td {
+        width: 200px;
+        height: 200px;
+    }
+
+    #divParent {
+        position: relative;
+    }
+
+    #divModel {
+        z-index: 10;
+        position: absolute;
+        border: 1px solid #000000;
+        border-radius: 3px;
+        background-color: #ffffff;
+        left: 40%;
+        top: 20%;
+        width: 400px;
+        min-height: 300px;
+    }
+
+    .modelHeading {
+        text-align: center;
+        font-size: 50px;
+        text-decoration: underline;
+        margin-bottom: 36px;
+    }
+</style>
+
 <h3>Calendar</h3>
+
+@if (displayModel)
+{
+    <div id="divModel">
+        <div class="container">
+            <div class="panel panel-default">
+                <div class="panel-heading modelHeading">Event</div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label>Start Date: </label>
+                        </div>
+                        <div class="col-md-8">
+                            <input type="date" style="width:100%;" />
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <label>Time: </label>
+                    </div>
+                    <div class="col-md-8">
+                        <input type="time" style="width:100%;" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <label>Note: </label>
+                    </div>
+                    <div class="col-md-8">
+                        <input type="text" placeholder="Type here..." />
+                    </div>
+                </div>
+                <div class="row" style="margin-bottom:10px;">
+                    <div class="col-md-6">
+                    </div>
+                    <div class="col-md-6" style="text-align:right;">
+                        <button class="btn btn-success" style="float:left; margin-right:5px">Save</button>
+                        <button class="btn btn-danger" @onclick="CloseModel" style="float:left;">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
 
 <select @onchange="LoadCalendar">
     @foreach (string monthName in monthNames)
@@ -34,7 +109,7 @@
                     var wIndex = weekIndex;
                     var dIndex = dayIndex;
 
-                    <td>
+                    <td @ondblclick="@(()=>OpenModel(wIndex, dIndex))">
                         @weeks[weekIndex].Dates[dayIndex].DateValue
                         <br /><br />
 
@@ -48,6 +123,7 @@
 </table>
 
 @code {
+    bool displayModel = false;
     List<string> monthNames = new List<string>();
     List<string> days = new List<string>();
     List<WeekClass> weeks = new List<WeekClass>();
@@ -64,8 +140,8 @@
     {
         var month = e.Value.ToString();
         int monthIndex = DateTime.ParseExact(month, "MMMM", System.Globalization.CultureInfo.CreateSpecificCulture("en-GB")).Month;
-        startDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
-        endDate = (new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1)).AddMonths(1).AddDays(-1);
+        startDate = new DateTime(DateTime.Now.Year, monthIndex, 1);
+        endDate = (new DateTime(DateTime.Now.Year, monthIndex, 1)).AddMonths(1).AddDays(-1);
 
         GenerateCalendarHead();
         GenerateCalendarBody();
@@ -117,6 +193,13 @@
             }
             countDays++;
         }
-
+    }
+    private void CloseModel()
+    {
+        displayModel = false;
+    }
+    private void OpenModel(int wIndex, int dIndex)
+    {
+        displayModel = true;
     }
 }
