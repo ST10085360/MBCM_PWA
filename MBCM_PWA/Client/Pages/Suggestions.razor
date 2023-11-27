@@ -1,69 +1,145 @@
 ﻿@page "/suggestions"
-
 @using System.Net.Http.Json
 @using MBCM_PWA.Client.Shared.Models
-@using Microsoft.AspNetCore.Components.Web.Extensions
 @inject HttpClient Http
+@inject NavigationManager NavigationManager
+@inject userService UserService
 
 <PageTitle>Suggestions</PageTitle>
 
 <h1>Community Project Suggestions</h1>
 
-@foreach (var project in suggestedProjects)
+@if (UserService.UserType != null && UserService.UserType.ToLower() == "admin")
 {
+    <div class="center">
+        <button class="primary" @onclick="NavigateToAddProjectPage">Add Project</button>
+    </div>
+}
 
-    <div class="suggestion-tile">
-        <div class="sugg-left">
-            <div class="title-div"><p>@project.Title</p></div>
+@if (suggestedProjects != null)
+{
+    @foreach (var project in suggestedProjects)
+    {
+        <div class="suggestion-tile">
+            <div class="sugg-left">
+                <div class="title-div">
+                    <p>@project.Title</p>
+                </div>
+            </div>
+            <div class="sugg-right">
+                <div class="event-div">
+                    @* Add null check for project *@
+                    @if (project != null)
+                    {
+                        <p class="ev" style="word-wrap: inherit">Project ID: @project.ProjectID</p>
+                    }
+                </div>
+                <div class="desc-div">
+                    @* Add null check for project *@
+                    @if (project != null)
+                    {
+                        <h5 id="ev">@project.Description</h5>
+                    }
+                </div>
+                @if (UserService.UserType != null && UserService.UserType.ToLower() == "admin")
+                {
+                    <div>
+                        <button class="delete-button" @onclick="() => ConfirmDeleteSuggestion(project.ProjectID)">Delete</button>
+                    </div>
+                }
+            </div>
         </div>
-        <div class="sugg-right">
-            <div class="event-div">
-                <p class="ev" style="word-wrap: inherit">@($"{project.Recommender.firstName} {project.Recommender.lastName}")</p>
-                <button class="primary" @onclick="() => Upvote(project)">Upvote  @project.Upvotes</button>
-                
+    }
+}
+else
+{
+    <p>Loading...</p>
+}
+
+<!-- Confirmation Modal for Delete Suggestion -->
+@if (showDeleteConfirmation)
+{
+    <div class="modal" tabindex="-1" style="display: block;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Confirm Deletion</h5>
+                    <button type="button" class="btn-close" @onclick="CancelDeleteSuggestion"></button>
+                </div>
+                <div class="modal-body">
+                    Are you sure you want to delete the suggestion?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" @onclick="CancelDeleteSuggestion">Cancel</button>
+                    <button type="button" class="btn btn-danger" @onclick="() => DeleteSuggestion(selectedSuggestionId)">Delete</button>
+                </div>
             </div>
-            <div class="desc-div">
-                <h5 id="ev">@project.Description</h5>
-            </div>
-            
         </div>
     </div>
 }
 
 @code {
     List<SuggestedProject> suggestedProjects;
+    SuggestedProject newProject = new SuggestedProject();
 
-    protected override void OnInitialized()
+    bool showDeleteConfirmation;
+    int selectedSuggestionId;
+
+    protected override async Task OnInitializedAsync()
     {
-        suggestedProjects = new List<SuggestedProject>
+        try
         {
-            new SuggestedProject
-            {
-                Recommender = new User { firstName = "John", lastName = "Doe" },
-                Title = "Helping Homeless on Main Street",
-                Description = "How about coming together to make a positive impact in our community? We can assist those experiencing homelessness on Main Street by providing them with essential supplies, warm meals, and a dose of hope. Your support could truly change the lives of those in need in our city.",
-                Upvotes = 18
-            },
-            new SuggestedProject
-            {
-                Recommender = new User { firstName = "Alice", lastName = "Smith" },
-                Title = "Maitlands Beach Cleanup",
-                Description = "What if we organize a beach cleanup at Maitland's Beach? It's a chance for us to show our love for the environment and our community. Let's work together to clear the shoreline of litter and plastic waste. Every piece of trash we collect is a step towards a cleaner, healthier environment.",
-                Upvotes = 5
-            },
-            new SuggestedProject
-            {
-                Recommender = new User { firstName = "Steve", lastName = "Willis" },
-                Title = "Clothing Drive at Protea Place of Safety",
-                Description = "How about spreading warmth and comfort to the children at Protea Place of Safety? We could initiate a clothing drive to collect new and gently-used clothing items for these kids. Your generosity could provide them with essential clothing and a sense of security during difficult times.",
-                Upvotes = 12
-            },
-        };
+            // Fetch project data from the API endpoint (replace with your actual API endpoint)
+            await RefreshSuggestedProjects();
+        }
+        catch (Exception ex)
+        {
+            // Handle the exception (log or display an error message)
+            Console.WriteLine($"Error fetching project data: {ex.Message}");
+        }
     }
 
-    private void Upvote(SuggestedProject project)
+    private void NavigateToAddProjectPage()
     {
-        project.Upvotes++;
+        NavigationManager.NavigateTo("/addprojectpage");
+    }
+
+    private async Task RefreshSuggestedProjects()
+    {
+        suggestedProjects = await Http.GetFromJsonAsync<List<SuggestedProject>>("api/Projects/project-suggestions");
+    }
+
+    private void ConfirmDeleteSuggestion(int projectId)
+    {
+        selectedSuggestionId = projectId;
+        showDeleteConfirmation = true;
+    }
+
+    private async void DeleteSuggestion(int projectId)
+    {
+        try
+        {
+            // Make an API call to delete the suggestion
+            await Http.DeleteAsync($"api/Projects/delete-suggestion/{projectId}");
+
+            // Refresh the list of suggestions
+            await RefreshSuggestedProjects();
+        }
+        catch (Exception ex)
+        {
+            // Handle the exception (log or display an error message)
+            Console.WriteLine($"Error deleting suggestion: {ex.Message}");
+        }
+        finally
+        {
+            // Close the confirmation modal
+            showDeleteConfirmation = false;
+        }
+    }
+
+    private void CancelDeleteSuggestion()
+    {
+        // Close the confirmation modal
+        showDeleteConfirmation = false;
     }
 }
-
