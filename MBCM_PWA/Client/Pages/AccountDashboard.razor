@@ -1,6 +1,10 @@
 ﻿@page "/accountdashboard"
-<br/>
-<br/>
+@using MBCM_PWA.Client.Shared.Models
+@inject userService UserService
+@inject HttpClient httpClient
+
+<br />
+<br />
 <h1>Your Account</h1>
 <br />
 
@@ -8,40 +12,73 @@
 <br />
 <br />
 <div class="main-area">
-<div class="info-tile">
-    <div class="pfp">
-        <img class="profile-con" src="/css/MBCM_LOGO.png"/>
+    <div class="info-tile">
+        <div class="pfp">
+            <img class="profile-con" src="/css/MBCM_LOGO.png" />
+        </div>
+        <br />
+        <div class="details-con">
+            <h6 class="left-t">First Name</h6>
+            <h6 class="right-t">@FullUserInfo?.firstName</h6>
+        </div>
+        <hr />
+        <div class="details-con">
+            <h6 class="left-t">Surname</h6>
+            <h6 class="right-t">@FullUserInfo?.lastName</h6>
+        </div>
+        <hr />
+        <div class="details-con">
+            <h6 class="left-t">Email</h6>
+            <h6 class="right-t">@FullUserInfo?.userEmail</h6>
+        </div>
+        <hr />
+        <div class="details-con">
+            <h6 class="left-t">Cellphone Number</h6>
+            <h6 class="right-t">@FullUserInfo?.userPhoneNumber</h6>
+        </div>
     </div>
-    <br />
-    <div class="details-con">
-        <h6 class="left-t">First Name</h6>
-        <h6 class="right-t">Mikail</h6>
+    <div class="proj-section">
+        <h2>Your Projects</h2>
+        @if (UserProjects != null && UserProjects.Any())
+        {
+            foreach (var userProject in UserProjects)
+            {
+                var project = userProject.Project;
 
-        </div><hr />
-    <div class="details-con">
-        <h6 class="left-t">Surname</h6>
-        <h6 class="right-t">Van Huyssteen</h6>
-
-        </div><hr />
-    <div class="details-con">
-        <h6 class="left-t">Email</h6>
-        <h6 class="right-t">mikailvanhuyssteen@gmail.com</h6>
-
-        </div><hr />
-    <div class="details-con">
-        <h6 class="left-t">Cellphone Number</h6>
-        <h6 class="right-t">0677040910</h6>
+                <div class="project-card">
+                    <h4>@project.prjTitle</h4>
+                    <p>@project.prjDescription</p>
+                    <!-- Add more details as needed -->
+                </div>
+            }
+        }
+        else
+        {
+            <p>You are not currently a part of any projects.</p>
+        }
     </div>
 </div>
-<div class="proj-section">
-</div>
-</div>
-
-
 
 @code {
+    private User FullUserInfo;
+    private List<UserProjects> UserProjects;
 
+    protected override async Task OnInitializedAsync()
+    {
+        // Fetch additional details for the user using the UserId from userService
+        if (UserService.UserId != 0)
+        {
+            var userId = UserService.UserId;
+
+            // Fetch user details
+            FullUserInfo = await httpClient.GetFromJsonAsync<User>($"api/Projects/getUserDetails/{userId}");
+
+            // Fetch projects for the user
+            UserProjects = await httpClient.GetFromJsonAsync<List<UserProjects>>($"api/Projects/getUserProjects/{userId}");
+        }
+    }
 }
+
 
 <style>
 
@@ -64,19 +101,6 @@
         align-self: center;
         float: left;
     }    
-
-    .proj-section {
-        position:absolute;
-        background-color: #ffffff;
-        border: 1px solid #e0e0e0;
-        border-radius: 20px;
-        box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1), 2px 0 2px rgba(0, 0, 0, 0.1), -2px 0 2px rgba(0, 0, 0, 0.05);
-        padding: 20px;
-        width: 40%;
-        height: 300px;
-        margin-right: 10%;
-        right: 0;
-    }
     .pfp {
         position:relative;
         width:100%;
@@ -102,6 +126,28 @@
         display: flex;
         align-content: flex-start;
 
+    }
+
+    .proj-section {
+        position: absolute;
+        background-color: #ffffff;
+        border: 1px solid #e0e0e0;
+        border-radius: 20px;
+        box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1), 2px 0 2px rgba(0, 0, 0, 0.1), -2px 0 2px rgba(0, 0, 0, 0.05);
+        padding: 20px;
+        width: 40%;
+        height: 800px;
+        margin-right: 10%;
+        right: 0;
+        overflow-y: auto; /* Add a vertical scrollbar */
+    }
+
+    .project-card {
+        margin-bottom: 20px; /* Add some margin between project cards */
+        padding: 15px;
+        border: 1px solid #ddd; /* Add a border for better separation */
+        border-radius: 10px;
+        background-color: #f9f9f9; /* Add a light background color */
     }
 
     .left-t {

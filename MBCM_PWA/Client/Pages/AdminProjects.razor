@@ -1,55 +1,191 @@
 ﻿@page "/adminprojects"
 @using System.Net.Http.Json
 @using MBCM_PWA.Client.Shared.Models
-@using Microsoft.AspNetCore.Components.Web.Extensions
+@using System.Net.Http.Json
+@using System.Text.Json
 @inject HttpClient HttpClient
 
-<h1>Active Projects</h1>
-<br />
-<hr />
-<br />
-
+<h3>All Projects:</h3>
 <div class="project-grid">
-    @foreach (var thing in projects)
+    @foreach (var project in projects)
     {
         <div class="project-cell">
-            <p class="h4">@thing.prjTitle</p>
-            <p>@thing.prjDescription</p>
+            <h4>@project.prjTitle</h4>
+            <p>@project.prjDescription</p>
         </div>
     }
 </div>
 
+<h3>Active Projects:</h3>
+<div class="project-grid">
+    @{
+        var groupedUserProjects = userProjects.GroupBy(up => up.projectID);
+    }
+    @foreach (var group in groupedUserProjects)
+    {
+        <div class="project-cell">
+            <h4>@group.First().Project.prjTitle</h4>
+            <div>
+                Members:
+                @foreach (var userProject in group)
+                {
+                    <div>
+                        - @userProject.User.firstName @userProject.User.lastName
+                        <button class="btn btn-danger btn-sm" @onclick="() => ConfirmRemoveUserFromProject(userProject.userProjectID)">Remove</button>
+                    </div>
+                }
+            </div>
+        </div>
+    }
+</div>
+
+<!-- Confirmation Modal for Remove User From Project -->
+@if (showConfirmation)
+{
+    <div class="modal" tabindex="-1" style="display: block;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Confirm Removal</h5>
+                    <button type="button" class="btn-close" @onclick="CancelRemoveUserFromProject"></button>
+                </div>
+                <div class="modal-body">
+                    Are you sure you want to remove the user from the project?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" @onclick="CancelRemoveUserFromProject">Cancel</button>
+                    <button type="button" class="btn btn-danger" @onclick="RemoveUserFromProject">Remove</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<h3>Project Requests</h3>
+<div class="project-grid">
+    @foreach (var request in projectRequests)
+    {
+        <div class="project-cell">
+            <h4>Project: @request.Project.prjTitle</h4>
+            <div>
+                <div>User: @request.User.firstName @request.User.lastName</div>
+                <div>Bio: @request.User.userBio</div>
+                <div>Email: @request.User.userEmail</div>
+            </div>
+            <div>
+                <button class="btn btn-success btn-sm" @onclick="() => AcceptRequest(request)">Accept</button>
+                <button class="btn btn-danger btn-sm" @onclick="() => DeclineRequest(request)">Decline</button>
+            </div>
+        </div>
+    }
+</div>
+
+<h3>Users</h3>
+<div class="project-grid">
+    @foreach (var user in users)
+    {
+        <div class="project-cell">
+            <h4>@user.UserID</h4>
+            <h4>@user.firstName @user.lastName</h4>
+            <h4>@user.userEmail</h4>
+            <h4>@user.userPhoneNumber</h4>
+            <button class="btn btn-danger btn-sm" @onclick="() => ConfirmRemoveUser(user.UserID)">Remove</button>
+        </div>
+    }
+</div>
+
+<!-- Confirmation Modal for Remove User -->
+@if (showUserRemoveConfirmation)
+{
+    <div class="modal" tabindex="-1" style="display: block;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Confirm User Removal</h5>
+                    <button type="button" class="btn-close" @onclick="CancelRemoveUser"></button>
+                </div>
+                <div class="modal-body">
+                    Are you sure you want to remove the user?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" @onclick="CancelRemoveUser">Cancel</button>
+                    <button type="button" class="btn btn-danger" @onclick="RemoveUser">Remove</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+
 
 
 @code {
-    List<Project> projects = new List<Project>();
+    List<Project> projects;
+    List<ProjectRequest> projectRequests;
+    List<User> users;
+    List<UserProjects> userProjects;
 
-    protected override void OnInitialized()
+    bool showConfirmation;
+    int userProjectIdToRemove;
+    bool showUserRemoveConfirmation;
+    int userIdToRemove;
+    
+    protected override async Task OnInitializedAsync()
     {
-        projects = GetActiveProjects();
+        projects = await HttpClient.GetFromJsonAsync<List<Project>>("api/projects");
+        projectRequests = await HttpClient.GetFromJsonAsync<List<ProjectRequest>>("api/projects/project-requests");
+        users = await HttpClient.GetFromJsonAsync<List<User>>("api/projects/users");
+        userProjects = await HttpClient.GetFromJsonAsync<List<UserProjects>>("api/projects/user-projects");
     }
 
-    List<Project> GetActiveProjects()
+    private async Task AcceptRequest(ProjectRequest request)
     {
-        var sampleProjects = new List<Project>
-        {
-            new Project { ProjectID = 1, prjTitle = "Community Garden Project", prjDescription = "Establish a community garden in an underprivileged area, providing residents with access to fresh produce, promoting healthy eating, and fostering a sense of community." },
-            new Project { ProjectID = 2, prjTitle = "Park Renovation Project", prjDescription = "Revitalize an existing park by adding new playground equipment, benches, and green spaces, creating a safe and enjoyable environment for families to gather and play." },       
-            new Project { ProjectID = 3, prjTitle = "Street Cleanup Initiative", prjDescription = "Organize regular street cleanup events, involving volunteers to pick up litter and maintain clean streets, making the community more attractive and eco-friendly." },       
-            new Project { ProjectID = 4, prjTitle = "Home Repair Assistance Program", prjDescription = "Start a program that helps low-income families repair and maintain their homes, ensuring safe and habitable living conditions." },       
-            new Project { ProjectID = 5, prjTitle = "Youth Sports Facility Project", prjDescription = "Build or renovate sports facilities for local youth, offering them a safe and positive outlet for physical activity and skill development." },       
-            new Project { ProjectID = 6, prjTitle = "Neighborhood Watch Program", prjDescription = "Establish a neighborhood watch program to enhance community safety, promote vigilance, and reduce crime in the area." },       
-            new Project { ProjectID = 7, prjTitle = "Public Library Expansion", prjDescription = "Expand and improve the local public library to provide more resources, educational programs, and a quiet space for residents to learn and grow." },       
-            new Project { ProjectID = 8, prjTitle = "Community Health Fair", prjDescription = "Organize an annual health fair that offers free health screenings, vaccinations, and educational resources to promote overall well-being in the community." },       
-            new Project { ProjectID = 9, prjTitle = "Technology Access Initiative", prjDescription = "Provide access to computers, internet, and digital literacy training for underserved populations, helping bridge the digital divide and enhance job prospects." },      
-            new Project { ProjectID = 10, prjTitle = "Bicycle Infrastructure Project", prjDescription = "Develop bike lanes, bike-sharing programs, and secure bike storage facilities to encourage eco-friendly transportation options and reduce traffic congestion." }
+        await HttpClient.PostAsync($"api/projects/accept-request/{request.RequestID}", null);
+        projectRequests.Remove(request);
+    }
 
-        };
+    private async Task DeclineRequest(ProjectRequest request)
+    {
+        await HttpClient.PostAsync($"api/projects/decline-request/{request.RequestID}", null);
+        projectRequests.Remove(request);
+    }
+    
+    private void ConfirmRemoveUserFromProject(int userProjectID)
+    {
+        userProjectIdToRemove = userProjectID;
+        showConfirmation = true;
+    }
 
-        return sampleProjects;
+    private async Task RemoveUserFromProject()
+    {
+        await HttpClient.DeleteAsync($"api/projects/remove-user-from-project/{userProjectIdToRemove}");
+        userProjects.RemoveAll(up => up.userProjectID == userProjectIdToRemove);
+        showConfirmation = false;
+    }
+
+    private void CancelRemoveUserFromProject()
+    {
+        showConfirmation = false;
+    }
+
+    private void ConfirmRemoveUser(int userId)
+    {
+        userIdToRemove = userId;
+        showUserRemoveConfirmation = true;
+    }
+
+    private async Task RemoveUser()
+    {
+        await HttpClient.DeleteAsync($"api/projects/remove-user/{userIdToRemove}");
+        users.RemoveAll(u => u.UserID == userIdToRemove);
+        showUserRemoveConfirmation = false;
+    }
+
+    private void CancelRemoveUser()
+    {
+        showUserRemoveConfirmation = false;
     }
 }
-
 
 <style>
     .project-grid {
@@ -65,5 +201,10 @@
         padding: 10px;
         text-align: center;
         margin: 10px;
+    }
+
+    .btn-sm {
+        padding: 5px 10px;
+        font-size: 12px;
     }
 </style>

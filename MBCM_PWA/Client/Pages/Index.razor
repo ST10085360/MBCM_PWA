@@ -8,7 +8,7 @@
 <div class="main-container">
     <div class="splash-background">
         <div class="main-logo">
-            <img id="logo" src="/css/MBCM_LOGO.png" alt="Logo" style="width:300px; height:auto" />
+            <img id="logo" src="/css/MBCM_LOGO.png" alt="Logo" style="width:20rem; height:auto " />
             <h2>Welcome to the MBCM volunteer portal.</h2>
         </div>
     </div>    
@@ -28,15 +28,7 @@
 
 
 @code {
-    List<Project> projects = new List<Project>();
-
-    // This method will be executed when the component is initialized
-    protected override async Task OnInitializedAsync()
-    {
-        projects = await HttpClient.GetFromJsonAsync<List<Project>>("api/projects");
-        var responseContent = await HttpClient.GetStringAsync("api/Projects");
-        Console.WriteLine(responseContent);
-    }
+    
 }
 
 <style>

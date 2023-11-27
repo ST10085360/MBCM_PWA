@@ -1,110 +1,116 @@
 ﻿@page "/projects"
-
-
 @using System.Net.Http.Json
 @using MBCM_PWA.Client.Shared.Models
 @using Microsoft.AspNetCore.Components.Web.Extensions
 @inject HttpClient HttpClient
+@inject userService UserService;
 
 <PageTitle>Projects</PageTitle>
 
 <h1>Active projects</h1>
 
-<div class="projectInfo-tile" style="display: @(isDetailsPopupOpen ? "block" : "none")">
-    <div class="popup-content">
-
-        @if (selectedProject != null)
-        {
-            <h2 margin-bottom="200px">Project Details</h2>
-            <p margin-top="100px">Project Title: @selectedProject.prjTitle (ID:@selectedProject.ProjectID)</p>
-            <p margin-top="80px">Project Description: @selectedProject.prjDescription</p>
-            <p>Start Date: @selectedProject.prjStartDate.ToShortDateString()</p>
-            <p>Location: @selectedProject.prjLocation</p>
-            <p>Number of Participants: TBA</p>
-        }
-        <button class="close-button" style="@ButtonColor" @onclick="CloseDetailsPopup">Close</button>
-    </div>
-</div>
-
-
 @* /* PROJECT TILE TEMPLATE STYLING */ *@
-@foreach (var project in projects)
+@foreach (var projectState in projectStates)
 {
     <div class="project-tile">
         <div class="proj-left">
-            <h3 class="title-div">@project.prjTitle</h3>
+            <h3 class="title-div">@projectState.Project.prjTitle</h3>
         </div>
         <div class="proj-right">
-            <div class="event-div">
-                <h3 id="ev" style="word-wrap: inherit">Event Date</h3>
+            <div class="info-div">
+                <img class="info-img" src="/css/pin.png" alt="location" style="width:20px; height:20px" />
+                <h5 class="info-text">@projectState.Project.prjStartDate.ToShortDateString()</h5>
             </div>
-            <div class="date-div">
-                <h5 id="ev">@project.prjStartDate.ToShortDateString()</h5>
+            <div class="info-div">
+                <img class="info-img" src="/css/pin.png" alt="location" style="width:20px; height:20px" />
+                <h5 class="info-text">@projectState.Project.prjLocation</h5>
             </div>
-            <div class="wrapper location">
-                <img class="pin" src="/css/pin.png" alt="location" style="width:20px; height:20px" />
-                <h5 class="location-text">@project.prjLocation</h5>
+            <div class="info-div">
+                <img class="info-img" src="/css/group.png" style="width:20px; height:20px" />
+                <h5 class="info-text">Number of Participants</h5>
             </div>
             <div class="participants">
                 <img class="members" src="/css/group.png" style="width:20px; height:20px" />
-                <h5 class="members-text">Number of Participants</h5>
+                <h5 class="members-text"></h5>
             </div>
             <div class="proj-btns">
-                <button class="btn btn-primary" style="margin-right:15px" @onclick="() => ShowDetailsPopup(project)">More Details</button>
-                <button class="btn btn-primary" style="@ButtonColor" onclick="@OnClick">@ButtonText</button>
+                <button class="btn btn-primary" style="@projectState.ButtonColor" @onclick="() => SendRequest(projectState)">@projectState.ButtonText</button>
             </div>
         </div>
     </div>
 }
 
 
+
 @code {
-    List<Project> projects;
+    List<ProjectState> projectStates = new List<ProjectState>();
+    UserLogin loginModel = new UserLogin(); 
 
-    bool isDetailsPopupOpen = false;
-    Project project;
-    Project selectedProject;
-
-    void ShowDetailsPopup(Project projectToShow)
-    {
-        selectedProject = projectToShow;
-        isDetailsPopupOpen = true;
-    }
-
-
-    void CloseDetailsPopup()
-    {
-        selectedProject = null;
-        isDetailsPopupOpen = false;
-    }
-
-    // This method will be executed when the component is initialized
     protected override async Task OnInitializedAsync()
     {
-        projects = await HttpClient.GetFromJsonAsync<List<Project>>("api/projects");
-        var responseContent = await HttpClient.GetStringAsync("api/Projects");
-        Console.WriteLine(responseContent);
+        int? userId = UserService.UserId;
+        Console.WriteLine($"UserId: {userId}");
+
+        var projects = await HttpClient.GetFromJsonAsync<List<Project>>("api/projects");
+        projectStates = projects.Select(project => new ProjectState
+            {
+                Project = project,
+                ButtonText = "Request to Join",
+                ButtonColor = "#1B6EC2",
+                UserId = userId.GetValueOrDefault()
+            }).ToList();
     }
 
-    public string ButtonText { get; set; } = "Request to Join";
-    string ButtonColor { get; set; } = "#1B6EC2";
-    
-
-    public void OnClick()
+    public async Task SendRequest(ProjectState projectState)
     {
-        SetText();
-        SetColor();
+        // Check if the user is already part of the project
+        var userProjects = await HttpClient.GetFromJsonAsync<List<UserProjects>>($"api/projects/user-projects");
+        if (userProjects.Any(up => up.userID == UserService.UserId && up.projectID == projectState.Project.ProjectID))
+        {
+            SetRequestFailedStatus(projectState);
+            return; // User is already part of the project, do not send a new request
+        }
+
+        // Check if the user has already requested to join
+        var existingRequest = await HttpClient.GetFromJsonAsync<List<ProjectRequest>>($"api/projects/project-requests");
+        if (existingRequest.Any(req => req.UserID == UserService.UserId && req.ProjectID == projectState.Project.ProjectID))
+        {
+            SetRequestFailedStatus(projectState);
+            return; // User has already requested to join, do not send a new request
+        }
+
+        // If the user is not part of the project and has not requested to join, proceed to send a new request
+        var response = await HttpClient.PostAsync($"api/projects/send-request/{projectState.Project.ProjectID}?userId={projectState.UserId}", null);
+
+        if (response.IsSuccessStatusCode)
+        {
+            SetRequestSentStatus(projectState);
+        }
+        else
+        {
+            SetRequestFailedStatus(projectState);
+        }
     }
 
-    public void SetText()
+    private void SetRequestSentStatus(ProjectState projectState)
     {
-        ButtonText = "Request Pending...";
-        StateHasChanged();
+        projectState.ButtonText = "Request Sent";
+        projectState.ButtonColor = "background-color:#F6B000";
     }
-    public void SetColor()
+
+    private void SetRequestFailedStatus(ProjectState projectState)
     {
-        ButtonColor = "background-color:#F6B000";
-        StateHasChanged();
+        projectState.ButtonText = "Request Failed";
+        projectState.ButtonColor = "background-color:#FF0000";
+    }
+
+
+    public class ProjectState
+    {
+        public Project Project { get; set; }
+        public string ButtonText { get; set; }
+        public string ButtonColor { get; set; }
+        public int UserId { get; set; } // Add this property
     }
 }
 
@@ -116,21 +122,21 @@
         justify-content: center;
         align-items: center;
         position: fixed;
+        margin: auto;
         top: 0;
         left: 0;
         width: 100%;
         height: 100%;
-        background: rgba(0, 0, 0, 0.5);
+        background: rgba(0, 0, 0, 0.1);
         z-index: 1000;
     }
 
     .popup-content {
         background: #fff;
         border: 1px solid #e0e0e0;
-        border-radius: 10px;
         padding: 20px;
-        max-width: 80%;
-        max-height: 80%;
+        width: auto;
+        height: auto;
         overflow: auto;
         position: relative;
         text-align: left;
@@ -181,7 +187,7 @@
         border: 1px solid #e0e0e0;
         border-radius: 20px;
         box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1), 2px 0 2px rgba(0, 0, 0, 0.1), -2px 0 2px rgba(0, 0, 0, 0.05);
-        width: 50%;
+        width: 50;
         padding: 5px;
         height: 300px;
         margin: auto;
@@ -190,19 +196,17 @@
         display: flex;
     }
 
+
     .projectInfo-tile {
         background-color: #ffffff;
-        border: 3px solid #00000f;
-        font-size: 25px;
+        border: 0px solid #00000f;
+        font-size: 1rem;
         border-radius: 20px;
         box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1), 2px 0 2px rgba(0, 0, 0, 0.1), -2px 0 2px rgba(0, 0, 0, 0.05);
-        width: 50%;
-        padding: 5px;
+        width: 5rem;
+        padding: auto;
         height: 550px;
         margin: auto;
-        margin-top: 175px;
-        margin-left: 500px;
-        align-self: center;
         display: flex;
         position: fixed;
         z-index: 1001;
@@ -240,49 +244,28 @@
         display: inline-block;
     }
 
-    .event-div {
+    .info-div {
         position: relative;
         color: #ffffff;
+        display: flex;
+        margin: 3%;
     }
 
-    .date-div {
-        position: relative;
-        color: #ffffff
-    }
 
-    .location {
-        margin-top: 10px;
+    .info-img {
+        margin-right: 5%;
+        margin-top: 0.5%;
         position: relative;
         width: fit-content;
         display: flex;
         align-content: flex-start;
     }
 
-    .pin {
-        margin-right: 20px;
-        left: 0;
-    }
-
-    .location-text {
-        right: 0;
-        color: #ffffff
-    }
-
-    .participants {
+    #info-text {
         position: relative;
-        width: fit-content;
-        display: flex;
-        align-content: flex-start;
-    }
-
-    .members {
-        margin-right: 20px;
-        left: 0;
-    }
-
-    .members-text {
         right: 0;
-        color: #ffffff;
+        font-size: 20px;
+        color: #ffffff
     }
 
     .proj-btns {
@@ -292,9 +275,5 @@
         display: flex;
         align-content: flex-start
     }
-
-    
-
-
 
 </style>
