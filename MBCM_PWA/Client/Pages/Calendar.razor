@@ -24,7 +24,7 @@
     protected override void OnInitialized()
     {
         monthNames = System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat.MonthGenitiveNames.ToList();
-        //GenerateCalendarHead();
+        GenerateCalendarHead();
     }
     private void LoadCalendar(ChangeEventArgs e)
     {
@@ -32,5 +32,14 @@
         int monthIndex = DateTime.ParseExact(month, "MMMM", System.Globalization.CultureInfo.CreateSpecificCulture("en-GB")).Month;
         startDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
         endDate = (new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1)).AddMonths(1).AddDays(-1);
+    }
+    private void GenerateCalendarHead()
+    {
+        var day1 = new List<string>();
+        for (var dt = startDate; dt <= endDate; dt = dt.AddDays(1))
+        {
+            day1.Add(dt.ToString("dddd"));
+        }
+        days = day1.Distinct().ToList();
     }
 }
