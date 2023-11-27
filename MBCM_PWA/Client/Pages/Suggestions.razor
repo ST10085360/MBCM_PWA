@@ -10,7 +10,7 @@
     <div class="splash-background">
         <h1>Community Project Suggestions</h1>
 
-        @if (UserService.UserType != null && UserService.UserType.ToLower() == "admin")
+        @if (UserService.UserType != null && UserService.UserType.ToLower() == "admin" || UserService.UserType != null && UserService.UserType.ToLower() == "volunteer")
         {
             <br />
             <div class="center">

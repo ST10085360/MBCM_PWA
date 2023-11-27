@@ -2,6 +2,7 @@
 @page "/registerpage"
 @using MBCM_PWA.Client.Shared.Models
 @using System.Text.Json
+@using System.Text.RegularExpressions;
 @inject HttpClient httpClient
 @inject NavigationManager NavigationManager
 @inject userService UserService
@@ -217,6 +218,14 @@
             if (string.IsNullOrEmpty(model.PhoneNum))
             {
                 model.PhoneNumValidationMessage = "Please enter your phone number.";
+                return;
+            }
+
+            // South African phone number regex pattern
+            string saPhoneNumberPattern = @"^((\+27)|0)([6-8][0-9])\d{7}$";
+            if (!Regex.IsMatch(model.PhoneNum, saPhoneNumberPattern))
+            {
+                model.PhoneNumValidationMessage = "Please enter a valid South African phone number.";
                 return;
             }
 

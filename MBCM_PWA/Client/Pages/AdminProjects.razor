@@ -6,9 +6,11 @@
 @inject HttpClient HttpClient
 @inject userService UserService
 
-<div class="container">
+@if (UserService.UserType == "Admin")
+{
+    <div class="container">
 
-    <div class="active-projects">
+        <div class="active-projects">
 
 <div class="add-proj-header">
 <h3 class="active-head">Active Projects:</h3>
@@ -42,59 +44,60 @@
     }
         </div>
 
-    </div>
+        </div>
 
-<!-- Confirmation Modal for Remove User From Project -->
-@if (showConfirmation)
-{
-    <div class="modal" tabindex="-1" style="display: block;">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Confirm Removal</h5>
-                    <button type="button" class="btn-close" @onclick="CancelRemoveUserFromProject"></button>
+        <!-- Confirmation Modal for Remove User From Project -->
+        @if (showConfirmation)
+        {
+            <div class="modal" tabindex="-1" style="display: block;">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Confirm Removal</h5>
+                            <button type="button" class="btn-close" @onclick="CancelRemoveUserFromProject"></button>
+                        </div>
+                        <div class="modal-body">
+                            Are you sure you want to remove the user from the project?
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" @onclick="CancelRemoveUserFromProject">Cancel</button>
+                            <button type="button" class="btn btn-danger" @onclick="RemoveUserFromProject">Remove</button>
+                        </div>
+                    </div>
                 </div>
-                <div class="modal-body">
-                    Are you sure you want to remove the user from the project?
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" @onclick="CancelRemoveUserFromProject">Cancel</button>
-                    <button type="button" class="btn btn-danger" @onclick="RemoveUserFromProject">Remove</button>
-                </div>
+            </div>
+        }
+        <div class="requests">
+            <h3>Project Requests</h3>
+            <div class="request-grid">
+                @foreach (var request in projectRequests)
+                {
+                    <div class="project-cell">
+                        <h4>Project: @request.Project.prjTitle</h4>
+                        <div>
+                            <div>User: @request.User.firstName @request.User.lastName</div>
+                            <div>Bio: @request.User.userBio</div>
+                            <div>Email: @request.User.userEmail</div>
+                        </div>
+                        <div>
+                            <button class="btn btn-success btn-sm" @onclick="() => AcceptRequest(request)">Accept</button>
+                            <button class="btn btn-danger btn-sm" @onclick="() => DeclineRequest(request)">Decline</button>
+                        </div>
+                    </div>
+                }
             </div>
         </div>
-    </div>
-}
-<div class="requests">
-<h3>Project Requests</h3>
-<div class="request-grid">
-    @foreach (var request in projectRequests)
-    {
-        <div class="project-cell">
-            <h4>Project: @request.Project.prjTitle</h4>
-            <div>
-                <div>User: @request.User.firstName @request.User.lastName</div>
-                <div>Bio: @request.User.userBio</div>
-                <div>Email: @request.User.userEmail</div>
-            </div>
-            <div>
-                <button class="btn btn-success btn-sm" @onclick="() => AcceptRequest(request)">Accept</button>
-                <button class="btn btn-danger btn-sm" @onclick="() => DeclineRequest(request)">Decline</button>
-            </div>
-        </div>
-    }
-</div>
-</div>
 
 <div class="active-users">
 <h3>Users</h3>
-<div class="user-grid">
+<div class="active-grid">
     @foreach (var user in users)
     {
-        <div class="user-cell">
-            <p class="user-field">@user.firstName @user.lastName</p>
-            <p class="user-field">@user.userEmail</p>
-            <p class="user-field">@user.userPhoneNumber</p>
+        <div class="project-cell">
+            <h4>@user.UserID</h4>
+            <h4>@user.firstName @user.lastName</h4>
+            <h4>@user.userEmail</h4>
+            <h4>@user.userPhoneNumber</h4>
             <button class="btn btn-danger btn-sm" @onclick="() => ConfirmRemoveUser(user.UserID)">Remove</button>
         </div>
     }
@@ -102,33 +105,33 @@
 </div>
 
 
-<!-- Confirmation Modal for Remove User -->
-@if (showUserRemoveConfirmation)
-{
-    <div class="modal" tabindex="-1" style="display: block;">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Confirm User Removal</h5>
-                    <button type="button" class="btn-close" @onclick="CancelRemoveUser"></button>
-                </div>
-                <div class="modal-body">
-                    Are you sure you want to remove the user?
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" @onclick="CancelRemoveUser">Cancel</button>
-                    <button type="button" class="btn btn-danger" @onclick="RemoveUser">Remove</button>
+        <!-- Confirmation Modal for Remove User -->
+        @if (showUserRemoveConfirmation)
+        {
+            <div class="modal" tabindex="-1" style="display: block;">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Confirm User Removal</h5>
+                            <button type="button" class="btn-close" @onclick="CancelRemoveUser"></button>
+                        </div>
+                        <div class="modal-body">
+                            Are you sure you want to remove the user?
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" @onclick="CancelRemoveUser">Cancel</button>
+                            <button type="button" class="btn btn-danger" @onclick="RemoveUser">Remove</button>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
+        }
     </div>
-}
 }
 else
 {
     <div>Page not accessible</div>
 }
-</div>
 
 
 @code {
@@ -162,7 +165,7 @@ else
         await HttpClient.PostAsync($"api/projects/decline-request/{request.RequestID}", null);
         projectRequests.Remove(request);
     }
-    
+
     private void ConfirmRemoveUserFromProject(int userProjectID)
     {
         userProjectIdToRemove = userProjectID;
