@@ -9,23 +9,6 @@
 
 <h1>Active projects</h1>
 
-@* <div class="projectInfo-tile" style="display: @(isDetailsPopupOpen ? "block" : "none")">
-    <div class="popup-content">
-
-        @if (selectedProject != null)
-        {
-            <h2 margin-bottom="200px">Project Details</h2>
-            <p margin-top="100px">Project Title: @selectedProject.prjTitle (ID:@selectedProject.ProjectID)</p>
-            <p margin-top="80px">Project Description: @selectedProject.prjDescription</p>
-            <p>Start Date: @selectedProject.prjStartDate.ToShortDateString()</p>
-            <p>Location: @selectedProject.prjLocation</p>
-            <p>Number of Participants: TBA</p>
-        }
-        <button class="close-button" style="@ButtonColor" @onclick="CloseDetailsPopup">Close</button>
-    </div>
-</div> *@
-
-
 @* /* PROJECT TILE TEMPLATE STYLING */ *@
 @foreach (var projectState in projectStates)
 {
@@ -36,19 +19,18 @@
         <div class="proj-right">
             <div class="info-div">
                 <img class="info-img" src="/css/pin.png" alt="location" style="width:20px; height:20px" />
-                <h5 class="info-text">@project.prjStartDate.ToShortDateString()</h5>
+                <h5 class="info-text">@projectState.Project.prjStartDate.ToShortDateString()</h5>
             </div>
             <div class="info-div">
                 <img class="info-img" src="/css/pin.png" alt="location" style="width:20px; height:20px" />
-                <h5 class="info-text">@project.prjLocation</h5>
+                <h5 class="info-text">@projectState.Project.prjLocation</h5>
             </div>
             <div class="info-div">
                 <img class="info-img" src="/css/group.png" style="width:20px; height:20px" />
                 <h5 class="info-text">Number of Participants</h5>
             </div>
             <div class="proj-btns">
-                <button class="primary" style="margin-right:15px" @onclick="() => ShowDetailsPopup(project)">More Details</button>
-                <button class="primary" style="@ButtonColor" onclick="@OnClick">@ButtonText</button>
+                <button class="primary" style="@projectState.ButtonColor" @onclick="() => SendRequest(projectState)">@projectState.ButtonText</button>
             </div>
         </div>
     </div>
@@ -57,8 +39,8 @@
 
 
 @code {
-    List<ProjectState> projectStates;
-    UserLogin loginModel = new UserLogin(); 
+    List<ProjectState> projectStates = new List<ProjectState>();
+    UserLogin loginModel = new UserLogin();
 
     protected override async Task OnInitializedAsync()
     {
@@ -71,7 +53,7 @@
                 Project = project,
                 ButtonText = "Request to Join",
                 ButtonColor = "#1B6EC2",
-                UserId = userId.GetValueOrDefault() 
+                UserId = userId.GetValueOrDefault()
             }).ToList();
     }
 
@@ -117,7 +99,6 @@
         projectState.ButtonText = "Request Failed";
         projectState.ButtonColor = "background-color:#FF0000";
     }
-
 
 
     public class ProjectState
