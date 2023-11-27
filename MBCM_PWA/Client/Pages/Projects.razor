@@ -64,15 +64,16 @@
 
     protected override async Task OnInitializedAsync()
     {
-        int userId = UserService.UserId;
-        
+        int? userId = UserService.UserId;
+        Console.WriteLine($"UserId: {userId}");
+
         var projects = await HttpClient.GetFromJsonAsync<List<Project>>("api/projects");
         projectStates = projects.Select(project => new ProjectState
             {
                 Project = project,
                 ButtonText = "Request to Join",
                 ButtonColor = "#1B6EC2",
-                UserId = userId 
+                UserId = userId.GetValueOrDefault() 
             }).ToList();
     }
 

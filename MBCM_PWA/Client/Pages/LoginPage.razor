@@ -51,7 +51,7 @@
 </body>
 
 @code {
-    private UserLogin loginModel = new UserLogin(); 
+    private UserLogin loginModel = new UserLogin();
 
     private async Task Login()
     {
@@ -65,11 +65,12 @@
                 Console.WriteLine("User logged in successfully!");
 
                 // Use the email to fetch the corresponding userID from tblUser
-                var userEmail = loginModel.Email; // Assuming you have the email from the loginModel
-                var userIdResponse = await httpClient.GetStringAsync($"api/users/getUserId?email={userEmail}");
+                var userEmail = loginModel.Email;
+                var userIdResponse = await httpClient.GetStringAsync($"api/Projects/getUserId?email={userEmail}");
 
                 if (int.TryParse(userIdResponse, out var userId))
                 {
+                    Console.WriteLine($"User ID received from API: {userId}");
                     UserService.SetUserId(userId);
                     NavigationManager.NavigateTo($"/projects");
                 }

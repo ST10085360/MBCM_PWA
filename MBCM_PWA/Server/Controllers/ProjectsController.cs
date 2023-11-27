@@ -297,6 +297,33 @@ namespace MBCM_PWA.Server.Controllers
             }
         }
 
+        [HttpGet("getUserId")]
+        public async Task<IActionResult> GetUserId(string email)
+        {
+            try
+            {
+                Console.WriteLine($"GetUserId called with email: {email}");
+                var user = await _dbContext.tblUser
+                    .Where(u => u.userEmail == email)
+                    .Select(u => u.UserID)
+                    .FirstOrDefaultAsync();
+
+                if (user != 0)
+                {
+                    return Ok(user);
+                }
+                else
+                {
+                    return NotFound("User not found.");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error in GetUserId: {ex.Message}");
+                return BadRequest($"Error getting user ID: {ex.Message}");
+            }
+        }
+
         private bool VerifyPassword(string enteredPassword, string hashedPassword)
         {
             // Extract the salt and hashed password from the stored combined hash
