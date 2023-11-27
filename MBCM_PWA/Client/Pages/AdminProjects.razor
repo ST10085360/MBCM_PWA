@@ -12,9 +12,11 @@
 
 <div class="add-proj-header">
 <h3 class="active-head">Active Projects:</h3>
-<div class="new-btn" @* @onclick="togglePopup" @onmouseover="showText" @onmouseout="hideText" *@>
-    <img class="new-img" src="/css/NewProject.png" alt="location" />
-    <div class="plus-text">Add new project</div>
+<div class="new-btn">
+    <button class="add-btn">
+        <span class="icon"><img class="new-img" src="/css/NewProject.png" alt="location" /></span>
+        <span class="plus-text" @*ADD THE ONCLICK METHOD TO SHOW THE POPUP HERE"*@>Add new project</span>
+    </button>
     </div>
         </div>
 <div class="active-grid">
@@ -41,15 +43,6 @@
         </div>
 
     </div>
-
-@*     <div class="popup" style="display: @(showPopup ? "block" : "none")">
-        <div class="popup-content">
-            <!-- Your popup content goes here -->
-            <h4>Add New Project</h4>
-            <!-- Additional form elements or content -->
-            <button @onclick="ClosePopup">Close</button>
-        </div>
-    </div> *@
 
 <!-- Confirmation Modal for Remove User From Project -->
 @if (showConfirmation)

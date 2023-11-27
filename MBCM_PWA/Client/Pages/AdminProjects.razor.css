@@ -118,22 +118,47 @@
         grid-area: active-head;
     }
     .new-btn {
-        display: flex;
-        cursor: pointer;
+        display: inline-block;
         float: right;
         grid-area: new-btn;
+        background-color: none;
     }
 
-    .new-img {
-        margin-right: 5%;
-        margin-top: 0.5%;
+    .add-btn {
+        display: inline-flex;
+        align-items: center;
+        padding: 10px;
+        background-color: #ffffff;
+        border: none;
+        cursor: pointer;
+        transition: all 0.3s ease-in-out;
+    }
+
+    .icon {
         position: relative;
+        background-color: none;
         width: fit-content;
+        cursor: pointer;
         display: flex;
         align-content: flex-start;
         width: 20px;
         height: 20px
     }
+
+    .plus-text {
+        position: relative;
+        left: 20%;
+        white-space: nowrap;
+        background-color: none;
+        opacity: 0;
+        transition: left 0.1s ease-in-out, opacity 0.1s ease-in-out;
+    }
+
+    .add-btn:hover .plus-text{
+        left: 10px;
+        opacity: 1;
+    }
+
 
     .active-grid {
         display: grid;
