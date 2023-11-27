@@ -36,7 +36,7 @@
                 {
                     <div class="member"  style="margin-top: 10px;">
                         @userProject.User.firstName @userProject.User.lastName
-                        <button class="primary" @onclick="() => ConfirmRemoveUserFromProject(userProject.userProjectID)">X</button>
+                        <button class="primary" title="Remove this volunteer from the member group" @onclick="() => ConfirmRemoveUserFromProject(userProject.userProjectID)">X</button>
                     </div>
                 }
             </div>
@@ -60,8 +60,8 @@
                             Are you sure you want to remove the user from the project?
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" @onclick="CancelRemoveUserFromProject">Cancel</button>
-                            <button type="button" class="btn btn-danger" @onclick="RemoveUserFromProject">Remove</button>
+                            <button title="Cancel this action" type="button" class="btn btn-secondary" @onclick="CancelRemoveUserFromProject">Cancel</button>
+                            <button title="Remove this user" type="button" class="btn btn-danger" @onclick="RemoveUserFromProject">Remove</button>
                         </div>
                     </div>
                 </div>
@@ -80,8 +80,8 @@
                             <div>Email: @request.User.userEmail</div>
                         </div>
                         <div>
-                            <button class="btn btn-success btn-sm" @onclick="() => AcceptRequest(request)">Accept</button>
-                            <button class="btn btn-danger btn-sm" @onclick="() => DeclineRequest(request)">Decline</button>
+                            <button title="Accept this user's request" class="btn btn-success btn-sm" @onclick="() => AcceptRequest(request)">Accept</button>
+                            <button title="Decline this user's request" class="btn btn-danger btn-sm" @onclick="() => DeclineRequest(request)">Decline</button>
                         </div>
                     </div>
                 }
@@ -90,15 +90,14 @@
 
 <div class="active-users">
 <h3>Users</h3>
-<div class="active-grid">
+<div class="user-grid">
     @foreach (var user in users)
     {
-        <div class="project-cell">
-            <h4>@user.UserID</h4>
-            <h4>@user.firstName @user.lastName</h4>
-            <h4>@user.userEmail</h4>
-            <h4>@user.userPhoneNumber</h4>
-            <button class="btn btn-danger btn-sm" @onclick="() => ConfirmRemoveUser(user.UserID)">Remove</button>
+        <div class="user-cell">
+            <p class="user-field" >@user.firstName @user.lastName</p>
+            <p class="user-field" >@user.userEmail</p>
+            <p class="user-field" >@user.userPhoneNumber</p>
+            <button title="Delete Account" class="primary" @onclick="() => ConfirmRemoveUser(user.UserID)">X</button>
         </div>
     }
 </div>

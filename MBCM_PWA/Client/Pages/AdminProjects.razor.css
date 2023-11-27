@@ -220,6 +220,14 @@
         display: flex;
     }
 
+    .user-cell .primary{
+        font-size: 12px;
+        padding: 15px;
+    }
+    
+   
+
+
     .user-field {
         font-size: 12px;
         margin: auto;
