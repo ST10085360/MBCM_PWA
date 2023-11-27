@@ -1,2 +1,45 @@
-﻿body {
+﻿.main-logo {
+    padding: 20px;
+    position: relative;
+    text-align: center;
+    margin-top: 70px;
 }
+
+.small-icon {
+    width: 25px;
+    height: 25px;
+    margin-right: 5px;
+}
+
+body {
+    background-size: cover;
+    margin: auto;
+    margin: 0;
+    width:100%;
+}
+
+.login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 30vh;
+}
+
+.login-form {
+    align-self: center;
+    margin: auto;
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 20px;
+    border-radius: 8px;
+    backdrop-filter: blur(10px);
+    background-color: #333F50;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    width: 650px;
+    max-width: 90%;
+}
+
+    .login-form label {
+        font-weight: bold;
+        font-size: 14px;
+        color: white;
+    }

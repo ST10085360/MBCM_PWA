@@ -14,6 +14,39 @@
     }
 </select>
 
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            @for (var dayIndex = 0; dayIndex < days.Count(); dayIndex++)
+            {
+                <th>
+                    @days[dayIndex]
+                </th>
+            }
+        </tr>
+    </thead>
+    <tbody>
+        @for (var weekIndex = 0; weekIndex < weeks.Count(); weekIndex++)
+        {
+            <tr>
+                @for (var dayIndex = 0; dayIndex < weeks[weekIndex].Dates.Count(); dayIndex++)
+                {
+                    var wIndex = weekIndex;
+                    var dIndex = dayIndex;
+
+                    <td>
+                        @weeks[weekIndex].Dates[dayIndex].DateValue
+                        <br /><br />
+
+                        <label style="color:#c00; font-weight:bold">@weeks[weekIndex].Dates[dayIndex].Note</label>
+                        <br /><br />
+                    </td>
+                }
+            </tr>
+        }
+    </tbody>
+</table>
+
 @code {
     List<string> monthNames = new List<string>();
     List<string> days = new List<string>();
@@ -25,6 +58,7 @@
     {
         monthNames = System.Globalization.CultureInfo.CurrentCulture.DateTimeFormat.MonthGenitiveNames.ToList();
         GenerateCalendarHead();
+        GenerateCalendarBody();
     }
     private void LoadCalendar(ChangeEventArgs e)
     {
@@ -32,6 +66,9 @@
         int monthIndex = DateTime.ParseExact(month, "MMMM", System.Globalization.CultureInfo.CreateSpecificCulture("en-GB")).Month;
         startDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
         endDate = (new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1)).AddMonths(1).AddDays(-1);
+
+        GenerateCalendarHead();
+        GenerateCalendarBody();
     }
     private void GenerateCalendarHead()
     {
@@ -41,5 +78,45 @@
             day1.Add(dt.ToString("dddd"));
         }
         days = day1.Distinct().ToList();
+    }
+    private void GenerateCalendarBody()
+    {
+        weeks = new List<WeekClass>();
+
+        int flag = 0;
+        WeekClass week = new WeekClass();
+        List<DayEvent> dates = new List<DayEvent>();
+        var totalDays = (int)(endDate - startDate).TotalDays;
+        int countDays = 0;
+
+        for (var dt = startDate; dt <= endDate; dt = dt.AddDays(1))
+        {
+            flag++;
+
+            dates.Add(new DayEvent()
+            {
+                DateValue = dt.ToString("dd-MMM-yyyy"),
+                DayName = dt.ToString("dddd")
+            });
+
+            if (flag == 7)
+            {
+                week = new WeekClass();
+                week.Dates = dates;
+                weeks.Add(week);
+
+                dates = new List<DayEvent>();
+                flag = 0;
+            }
+            if (countDays == totalDays)
+            {
+                week = new WeekClass();
+                week.Dates = dates;
+                weeks.Add(week);
+                break;
+            }
+            countDays++;
+        }
+
     }
 }

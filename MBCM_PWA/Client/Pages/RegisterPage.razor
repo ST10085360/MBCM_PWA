@@ -14,11 +14,11 @@
     </div>
     <div class="login-container">
         <div class="login-form">
-            <h1 class="text-center" style="color: white">Please enter your information</h1>
+            <h3 class="text-center" style="color: white">Please enter your information</h3>
 
-            <div class="row mb-3">
+            <div class="row mb-1">
                 @* /* EMAIL */ *@
-                <label class="col-sm-3 col-form-label">
+                <label class="col-sm-4 col-form-label">
                     <img src="/css/email-icon.png" alt="Email Icon" class="mr-2 small-icon"> Email:
                 </label>
                 <div class="col-sm-6">
@@ -37,9 +37,9 @@
 
             <br />
 
-            <div class="row mb-3">
+            <div class="row mb-1">
                 @* /* FIRST NAME */ *@
-                <label class="col-sm-3 col-form-label">
+                <label class="col-sm-4 col-form-label">
                     <img src="/css/firstname-icon.png" alt="Password Icon" class="mr-2 small-icon"> First Name:
                 </label>
                 <div class="col-sm-6">
@@ -58,9 +58,9 @@
 
             <br />
 
-            <div class="row mb-3">
+            <div class="row mb-1">
                 @* /* LAST NAME */ *@
-                <label class="col-sm-3 col-form-label">
+                <label class="col-sm-4 col-form-label">
                     <img src="/css/lastname-icon.png" alt="Email Icon" class="mr-2 small-icon"> Last Name:
                 </label>
                 <div class="col-sm-6">
@@ -79,9 +79,9 @@
 
             <br />
 
-            <div class="row mb-3">
+            <div class="row mb-1">
                 @* /* Biography/ Description */ *@
-                <label class="col-sm-3 col-form-label">
+                <label class="col-sm-4 col-form-label">
                     <img src="/css/bio-icon.png" alt="Password Icon" class="mr-2 small-icon"> Bio/Description:
                 </label>
                 <div class="col-sm-6">
@@ -100,9 +100,9 @@
 
             <br />
 
-            <div class="row mb-3">
+            <div class="row mb-1">
                 @* /* PHONE NUMBER */ *@
-                <label class="col-sm-3 col-form-label">
+                <label class="col-sm-4 col-form-label">
                     <img src="/css/email-icon.png" alt="Email Icon" class="mr-2 small-icon"> Phone Number:
                 </label>
                 <div class="col-sm-6">
@@ -121,9 +121,9 @@
 
             <br />
 
-            <div class="row mb-3">
+            <div class="row mb-1">
                 @* /* PASSWORD */ *@
-                <label class="col-sm-3 col-form-label">
+                <label class="col-sm-4 col-form-label">
                     <img src="/css/email-icon.png" alt="Email Icon" class="mr-2 small-icon"> Password:
                 </label>
                 <div class="col-sm-6">
@@ -140,9 +140,9 @@
                 </div>
             }
 
-            <div class="row mb-3">
+            <div class="row mb-1">
                 @* /* CONFIRM PASSWORD */ *@
-                <label class="col-sm-3 col-form-label">
+                <label class="col-sm-4 col-form-label">
                     <img src="/css/email-icon.png" alt="Email Icon" class="mr-2 small-icon"> Confirm password:
                 </label>
                 <div class="col-sm-6">
@@ -150,7 +150,7 @@
                         <input type="password" class="form-control form-control-sm" name="ConfirmPassword" id="ConfirmPassword" @bind="model.ConfirmPassword" />
                     </div>
                 </div>
-            </div>
+            </div> 
             <!-- Display confirm password validation error -->
             @if (!string.IsNullOrEmpty(model.ConfirmPasswordValidationMessage))
             {
@@ -272,54 +272,4 @@
 }
 }
 
-<style>
-    .main-logo {
-        padding: 20px;
-        position: relative;
-        text-align: center;
-    }
 
-    .small-icon {
-        width: 30px;
-        height: 30px;
-        margin-right: 5px;
-    }
-
-    body {
-        background-image: url("/css/LINKING_ARMS_BLURRED.png");
-        background-size: cover;
-        background-repeat: no-repeat;
-        margin: 0;
-    }
-
-    .login-container {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 60vh;
-    }
-
-    .login-form {
-        background-color: rgba(255, 255, 255, 0.1);
-        padding: 20px;
-        border-radius: 8px;
-        backdrop-filter: blur(10px);
-        background-image: linear-gradient(to top, #333F50, #495A6D);
-        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
-        width: 800px;
-        max-width: 90%;
-    }
-
-        .login-form label {
-            font-weight: bold;
-            font-size: 14px;
-            color: white;
-        }
-
-    /* Style for small error messages */
-    .small-error {
-        font-size: 12px;
-        padding: 0.25rem 0.5rem;
-        margin-top: -0.5rem; /* Adjust the position if needed */
-    }
-</style>

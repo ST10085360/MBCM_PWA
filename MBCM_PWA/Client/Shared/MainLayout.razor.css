@@ -38,8 +38,9 @@ main {
 
 @media (max-width: 640.98px) {
     .top-row:not(.auth) {
-        display: none;
+        display: flex;
     }
+
 
     .top-row.auth {
         justify-content: space-between;
