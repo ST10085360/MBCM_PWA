@@ -5,7 +5,9 @@
 @using System.Text.Json
 @inject HttpClient HttpClient
 
+<div class="container">
 
+    <div class="active-projects">
 
 <h3>Active Projects:</h3>
 <div class="active-grid">
@@ -23,13 +25,16 @@
                 {
                     <div class="member"  style="margin-top: 10px;">
                         @userProject.User.firstName @userProject.User.lastName
-                        <button class="btn btn-danger btn-sm" @onclick="() => ConfirmRemoveUserFromProject(userProject.userProjectID)">Remove</button>
+                        <button class="primary" @onclick="() => ConfirmRemoveUserFromProject(userProject.userProjectID)">X</button>
                     </div>
                 }
             </div>
         </div>
     }
-</div>
+        </div>
+
+    </div>
+
 <!-- Confirmation Modal for Remove User From Project -->
 @if (showConfirmation)
 {
@@ -51,7 +56,7 @@
         </div>
     </div>
 }
-
+<div class="requests">
 <h3>Project Requests</h3>
 <div class="request-grid">
     @foreach (var request in projectRequests)
@@ -70,8 +75,9 @@
         </div>
     }
 </div>
+</div>
 
-
+<div class="active-users">
 <h3>Users</h3>
 <div class="active-grid">
     @foreach (var user in users)
@@ -84,6 +90,7 @@
             <button class="btn btn-danger btn-sm" @onclick="() => ConfirmRemoveUser(user.UserID)">Remove</button>
         </div>
     }
+</div>
 </div>
 
 
@@ -109,6 +116,7 @@
     </div>
 }
 
+</div>
 
 
 @code {
