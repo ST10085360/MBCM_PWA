@@ -284,10 +284,12 @@ namespace MBCM_PWA.Server.Controllers
                 }
 
                 // Authentication successful
-                // You might generate and return a JWT token here for future authenticated requests
 
-                // Return the UserId along with a success message
-                return Ok(new { Message = "Login successful!", UserId = user.UserID });
+                // Retrieve user type
+                string userType = user.userType;
+
+                // Return the UserId and UserType along with a success message
+                return Ok(new { Message = "Login successful!", UserId = user.UserID, UserType = userType });
             }
             catch (Exception ex)
             {
@@ -296,6 +298,7 @@ namespace MBCM_PWA.Server.Controllers
                 return BadRequest("Login failed. Please try again.");
             }
         }
+
 
         [HttpGet("getUserId")]
         public async Task<IActionResult> GetUserId(string email)
@@ -413,5 +416,80 @@ namespace MBCM_PWA.Server.Controllers
 
             return Ok(userProjects);
         }
+
+        [HttpGet("project-suggestions")]
+        public IActionResult GetProjectSuggestions()
+        {
+            var projectSuggestions = _dbContext.tblProjectSuggestions
+                .AsNoTracking()
+                .ToList();
+
+            // Map the data to the SuggestedProject model
+            var suggestedProjects = projectSuggestions.Select(ps => new SuggestedProject
+            {
+                ProjectID = ps.ProjectID,
+                Title = ps.Title,
+                Description = ps.Description,
+                Location = ps.Location
+            }).ToList();
+
+            return Ok(suggestedProjects);
+        }
+
+        [HttpPost("AddProject")]
+        public IActionResult AddProject([FromBody] SuggestedProject model)
+        {
+            try
+            {
+                if (model == null)
+                {
+                    return BadRequest("Invalid project data.");
+                }
+
+                var newProject = new SuggestedProject
+                {
+                    Title = model.Title,
+                    Description = model.Description,
+                    Location = model.Location
+                };
+
+                _dbContext.tblProjectSuggestions.Add(newProject);
+                _dbContext.SaveChanges();
+
+                return Ok("Project added successfully.");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error adding project: {ex.Message}");
+                return BadRequest($"Error adding project. {ex.Message}");
+            }
+        }
+
+        [HttpDelete("delete-suggestion/{projectId}")]
+        public IActionResult DeleteSuggestion(int projectId)
+        {
+            try
+            {
+                var suggestion = _dbContext.tblProjectSuggestions.Find(projectId);
+
+                if (suggestion == null)
+                {
+                    return NotFound("Suggestion not found.");
+                }
+
+                _dbContext.tblProjectSuggestions.Remove(suggestion);
+                _dbContext.SaveChanges();
+
+                return Ok("Suggestion deleted successfully.");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error deleting suggestion: {ex.Message}");
+                return BadRequest($"Error deleting suggestion. {ex.Message}");
+            }
+        }
+
+
+
     }
 }

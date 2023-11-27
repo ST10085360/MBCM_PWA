@@ -71,16 +71,14 @@
             {
                 Console.WriteLine("User logged in successfully!");
 
-                // Use the email to fetch the corresponding userID from tblUser
-                var userEmail = loginModel.Email;
-                var userIdResponse = await httpClient.GetStringAsync($"api/Projects/getUserId?email={userEmail}");
+                // Deserialize the response to get UserId and UserType
+                var loginResult = await response.Content.ReadFromJsonAsync<LoginResult>();
 
-                if (int.TryParse(userIdResponse, out var userId))
-                {
-                    Console.WriteLine($"User ID received from API: {userId}");
-                    UserService.SetUserId(userId);
-                    NavigationManager.NavigateTo($"/projects");
-                }
+                // Store UserId and UserType in UserService
+                UserService.SetUserId(loginResult.UserId);
+                UserService.SetUserType(loginResult.UserType);
+
+                NavigationManager.NavigateTo($"/projects");
             }
             else
             {
@@ -93,6 +91,14 @@
             Console.WriteLine($"Error: {ex.Message}");
             errorMessage = "An unexpected error occurred. Please try again later.";
         }
+    }
+
+    // Define a class to represent the login result
+    public class LoginResult
+    {
+        public string Message { get; set; }
+        public int UserId { get; set; }
+        public string UserType { get; set; }
     }
 }
 
