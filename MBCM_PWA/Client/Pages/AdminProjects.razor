@@ -3,6 +3,7 @@
 @using MBCM_PWA.Client.Shared.Models
 @using System.Net.Http.Json
 @using System.Text.Json
+@inject NavigationManager NavigationManager
 @inject HttpClient HttpClient
 @inject userService UserService
 
@@ -15,9 +16,9 @@
 <div class="add-proj-header">
 <h3 class="active-head">Active Projects:</h3>
 <div class="new-btn">
-    <button class="add-btn">
+    <button class="add-btn" @onclick="ShowAddActiveProjectPage">
         <span class="icon"><img class="new-img" src="/css/NewProject.png" alt="location" /></span>
-        <span class="plus-text" @*ADD THE ONCLICK METHOD TO SHOW THE POPUP HERE"*@>Add new project</span>
+        <span class="plus-text">Add New Active Project</span>
     </button>
     </div>
         </div>
@@ -163,6 +164,11 @@ else
     {
         await HttpClient.PostAsync($"api/projects/decline-request/{request.RequestID}", null);
         projectRequests.Remove(request);
+    }
+
+    private void ShowAddActiveProjectPage()
+    {
+        NavigationManager.NavigateTo("/addactiveprojectpage");
     }
 
     private void ConfirmRemoveUserFromProject(int userProjectID)
