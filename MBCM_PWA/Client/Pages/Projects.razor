@@ -6,41 +6,44 @@
 @inject userService UserService;
 
 <PageTitle>Projects</PageTitle>
+<div class="main-container">
+    <div class="splash-background">
+        <h1>Active Community Projects</h1>
 
-<h1>Active projects</h1>
-
-@* /* PROJECT TILE TEMPLATE STYLING */ *@
-@foreach (var projectState in projectStates)
-{
-    <div class="project-tile">
-        <div class="proj-left">
-            <div class="title-div"><p>@projectState.Project.prjTitle</p></div>
-        </div>
-        <div class="proj-right">
-            <div class="info-div">
-                <img class="info-img" src="/css/calendar.png" alt="location"  />
-                <h5 class="info-text">@projectState.Project.prjStartDate.ToShortDateString()</h5>
+        @* /* PROJECT TILE TEMPLATE STYLING */ *@
+        @foreach (var projectState in projectStates)
+        {
+            <div class="project-tile">
+                <div class="proj-left">
+                    <div class="title-div"><p>@projectState.Project.prjTitle</p></div>
+                </div>
+                <div class="proj-right">
+                    <div class="info-div">
+                        <img class="info-img" src="/css/calendar.png" alt="location" />
+                        <h5 class="info-text">@projectState.Project.prjStartDate.ToShortDateString()</h5>
+                    </div>
+                    <div class="info-div">
+                        <img class="info-img" src="/css/pin.png" alt="location" />
+                        <h5 class="info-text">@projectState.Project.prjLocation</h5>
+                    </div>
+                    <div class="info-div">
+                        <img class="info-img" src="/css/group.png" />
+                        <h5 class="info-text">@projectState.Project.ProjectID</h5>  @*NEED TO ADD MEMBER COUNT FOR THE PROJECTS*@
+                    </div>
+                    <div class="proj-btns">
+                        <button class="btn btn-primary" style="@projectState.ButtonColor" @onclick="() => SendRequest(projectState)">@projectState.ButtonText</button>
+                    </div>
+                </div>
             </div>
-            <div class="info-div">
-                <img class="info-img" src="/css/pin.png" alt="location"  />
-                <h5 class="info-text">@projectState.Project.prjLocation</h5>
-            </div>
-            <div class="info-div">
-                <img class="info-img" src="/css/group.png"  /> 
-                <h5 class="info-text">@projectState.Project.ProjectID</h5>  @*NEED TO ADD MEMBER COUNT FOR THE PROJECTS*@
-            </div>
-            <div class="proj-btns">
-                <button class="btn btn-primary" style="@projectState.ButtonColor" @onclick="() => SendRequest(projectState)">@projectState.ButtonText</button>
-            </div>
-        </div>
+        }
     </div>
-}
+</div>
 
 
 
 @code {
     List<ProjectState> projectStates = new List<ProjectState>();
-    UserLogin loginModel = new UserLogin(); 
+    UserLogin loginModel = new UserLogin();
 
     protected override async Task OnInitializedAsync()
     {

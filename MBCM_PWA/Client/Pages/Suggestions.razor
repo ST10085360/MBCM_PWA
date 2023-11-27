@@ -6,56 +6,59 @@
 @inject userService UserService
 
 <PageTitle>Suggestions</PageTitle>
+<div class="main-container">
+    <div class="splash-background">
+        <h1>Community Project Suggestions</h1>
 
-<h1>Community Project Suggestions</h1>
-
-@if (UserService.UserType != null && UserService.UserType.ToLower() == "admin")
-{
-    <div class="center">
-        <button class="primary" @onclick="NavigateToAddProjectPage">Add Project</button>
-    </div>
-}
-
-@if (suggestedProjects != null)
-{
-    @foreach (var project in suggestedProjects)
-    {
-        <div class="suggestion-tile">
-            <div class="sugg-left">
-                <div class="title-div">
-                    <p>@project.Title</p>
-                </div>
+        @if (UserService.UserType != null && UserService.UserType.ToLower() == "admin")
+        {
+            <br />
+            <div class="center">
+                <button class="primary" @onclick="NavigateToAddProjectPage" style="margin: 0 auto; display: block;">Add Project</button>
             </div>
-            <div class="sugg-right">
-                <div class="event-div">
-                    @* Add null check for project *@
-                    @if (project != null)
-                    {
-                        <p class="ev" style="word-wrap: inherit">Project ID: @project.ProjectID</p>
-                    }
-                </div>
-                <div class="desc-div">
-                    @* Add null check for project *@
-                    @if (project != null)
-                    {
-                        <h5 id="ev">@project.Description</h5>
-                    }
-                </div>
-                @if (UserService.UserType != null && UserService.UserType.ToLower() == "admin")
-                {
-                    <div>
-                        <button class="delete-button" @onclick="() => ConfirmDeleteSuggestion(project.ProjectID)">Delete</button>
+        }
+
+        @if (suggestedProjects != null)
+        {
+            @foreach (var project in suggestedProjects)
+            {
+                <div class="suggestion-tile">
+                    <div class="sugg-left">
+                        <div class="title-div">
+                            <p>@project.Title</p>
+                        </div>
                     </div>
-                }
-            </div>
-        </div>
-    }
-}
-else
-{
-    <p>Loading...</p>
-}
-
+                    <div class="sugg-right">
+                        <div class="event-div">
+                            @* Add null check for project *@
+                            @if (project != null)
+                            {
+                                <p class="ev" style="word-wrap: inherit">Project ID: @project.ProjectID</p>
+                            }
+                        </div>
+                        <div class="desc-div">
+                            @* Add null check for project *@
+                            @if (project != null)
+                            {
+                                <h5 id="ev">@project.Description</h5>
+                            }
+                        </div>
+                        @if (UserService.UserType != null && UserService.UserType.ToLower() == "admin")
+                        {
+                            <div class="center">
+                                <button class="delete-button" @onclick="() => ConfirmDeleteSuggestion(project.ProjectID)">Delete</button>
+                            </div>
+                        }
+                    </div>
+                </div>
+            }
+        }
+        else
+        {
+            <p>Loading...</p>
+        }
+    </div>
+</div>
 <!-- Confirmation Modal for Delete Suggestion -->
 @if (showDeleteConfirmation)
 {

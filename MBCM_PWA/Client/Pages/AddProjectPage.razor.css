@@ -7,6 +7,45 @@
         overflow: auto;
     }
 
+    .add-project-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 30vh;
+		margin-top: 200px;
+    }
+
+    .add-project-form {
+        background-color: rgba(255, 255, 255, 0.1);
+        padding: 20px;
+        border-radius: 8px;
+        backdrop-filter: blur(10px);
+        background-color: #333F50;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        width: 650px;
+        max-width: 90%;
+    }
+
+        .add-project-form label {
+            font-weight: bold;
+            font-size: 14px;
+            color: white;
+        }
+
+        /* Change the button color to darkish green */
+        .add-project-form button {
+            background-color: #006400; /* Dark green color for the button */
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+            .add-project-form button:hover {
+                background-color: #004d00; /* Darker green color on hover */
+            }
+			
     .splash-background {
         background-image: url(../css/LINKING_ARMS_BLURRED.png);
         align-self: center;
@@ -57,6 +96,45 @@
         height: 80vh;
         overflow: auto;
     }
+
+    .add-project-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 30vh;
+        margin-top: 200px;
+    }
+
+    .add-project-form {
+        background-color: rgba(255, 255, 255, 0.1);
+        padding: 20px;
+        border-radius: 8px;
+        backdrop-filter: blur(10px);
+        background-color: #333F50;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        width: 650px;
+        max-width: 90%;
+    }
+
+        .add-project-form label {
+            font-weight: bold;
+            font-size: 14px;
+            color: white;
+        }
+
+        /* Change the button color to darkish green */
+        .add-project-form button {
+            background-color: #006400; /* Dark green color for the button */
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+            .add-project-form button:hover {
+                background-color: #004d00; /* Darker green color on hover */
+            }
 
     .splash-background {
         background-image: url(../css/LINKING_ARMS_BLURRED.png);

@@ -1,175 +1,267 @@
-﻿
+﻿@media only screen and (min-width: 768px) {
+	h1 {
+		text-align: center;
+		color: #2C3E50;
+		margin-bottom: 20px;
+		margin-top: 20px;
+	}
+	
+	.add-project-button {
+		background-color: #006400; /* Dark green color for the Add Project button */
+		color: white;
+		border: none;
+		padding: 8px 16px;
+		border-radius: 5px;
+		cursor: pointer;
+	}
+
+		.add-project-button:hover {
+			background-color: #004d00; /* Darker green color on hover */
+			
+		}
+	.main-container {
+		position: relative;
+		height: 100vh;
+		overflow: auto;
+	}
+
+	.splash-background {
+		background-image: url(../css/LINKING_ARMS_BLURRED.png);
+		align-self: center;
+		background-size: cover;
+		background-attachment: fixed;
+		position: absolute;
+		height: 100%;
+		width: 100%;
+	}
+
+	.suggestion-tile {
+		background-color: #ffffff;
+		border: 1px solid #e0e0e0;
+		border-radius: 20px;
+		box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1), 2px 0 2px rgba(0, 0, 0, 0.1), -2px 0 2px rgba(0, 0, 0, 0.05);
+		width: 50%;
+		padding: 5px;
+		height: 300px;
+		margin: auto;
+		margin-top: 100px;
+		align-self: center;
+		display: flex;
+	}
+
+	.sugg-left {
+		width: 40%;
+		height: 100%;
+		background-color: #ffffff;
+		float: left;
+		border-bottom-left-radius: 14px;
+		border-top-left-radius: 14px;
+		box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1), 2px 0 2px rgba(0, 0, 0, 0.1), -2px 0 2px rgba(0, 0, 0, 0.05);
+		text-align: center;
+		padding-top: 40px;
+		margin: auto
+	}
+
+	.title-div {
+		width: 80%;
+		margin: auto;
+		height: auto;
+	}
+
+		.title-div p {
+			font-size: clamp(14px, 4vw, 24px);
+		}
+
+	.sugg-right {
+		position: relative;
+		height: auto;
+		width: 60%;
+		background-color: #333F50;
+		float: right;
+		padding: 40px;
+		padding-left: 50px;
+		border-bottom-right-radius: 14px;
+		border-top-right-radius: 14px;
+		box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1), 2px 0 2px rgba(0, 0, 0, 0.1), -2px 0 2px rgba(0, 0, 0, 0.05);
+		display: inline-block;
+	}
+
+	.event-div {
+		position: relative;
+		color: #ffffff;
+		display: flex;
+		height: fit-content;
+		align-items: center;
+		font-size: 15px;
+	}
 
 
+	.desc-div {
+		margin-top: 5%;
+		position: relative;
+		color: #ffffff;
+		overflow: hidden;
+	}
 
+		.desc-div #ev {
+			font-size: 15px;
+		}
 
+	.primary {
+		position: center;
+		float: right;
+		margin: 5px;
+		margin-left: 10%;
+		bottom: 5px;
+		background-color: #006400; 
+		color: white;
+	}
 
-@media only screen and (min-width: 768px) {
-    .suggestion-tile {
-        background-color: #ffffff;
-        border: 1px solid #e0e0e0;
-        border-radius: 20px;
-        box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1), 2px 0 2px rgba(0, 0, 0, 0.1), -2px 0 2px rgba(0, 0, 0, 0.05);
-        width: 50%;
-        padding: 5px;
-        height: 300px;
-        margin: auto;
-        margin-top: 100px;
-        align-self: center;
-        display: flex;
-    }
+		.primary:hover {
+			background-color: #004d00; 
+		}
 
-    .sugg-left {
-        width: 40%;
-        height: 100%;
-        background-color: #ffffff;
-        float: left;
-        border-bottom-left-radius: 14px;
-        border-top-left-radius: 14px;
-        box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1), 2px 0 2px rgba(0, 0, 0, 0.1), -2px 0 2px rgba(0, 0, 0, 0.05);
-        text-align: center;
-        padding-top: 40px;
-        margin: auto
-    }
+	.center {
+		display: flex;
+		justify-content: center;
+	}
+	
 
-    .title-div {
-        width: 80%;
-        margin: auto;
-        height: auto;
-    }
-        .title-div p {
-            font-size: clamp(14px, 4vw, 24px);
-        }
-
-    .sugg-right {
-        position: relative;
-        height: auto;
-        width: 60%;
-        background-color: #333F50;
-        float: right;
-        padding: 40px;
-        padding-left: 50px;
-        border-bottom-right-radius: 14px;
-        border-top-right-radius: 14px;
-        box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1), 2px 0 2px rgba(0, 0, 0, 0.1), -2px 0 2px rgba(0, 0, 0, 0.05);
-        display: inline-block;
-    }
-
-    .event-div {
-        position: relative;
-        color: #ffffff;
-        display: flex;
-        height: fit-content;
-        align-items: center;
-        font-size: 15px;
-    }
-
-
-    .desc-div {
-        margin-top: 5%;
-        position: relative;
-        color: #ffffff;
-        overflow: hidden;
-    }
-
-        .desc-div #ev {
-            font-size: 15px;
-        }
-
-    .primary {
-        position: relative;
-        float: right;
-        margin: 5px;
-        margin-left: 10%;
-        bottom: 5px;
-    }
+	.delete-button {
+		background-color: #dc3545; 
+		color: white;
+		border: none;
+		padding: 8px 16px;
+		border-radius: 5px;
+		cursor: pointer;
+	}
 }
 
 
+
 @media only screen and (max-width: 768px) {
-        
-        .suggestion-tile {
-            border: 1px solid #e0e0e0;
-            border-radius: 20px;
-            box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1), 2px 0 2px rgba(0, 0, 0, 0.1), -2px 0 2px rgba(0, 0, 0, 0.05);
-            width: 70%;
-            padding: 5px;
-            height: auto;
-            margin: auto;
-            margin-top: 20%;
-            align-self: center;
-            font-size: 16px;
-        }
+	h1 {
+		text-align: center;
+		color: #2C3E50;
+		margin-bottom: 20px;
+		margin-top: 20px;
+	}
+	
+	.add-project-button {
+		background-color: #006400; /* Dark green color for the Add Project button */
+		color: white;
+		border: none;
+		padding: 8px 16px;
+		border-radius: 5px;
+		cursor: pointer;
+	}
 
-        .sugg-left {
-            width: 100%;
-            height: auto;
-            background-color: #ffffff;
-            border-top-left-radius: 14px;
-            border-top-right-radius: 14px;
-            box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1), 2px 0 2px rgba(0, 0, 0, 0.1), -2px 0 2px rgba(0, 0, 0, 0.05);
-            text-align: center;
-            padding: 3%;
-        }
+		.add-project-button:hover {
+			background-color: #004d00; /* Darker green color on hover */
+		}
 
-        .sugg-right {
-            position: relative;
-            height: auto;
-            width: 100%;
-            background-color: var(--primary-color);
-            padding: 5%;
-            border-bottom-left-radius: 14px;
-            border-bottom-right-radius: 14px;
-            box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1), 2px 0 2px rgba(0, 0, 0, 0.1), -2px 0 2px rgba(0, 0, 0, 0.05);
-            display: inline-block;
-        }
+	.suggestion-tile {
+		border: 1px solid #e0e0e0;
+		border-radius: 20px;
+		box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1), 2px 0 2px rgba(0, 0, 0, 0.1), -2px 0 2px rgba(0, 0, 0, 0.05);
+		width: 70%;
+		padding: 5px;
+		height: auto;
+		margin: auto;
+		margin-top: 20%;
+		align-self: center;
+		font-size: 16px;
+	}
 
-        .title-div {
-            width: 90%;
-            margin: auto;
-            margin-top: 5%;
-        }
+	.sugg-left {
+		width: 100%;
+		height: auto;
+		background-color: #ffffff;
+		border-top-left-radius: 14px;
+		border-top-right-radius: 14px;
+		box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1), 2px 0 2px rgba(0, 0, 0, 0.1), -2px 0 2px rgba(0, 0, 0, 0.05);
+		text-align: center;
+		padding: 3%;
+	}
 
-            .title-div p {
-                font-size: 15px;
-            }
+	.sugg-right {
+		position: relative;
+		height: auto;
+		width: 100%;
+		background-color: var(--primary-color);
+		padding: 5%;
+		border-bottom-left-radius: 14px;
+		border-bottom-right-radius: 14px;
+		box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1), 2px 0 2px rgba(0, 0, 0, 0.1), -2px 0 2px rgba(0, 0, 0, 0.05);
+		display: inline-block;
+	}
+
+	.title-div {
+		width: 90%;
+		margin: auto;
+		margin-top: 5%;
+	}
+
+		.title-div p {
+			font-size: 15px;
+		}
 
 
-    .event-div {
-        position: relative;
-        color: var(--text-primary);
-        display: flex;
-        height: fit-content;
-        align-items: center;
-        margin-bottom: 2%;
-    }
+	.event-div {
+		position: relative;
+		color: var(--text-primary);
+		display: flex;
+		height: fit-content;
+		align-items: center;
+		margin-bottom: 2%;
+	}
 
 
-        .ev {
-            font-size: 20px;
-            margin: 2%;
-        }
+	.ev {
+		font-size: 20px;
+		margin: 2%;
+	}
 
 
-        .desc-div {
-            position: relative;
-            color: #ffffff;
-            width: 100%;
-        }
+	.desc-div {
+		position: relative;
+		color: #ffffff;
+		width: 100%;
+	}
 
-            .desc-div #ev {
-                font-size: 11px;
-                font-weight: 100;
-                text-align: justify;
-                text-justify: inter-word;
-            }
+		.desc-div #ev {
+			font-size: 11px;
+			font-weight: 100;
+			text-align: justify;
+			text-justify: inter-word;
+		}
 
-        .primary {
-            position: relative;
-            float: right;
-            margin: 5px;
-            bottom: 5px;
-            font-size: 10px;
-            height: 32px;
-        }
-    }
+	.primary {
+		position: relative;
+		float: right;
+		margin: 5px;
+		margin-left: 10%;
+		bottom: 5px;
+		background-color: #006400;
+		color: white;
+	}
+
+		.primary:hover {
+			background-color: #004d00;
+		}
+
+	.center {
+		display: flex;
+		justify-content: center;
+	}
+	
+
+	.delete-button {
+		background-color: #dc3545; /* Red color for delete button */
+		color: white;
+		border: none;
+		padding: 8px 16px;
+		border-radius: 5px;
+		cursor: pointer;
+	}
+}
