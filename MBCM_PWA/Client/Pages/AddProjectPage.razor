@@ -1,0 +1,137 @@
+﻿@page "/addprojectpage"
+@inject HttpClient httpClient
+@using MBCM_PWA.Client.Shared.Models
+@inject NavigationManager NavigationManager
+@inject userService UserService
+
+<PageTitle>Add Project</PageTitle>
+
+<div class="add-project-container">
+    <div class="add-project-form">
+        <h1 class="text-center" style="color: white">Please enter project details</h1>
+
+        <br />
+
+        <!-- Title -->
+        <div class="row mb-3">
+            <label class="col-sm-3 col-form-label">
+                Title:
+            </label>
+            <div class="col-sm-6">
+                <div class="shadow-sm">
+                    <input type="text" class="form-control form-control-sm" name="Title" id="Title" @bind="model.Title" />
+                </div>
+            </div>
+        </div>
+
+        <!-- Description -->
+        <div class="row mb-3">
+            <label class="col-sm-3 col-form-label">
+                Description:
+            </label>
+            <div class="col-sm-6">
+                <div class="shadow-sm">
+                    <textarea class="form-control" rows="3" name="Description" id="Description" @bind="model.Description"></textarea>
+                </div>
+            </div>
+        </div>
+
+        <!-- Location -->
+        <div class="row mb-3">
+            <label class="col-sm-3 col-form-label">
+                Location:
+            </label>
+            <div class="col-sm-6">
+                <div class="shadow-sm">
+                    <input type="text" class="form-control form-control-sm" name="Location" id="Location" @bind="model.Location" />
+                </div>
+            </div>
+        </div>
+
+        <br />
+
+        <div class="text-center">
+            <button style="width: 100px" @onclick="addProject" class="btn btn-dark">Add Project</button>
+            @if (isBusy)
+            {
+                <p class="text-info">Adding project...</p>
+            }
+            @if (!string.IsNullOrWhiteSpace(errorMessage))
+            {
+                <p class="text-danger">@errorMessage</p>
+            }
+        </div>
+
+        <br />
+    </div>
+</div>
+
+@code {
+    private SuggestedProject model = new SuggestedProject();
+    private bool isBusy = false;
+    private string errorMessage = string.Empty;
+
+    private async Task addProject()
+    {
+        try
+        {
+            // Reset error message
+            errorMessage = string.Empty;
+
+            // Validate the new project data
+            if (string.IsNullOrWhiteSpace(model.Title) || string.IsNullOrWhiteSpace(model.Description) || string.IsNullOrWhiteSpace(model.Location))
+            {
+                errorMessage = "Please fill in all required fields.";
+                return;
+            }
+
+            isBusy = true;
+
+            var response = await httpClient.PostAsJsonAsync("api/Projects/AddProject", model);
+
+            if (response.IsSuccessStatusCode)
+            {
+                Console.WriteLine("Project added successfully!");
+                NavigationManager.NavigateTo("/projects");
+            }
+            else
+            {
+                errorMessage = $"Error: {await response.Content.ReadAsStringAsync()}";
+            }
+        }
+        catch (Exception ex)
+        {
+            errorMessage = $"Error: {ex.Message}";
+        }
+        finally
+        {
+            isBusy = false;
+        }
+    }
+}
+
+<style>
+    .add-project-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 30vh;
+    }
+
+    .add-project-form {
+        background-color: rgba(255, 255, 255, 0.1);
+        padding: 20px;
+        border-radius: 8px;
+        backdrop-filter: blur(10px);
+        background-color: #333F50;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        width: 650px;
+        max-width: 90%;
+    }
+
+        .add-project-form label {
+            font-weight: bold;
+            font-size: 14px;
+            color: white;
+        }
+</style>
