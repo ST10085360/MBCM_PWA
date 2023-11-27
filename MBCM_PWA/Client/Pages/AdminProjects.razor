@@ -5,19 +5,10 @@
 @using System.Text.Json
 @inject HttpClient HttpClient
 
-<h3>All Projects:</h3>
-<div class="project-grid">
-    @foreach (var project in projects)
-    {
-        <div class="project-cell">
-            <h4>@project.prjTitle</h4>
-            <p>@project.prjDescription</p>
-        </div>
-    }
-</div>
+
 
 <h3>Active Projects:</h3>
-<div class="project-grid">
+<div class="active-grid">
     @{
         var groupedUserProjects = userProjects.GroupBy(up => up.projectID);
     }
@@ -25,12 +16,13 @@
     {
         <div class="project-cell">
             <h4>@group.First().Project.prjTitle</h4>
-            <div>
+            <p>@group.First().Project.prjDescription</p>
+            <div class="members-dropdown">
                 Members:
                 @foreach (var userProject in group)
                 {
-                    <div>
-                        - @userProject.User.firstName @userProject.User.lastName
+                    <div class="member">
+                        @userProject.User.firstName @userProject.User.lastName
                         <button class="btn btn-danger btn-sm" @onclick="() => ConfirmRemoveUserFromProject(userProject.userProjectID)">Remove</button>
                     </div>
                 }
@@ -38,7 +30,6 @@
         </div>
     }
 </div>
-
 <!-- Confirmation Modal for Remove User From Project -->
 @if (showConfirmation)
 {
@@ -62,7 +53,7 @@
 }
 
 <h3>Project Requests</h3>
-<div class="project-grid">
+<div class="request-grid">
     @foreach (var request in projectRequests)
     {
         <div class="project-cell">
@@ -80,8 +71,9 @@
     }
 </div>
 
+
 <h3>Users</h3>
-<div class="project-grid">
+<div class="active-grid">
     @foreach (var user in users)
     {
         <div class="project-cell">
@@ -93,6 +85,7 @@
         </div>
     }
 </div>
+
 
 <!-- Confirmation Modal for Remove User -->
 @if (showUserRemoveConfirmation)
@@ -118,7 +111,6 @@
 
 
 
-
 @code {
     List<Project> projects;
     List<ProjectRequest> projectRequests;
@@ -129,7 +121,8 @@
     int userProjectIdToRemove;
     bool showUserRemoveConfirmation;
     int userIdToRemove;
-    
+
+
     protected override async Task OnInitializedAsync()
     {
         projects = await HttpClient.GetFromJsonAsync<List<Project>>("api/projects");
@@ -187,24 +180,3 @@
     }
 }
 
-<style>
-    .project-grid {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 10px; /* Adjust the gap between cells */
-    }
-
-    .project-cell {
-        border: 1px solid #ccc;
-        border-radius: 20px;
-        box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1), 2px 0 2px rgba(0, 0, 0, 0.1), -2px 0 2px rgba(0, 0, 0, 0.05);
-        padding: 10px;
-        text-align: center;
-        margin: 10px;
-    }
-
-    .btn-sm {
-        padding: 5px 10px;
-        font-size: 12px;
-    }
-</style>
