@@ -8,33 +8,48 @@
 <PageTitle>Projects</PageTitle>
 <div class="main-container">
     <div class="splash-background">
-        <h1>Active Community Projects</h1>
+        <h1 style="margin-top: 7%;">Active Community Projects</h1>
 
         @* /* PROJECT TILE TEMPLATE STYLING */ *@
         @foreach (var projectState in projectStates)
         {
-            <div class="project-tile">
-                <div class="proj-left">
-                    <div class="title-div"><p>@projectState.Project.prjTitle</p></div>
+            bool isJoined = userProjects.Any(up => up.projectID == projectState.Project.ProjectID && up.userID == projectState.UserId);
+            Console.WriteLine($"Project ID: {projectState.Project.ProjectID}, Is User Joined: {isJoined}");
+
+                <div class="project-tile">
+                    <div class="proj-left">
+                        <div class="title-div"><p>@projectState.Project.prjTitle</p></div>
+                    </div>
+                    <div class="proj-right">
+                        <div class="info-div">
+                            <img class="info-img" src="/css/calendar.png" alt="location" />
+                            <h5 class="info-text">@projectState.Project.prjStartDate.ToShortDateString()</h5>
+                        </div>
+                        <div class="info-div">
+                            <img class="info-img" src="/css/pin.png" alt="location" />
+                            <h5 class="info-text">@projectState.Project.prjLocation</h5>
+                        </div>
+                        <div class="info-div">
+                            <img class="info-img" src="/css/group.png" />
+                            <h5 class="info-text">@projectState.Project.ProjectID</h5>  @*NEED TO ADD MEMBER COUNT FOR THE PROJECTS*@
+                        </div>
+                        <div class="proj-btns">
+
+                            @if (isJoined)
+                        {
+                            <span class="disabled-btn">Already Joined</span>
+                        }
+                        else
+                        {
+                            <button class="btn btn-primary" style="@projectState.ButtonColor" @onclick="() => SendRequest(projectState)">
+                                @projectState.ButtonText
+                            </button>
+                        }
+                        </div>
+                    </div>
                 </div>
-                <div class="proj-right">
-                    <div class="info-div">
-                        <img class="info-img" src="/css/calendar.png" alt="location" />
-                        <h5 class="info-text">@projectState.Project.prjStartDate.ToShortDateString()</h5>
-                    </div>
-                    <div class="info-div">
-                        <img class="info-img" src="/css/pin.png" alt="location" />
-                        <h5 class="info-text">@projectState.Project.prjLocation</h5>
-                    </div>
-                    <div class="info-div">
-                        <img class="info-img" src="/css/group.png" />
-                        <h5 class="info-text">@projectState.Project.ProjectID</h5>  @*NEED TO ADD MEMBER COUNT FOR THE PROJECTS*@
-                    </div>
-                    <div class="proj-btns">
-                        <button class="btn btn-primary" style="@projectState.ButtonColor" @onclick="() => SendRequest(projectState)">@projectState.ButtonText</button>
-                    </div>
-                </div>
-            </div>
+            
+            
         }
     </div>
 </div>
@@ -43,12 +58,16 @@
 
 @code {
     List<ProjectState> projectStates = new List<ProjectState>();
+    private List<UserProjects> userProjects;
     UserLogin loginModel = new UserLogin();
+    private string JOINED = "Already Joined";
 
     protected override async Task OnInitializedAsync()
     {
         int? userId = UserService.UserId;
         Console.WriteLine($"UserId: {userId}");
+
+        userProjects = await HttpClient.GetFromJsonAsync<List<UserProjects>>($"api/Projects/getUserProjects/{userId}");
 
         var projects = await HttpClient.GetFromJsonAsync<List<Project>>("api/projects");
         projectStates = projects.Select(project => new ProjectState
