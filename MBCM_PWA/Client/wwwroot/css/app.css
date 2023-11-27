@@ -110,3 +110,49 @@ a, .btn-link {
         width: auto;
         height: auto;
     }
+
+@media only screen and (min-width: 768px) {
+    
+}
+
+
+    @media only screen and (max-width: 768px) {
+        .info-text {
+            font-size: 15px;
+            color: #ffffff;
+        }
+
+        .project-tile {
+            width: 75%;
+            aspect-ratio: 5 / 7;
+            display: none;
+        }
+
+        .proj-left {
+            width: auto;
+            height: auto;
+            background-color: #ffffff;
+            border-bottom-left-radius: 14px;
+            border-top-left-radius: 14px;
+            box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1), 2px 0 2px rgba(0, 0, 0, 0.1), -2px 0 2px rgba(0, 0, 0, 0.05);
+            text-align: left;
+            top: 0;
+        }
+
+        .proj-right {
+            height: auto;
+            width: auto;
+            background-color: #333F50;
+            border-bottom-right-radius: 14px;
+            border-top-right-radius: 14px;
+            box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1), 2px 0 2px rgba(0, 0, 0, 0.1), -2px 0 2px rgba(0, 0, 0, 0.05);
+        }
+
+        .title-div {
+            background-color: aqua;
+        }
+
+        .primary {
+            font-size: 15px;
+        }
+    }

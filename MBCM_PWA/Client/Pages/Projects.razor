@@ -9,23 +9,6 @@
 
 <h1>Active projects</h1>
 
-@* <div class="projectInfo-tile" style="display: @(isDetailsPopupOpen ? "block" : "none")">
-    <div class="popup-content">
-
-        @if (selectedProject != null)
-        {
-            <h2 margin-bottom="200px">Project Details</h2>
-            <p margin-top="100px">Project Title: @selectedProject.prjTitle (ID:@selectedProject.ProjectID)</p>
-            <p margin-top="80px">Project Description: @selectedProject.prjDescription</p>
-            <p>Start Date: @selectedProject.prjStartDate.ToShortDateString()</p>
-            <p>Location: @selectedProject.prjLocation</p>
-            <p>Number of Participants: TBA</p>
-        }
-        <button class="close-button" style="@ButtonColor" @onclick="CloseDetailsPopup">Close</button>
-    </div>
-</div> *@
-
-
 @* /* PROJECT TILE TEMPLATE STYLING */ *@
 @foreach (var projectState in projectStates)
 {
@@ -34,19 +17,21 @@
             <h3 class="title-div">@projectState.Project.prjTitle</h3>
         </div>
         <div class="proj-right">
-            <div class="event-div">
-                <h3 id="ev" style="word-wrap: inherit">Event Date</h3>
+            <div class="info-div">
+                <img class="info-img" src="/css/pin.png" alt="location" style="width:20px; height:20px" />
+                <h5 class="info-text">@projectState.Project.prjStartDate.ToShortDateString()</h5>
             </div>
-            <div class="date-div">
-                <h5 id="ev">@projectState.Project.prjStartDate.ToShortDateString()</h5>
+            <div class="info-div">
+                <img class="info-img" src="/css/pin.png" alt="location" style="width:20px; height:20px" />
+                <h5 class="info-text">@projectState.Project.prjLocation</h5>
             </div>
-            <div class="wrapper location">
-                <img class="pin" src="/css/pin.png" alt="location" style="width:20px; height:20px" />
-                <h5 class="location-text">@projectState.Project.prjLocation</h5>
+            <div class="info-div">
+                <img class="info-img" src="/css/group.png" style="width:20px; height:20px" />
+                <h5 class="info-text">Number of Participants</h5>
             </div>
             <div class="participants">
                 <img class="members" src="/css/group.png" style="width:20px; height:20px" />
-                <h5 class="members-text">1</h5>
+                <h5 class="members-text"></h5>
             </div>
             <div class="proj-btns">
                 <button class="btn btn-primary" style="@projectState.ButtonColor" @onclick="() => SendRequest(projectState)">@projectState.ButtonText</button>
@@ -72,7 +57,7 @@
                 Project = project,
                 ButtonText = "Request to Join",
                 ButtonColor = "#1B6EC2",
-                UserId = userId.GetValueOrDefault() 
+                UserId = userId.GetValueOrDefault()
             }).ToList();
     }
 
@@ -120,7 +105,6 @@
     }
 
 
-
     public class ProjectState
     {
         public Project Project { get; set; }
@@ -138,21 +122,21 @@
         justify-content: center;
         align-items: center;
         position: fixed;
+        margin: auto;
         top: 0;
         left: 0;
         width: 100%;
         height: 100%;
-        background: rgba(0, 0, 0, 0.5);
+        background: rgba(0, 0, 0, 0.1);
         z-index: 1000;
     }
 
     .popup-content {
         background: #fff;
         border: 1px solid #e0e0e0;
-        border-radius: 10px;
         padding: 20px;
-        max-width: 80%;
-        max-height: 80%;
+        width: auto;
+        height: auto;
         overflow: auto;
         position: relative;
         text-align: left;
@@ -203,7 +187,7 @@
         border: 1px solid #e0e0e0;
         border-radius: 20px;
         box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1), 2px 0 2px rgba(0, 0, 0, 0.1), -2px 0 2px rgba(0, 0, 0, 0.05);
-        width: 50%;
+        width: 50;
         padding: 5px;
         height: 300px;
         margin: auto;
@@ -212,19 +196,17 @@
         display: flex;
     }
 
+
     .projectInfo-tile {
         background-color: #ffffff;
-        border: 3px solid #00000f;
-        font-size: 25px;
+        border: 0px solid #00000f;
+        font-size: 1rem;
         border-radius: 20px;
         box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1), 2px 0 2px rgba(0, 0, 0, 0.1), -2px 0 2px rgba(0, 0, 0, 0.05);
-        width: 50%;
-        padding: 5px;
+        width: 5rem;
+        padding: auto;
         height: 550px;
         margin: auto;
-        margin-top: 175px;
-        margin-left: 500px;
-        align-self: center;
         display: flex;
         position: fixed;
         z-index: 1001;
@@ -262,49 +244,28 @@
         display: inline-block;
     }
 
-    .event-div {
+    .info-div {
         position: relative;
         color: #ffffff;
+        display: flex;
+        margin: 3%;
     }
 
-    .date-div {
-        position: relative;
-        color: #ffffff
-    }
 
-    .location {
-        margin-top: 10px;
+    .info-img {
+        margin-right: 5%;
+        margin-top: 0.5%;
         position: relative;
         width: fit-content;
         display: flex;
         align-content: flex-start;
     }
 
-    .pin {
-        margin-right: 20px;
-        left: 0;
-    }
-
-    .location-text {
-        right: 0;
-        color: #ffffff
-    }
-
-    .participants {
+    #info-text {
         position: relative;
-        width: fit-content;
-        display: flex;
-        align-content: flex-start;
-    }
-
-    .members {
-        margin-right: 20px;
-        left: 0;
-    }
-
-    .members-text {
         right: 0;
-        color: #ffffff;
+        font-size: 20px;
+        color: #ffffff
     }
 
     .proj-btns {
