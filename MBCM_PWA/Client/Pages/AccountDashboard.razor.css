@@ -1,2 +1,157 @@
-﻿body {
+﻿@media only screen and (min-width: 768px) {
+    .main-area {
+        position: relative;
+        padding: 10px;
+        display: block;
+    }
+
+    .info-tile {
+        position: absolute;
+        background-color: #ffffff;
+        border: 1px solid #e0e0e0;
+        border-radius: 20px;
+        box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1), 2px 0 2px rgba(0, 0, 0, 0.1), -2px 0 2px rgba(0, 0, 0, 0.05);
+        padding: 20px;
+        width: 30%;
+        height: 500px;
+        margin-left: 40px;
+        margin-right: 100px;
+        align-self: center;
+        float: left;
+    }
+
+    .pfp {
+        position: relative;
+        width: 100%;
+        height: auto;
+        padding: inherit;
+    }
+
+    .profile-con {
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1), 2px 0 2px rgba(0, 0, 0, 0.1), -2px 0 2px rgba(0, 0, 0, 0.05);
+        margin: auto;
+        position: relative;
+        margin-left: 25%;
+    }
+
+
+    .details-con {
+        margin-top: 10px;
+        position: relative;
+        width: fit-content;
+        display: flex;
+        align-content: flex-start;
+    }
+
+    .proj-section {
+        position: absolute;
+        background-color: #ffffff;
+        border: 1px solid #e0e0e0;
+        border-radius: 20px;
+        box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1), 2px 0 2px rgba(0, 0, 0, 0.1), -2px 0 2px rgba(0, 0, 0, 0.05);
+        padding: 20px;
+        width: 40%;
+        height: 800px;
+        margin-right: 10%;
+        right: 0;
+        overflow-y: auto; /* Add a vertical scrollbar */
+    }
+
+    .project-card {
+        margin-bottom: 20px; /* Add some margin between project cards */
+        padding: 15px;
+        border: 1px solid #ddd; /* Add a border for better separation */
+        border-radius: 10px;
+        background-color: #f9f9f9; /* Add a light background color */
+    }
+
+    .left-t {
+        text-align: left;
+        width: 100px;
+    }
+
+    .right-t {
+        margin-left: 50px;
+    }
+}
+
+
+@media only screen and (max-width: 768px) {
+    .main-area {
+        position: relative;
+        padding: 10px;
+        display: block;
+    }
+
+    .info-tile {
+        background-color: #ffffff;
+        border: 1px solid #e0e0e0;
+        border-radius: 20px;
+        box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1), 2px 0 2px rgba(0, 0, 0, 0.1), -2px 0 2px rgba(0, 0, 0, 0.05);
+        padding: 20px;
+        width: 90%;
+        height: auto;
+        margin: auto;
+        align-self: center;
+    }
+
+    .pfp {
+        position: relative;
+        width: 100%;
+        height: auto;
+        padding: inherit;
+    }
+
+    .profile-con {
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1), 2px 0 2px rgba(0, 0, 0, 0.1), -2px 0 2px rgba(0, 0, 0, 0.05);
+        margin: auto;
+        position: relative;
+        margin-left: 25%;
+    }
+
+
+    .details-con {
+        margin-top: 10px;
+        position: relative;
+        width: fit-content;
+        display: flex;
+        align-content: flex-start;
+    }
+
+    .proj-section {
+        background-color: #ffffff;
+        border: 1px solid #e0e0e0;
+        border-radius: 20px;
+        box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1), 2px 0 2px rgba(0, 0, 0, 0.1), -2px 0 2px rgba(0, 0, 0, 0.05);
+        padding: 20px;
+        width: 90%;
+        margin:auto;
+        margin-top: 10%;
+        height: auto;
+        overflow-y: auto; /* Add a vertical scrollbar */
+    }
+
+    .project-card {
+        margin-bottom: 20px; /* Add some margin between project cards */
+        padding: 15px;
+        border: 1px solid #ddd; /* Add a border for better separation */
+        border-radius: 10px;
+        background-color: #f9f9f9; /* Add a light background color */
+    }
+
+    .left-t {
+        text-align: left;
+        width: 80px;
+    }
+
+    .right-t {
+        margin-left: 60px;
+        word-wrap: anywhere;
+    }
 }

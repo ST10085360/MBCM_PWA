@@ -21,7 +21,7 @@
                 Members:
                 @foreach (var userProject in group)
                 {
-                    <div class="member">
+                    <div class="member"  style="margin-top: 10px;">
                         @userProject.User.firstName @userProject.User.lastName
                         <button class="btn btn-danger btn-sm" @onclick="() => ConfirmRemoveUserFromProject(userProject.userProjectID)">Remove</button>
                     </div>
