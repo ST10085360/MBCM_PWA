@@ -356,140 +356,175 @@ namespace MBCM_PWA.Server.Controllers
         }
 
         [HttpDelete("remove-user/{userId}")]
-        public IActionResult RemoveUser(int userId)
+public IActionResult RemoveUser(int userId)
+{
+    try
+    {
+        Console.WriteLine($"Removing user with ID: {userId}");
+
+        var user = _dbContext.tblUser.Find(userId);
+
+        if (user == null)
         {
-            var user = _dbContext.tblUser.Find(userId);
-
-            if (user == null)
-            {
-                return NotFound();
-            }
-
-            // Remove the user from projects
-            var userProjects = _dbContext.tblUserProject.Where(up => up.userID == userId);
-            _dbContext.tblUserProject.RemoveRange(userProjects);
-
-            // Remove the user's requests
-            var userRequests = _dbContext.tblRequest.Where(req => req.UserID == userId);
-            _dbContext.tblRequest.RemoveRange(userRequests);
-
-            // Remove the user
-            _dbContext.tblUser.Remove(user);
-
-            _dbContext.SaveChanges();
-
-            return Ok();
+            Console.WriteLine($"User with ID {userId} not found.");
+            return NotFound();
         }
 
-        [HttpGet("getUserDetails/{userId}")]
-        public async Task<IActionResult> GetUserDetails(int userId)
+        using (var transaction = _dbContext.Database.BeginTransaction())
         {
             try
             {
-                var user = await _dbContext.tblUser
-                    .FirstOrDefaultAsync(u => u.UserID == userId);
+                // Remove the user from projects
+                var userProjects = _dbContext.tblUserProject.Where(up => up.userID == userId);
+                _dbContext.tblUserProject.RemoveRange(userProjects);
 
-                if (user != null)
+                // Remove the user's requests
+                var userRequests = _dbContext.tblRequest.Where(req => req.UserID == userId);
+                _dbContext.tblRequest.RemoveRange(userRequests);
+
+                // Remove the user credentials
+                var userCredentials = _dbContext.tblUserCredentials.FirstOrDefault(uc => uc.UserID == userId);
+                if (userCredentials != null)
                 {
-                    return Ok(user);
-                }
-                else
-                {
-                    return NotFound("User not found.");
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error in GetUserDetails: {ex.Message}");
-                return BadRequest($"Error getting user details: {ex.Message}");
-            }
-        }
-
-        [HttpGet("getUserProjects/{userId}")]
-        public IActionResult GetUserProjects(int userId)
-        {
-            var userProjects = _dbContext.tblUserProject
-                .Where(up => up.userID == userId)
-                .Include(up => up.Project) // Include the Project navigation property
-                .AsNoTracking()
-                .ToList();
-
-            return Ok(userProjects);
-        }
-
-        [HttpGet("project-suggestions")]
-        public IActionResult GetProjectSuggestions()
-        {
-            var projectSuggestions = _dbContext.tblProjectSuggestions
-                .AsNoTracking()
-                .ToList();
-
-            // Map the data to the SuggestedProject model
-            var suggestedProjects = projectSuggestions.Select(ps => new SuggestedProject
-            {
-                ProjectID = ps.ProjectID,
-                Title = ps.Title,
-                Description = ps.Description,
-                Location = ps.Location
-            }).ToList();
-
-            return Ok(suggestedProjects);
-        }
-
-        [HttpPost("AddProject")]
-        public IActionResult AddProject([FromBody] SuggestedProject model)
-        {
-            try
-            {
-                if (model == null)
-                {
-                    return BadRequest("Invalid project data.");
+                    _dbContext.tblUserCredentials.Remove(userCredentials);
                 }
 
-                var newProject = new SuggestedProject
-                {
-                    Title = model.Title,
-                    Description = model.Description,
-                    Location = model.Location
-                };
+                // Remove the user
+                _dbContext.tblUser.Remove(user);
 
-                _dbContext.tblProjectSuggestions.Add(newProject);
                 _dbContext.SaveChanges();
 
-                return Ok("Project added successfully.");
+                transaction.Commit();
+
+                Console.WriteLine($"User with ID {userId} removed successfully.");
+                return Ok();
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error adding project: {ex.Message}");
-                return BadRequest($"Error adding project. {ex.Message}");
+                transaction.Rollback();
+                Console.WriteLine($"Error removing user: {ex.Message}");
+                return BadRequest($"Error removing user. {ex.Message}");
             }
         }
-
-        [HttpDelete("delete-suggestion/{projectId}")]
-        public IActionResult DeleteSuggestion(int projectId)
-        {
-            try
-            {
-                var suggestion = _dbContext.tblProjectSuggestions.Find(projectId);
-
-                if (suggestion == null)
-                {
-                    return NotFound("Suggestion not found.");
-                }
-
-                _dbContext.tblProjectSuggestions.Remove(suggestion);
-                _dbContext.SaveChanges();
-
-                return Ok("Suggestion deleted successfully.");
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error deleting suggestion: {ex.Message}");
-                return BadRequest($"Error deleting suggestion. {ex.Message}");
-            }
-        }
-
-
-
     }
+    catch (Exception ex)
+    {
+        Console.WriteLine($"Error in RemoveUser: {ex.Message}");
+        return BadRequest($"Error in RemoveUser. {ex.Message}");
+    }
+}
+
+
+
+                [HttpGet("getUserDetails/{userId}")]
+                public async Task<IActionResult> GetUserDetails(int userId)
+                {
+                    try
+                    {
+                        var user = await _dbContext.tblUser
+                            .FirstOrDefaultAsync(u => u.UserID == userId);
+
+                        if (user != null)
+                        {
+                            return Ok(user);
+                        }
+                        else
+                        {
+                            return NotFound("User not found.");
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine($"Error in GetUserDetails: {ex.Message}");
+                        return BadRequest($"Error getting user details: {ex.Message}");
+                    }
+                }
+
+                [HttpGet("getUserProjects/{userId}")]
+                public IActionResult GetUserProjects(int userId)
+                {
+                    var userProjects = _dbContext.tblUserProject
+                        .Where(up => up.userID == userId)
+                        .Include(up => up.Project) // Include the Project navigation property
+                        .AsNoTracking()
+                        .ToList();
+
+                    return Ok(userProjects);
+                }
+
+                [HttpGet("project-suggestions")]
+                public IActionResult GetProjectSuggestions()
+                {
+                    var projectSuggestions = _dbContext.tblProjectSuggestions
+                        .AsNoTracking()
+                        .ToList();
+
+                    // Map the data to the SuggestedProject model
+                    var suggestedProjects = projectSuggestions.Select(ps => new SuggestedProject
+                    {
+                        ProjectID = ps.ProjectID,
+                        Title = ps.Title,
+                        Description = ps.Description,
+                        Location = ps.Location
+                    }).ToList();
+
+                    return Ok(suggestedProjects);
+                }
+
+                [HttpPost("AddProject")]
+                public IActionResult AddProject([FromBody] SuggestedProject model)
+                {
+                    try
+                    {
+                        if (model == null)
+                        {
+                            return BadRequest("Invalid project data.");
+                        }
+
+                        var newProject = new SuggestedProject
+                        {
+                            Title = model.Title,
+                            Description = model.Description,
+                            Location = model.Location
+                        };
+
+                        _dbContext.tblProjectSuggestions.Add(newProject);
+                        _dbContext.SaveChanges();
+
+                        return Ok("Project added successfully.");
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine($"Error adding project: {ex.Message}");
+                        return BadRequest($"Error adding project. {ex.Message}");
+                    }
+                }
+
+                [HttpDelete("delete-suggestion/{projectId}")]
+                public IActionResult DeleteSuggestion(int projectId)
+                {
+                    try
+                    {
+                        var suggestion = _dbContext.tblProjectSuggestions.Find(projectId);
+
+                        if (suggestion == null)
+                        {
+                            return NotFound("Suggestion not found.");
+                        }
+
+                        _dbContext.tblProjectSuggestions.Remove(suggestion);
+                        _dbContext.SaveChanges();
+
+                        return Ok("Suggestion deleted successfully.");
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine($"Error deleting suggestion: {ex.Message}");
+                        return BadRequest($"Error deleting suggestion. {ex.Message}");
+                    }
+                }
+
+
+
+            }
 }
