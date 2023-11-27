@@ -352,5 +352,66 @@ namespace MBCM_PWA.Server.Controllers
             return string.Equals(enteredPasswordHash, storedHashedPassword);
         }
 
+        [HttpDelete("remove-user/{userId}")]
+        public IActionResult RemoveUser(int userId)
+        {
+            var user = _dbContext.tblUser.Find(userId);
+
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            // Remove the user from projects
+            var userProjects = _dbContext.tblUserProject.Where(up => up.userID == userId);
+            _dbContext.tblUserProject.RemoveRange(userProjects);
+
+            // Remove the user's requests
+            var userRequests = _dbContext.tblRequest.Where(req => req.UserID == userId);
+            _dbContext.tblRequest.RemoveRange(userRequests);
+
+            // Remove the user
+            _dbContext.tblUser.Remove(user);
+
+            _dbContext.SaveChanges();
+
+            return Ok();
+        }
+
+        [HttpGet("getUserDetails/{userId}")]
+        public async Task<IActionResult> GetUserDetails(int userId)
+        {
+            try
+            {
+                var user = await _dbContext.tblUser
+                    .FirstOrDefaultAsync(u => u.UserID == userId);
+
+                if (user != null)
+                {
+                    return Ok(user);
+                }
+                else
+                {
+                    return NotFound("User not found.");
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error in GetUserDetails: {ex.Message}");
+                return BadRequest($"Error getting user details: {ex.Message}");
+            }
+        }
+
+        [HttpGet("getUserProjects/{userId}")]
+        public IActionResult GetUserProjects(int userId)
+        {
+            var userProjects = _dbContext.tblUserProject
+                .Where(up => up.userID == userId)
+                .Include(up => up.Project) // Include the Project navigation property
+                .AsNoTracking()
+                .ToList();
+
+            return Ok(userProjects);
+        }
     }
 }

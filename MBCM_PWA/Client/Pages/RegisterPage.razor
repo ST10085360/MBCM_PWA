@@ -1,15 +1,15 @@
 ﻿@page "/registerpage"
-@using MBCM_PWA.Client.Shared.Models;
-@using System.Text.Json;
+@using MBCM_PWA.Client.Shared.Models
+@using System.Text.Json
 @inject HttpClient httpClient
 @inject NavigationManager NavigationManager
 @inject userService UserService
 
-<PageTitle>Login</PageTitle>
+<PageTitle>Register</PageTitle>
 
 <body>
     <div class="main-logo">
-        <img id="logo" src="/css/MBCM_LOGO.png" alt="Logo" style="width:250px; height:auto" />
+        <img id="logo" src="/css/MBCM_LOGO.png" alt="Logo" style="width: 250px; height: auto" />
     </div>
     <div class="login-container">
         <div class="login-form">
@@ -26,7 +26,16 @@
                     </div>
                 </div>
             </div>
+            <!-- Display email validation error -->
+            @if (!string.IsNullOrEmpty(model.EmailValidationMessage))
+            {
+                <div class="alert alert-danger small-error" role="alert">
+                    @model.EmailValidationMessage
+                </div>
+            }
+
             <br />
+
             <div class="row mb-3">
                 @* /* FIRST NAME */ *@
                 <label class="col-sm-3 col-form-label">
@@ -38,7 +47,16 @@
                     </div>
                 </div>
             </div>
+            <!-- Display first name validation error -->
+            @if (!string.IsNullOrEmpty(model.FirstNameValidationMessage))
+            {
+                <div class="alert alert-danger small-error" role="alert">
+                    @model.FirstNameValidationMessage
+                </div>
+            }
+
             <br />
+
             <div class="row mb-3">
                 @* /* LAST NAME */ *@
                 <label class="col-sm-3 col-form-label">
@@ -50,7 +68,16 @@
                     </div>
                 </div>
             </div>
+            <!-- Display last name validation error -->
+            @if (!string.IsNullOrEmpty(model.LastNameValidationMessage))
+            {
+                <div class="alert alert-danger small-error" role="alert">
+                    @model.LastNameValidationMessage
+                </div>
+            }
+
             <br />
+
             <div class="row mb-3">
                 @* /* Biography/ Description */ *@
                 <label class="col-sm-3 col-form-label">
@@ -62,7 +89,16 @@
                     </div>
                 </div>
             </div>
+            <!-- Display bio validation error -->
+            @if (!string.IsNullOrEmpty(model.BioValidationMessage))
+            {
+                <div class="alert alert-danger small-error" role="alert">
+                    @model.BioValidationMessage
+                </div>
+            }
+
             <br />
+
             <div class="row mb-3">
                 @* /* PHONE NUMBER */ *@
                 <label class="col-sm-3 col-form-label">
@@ -74,6 +110,16 @@
                     </div>
                 </div>
             </div>
+            <!-- Display phone number validation error -->
+            @if (!string.IsNullOrEmpty(model.PhoneNumValidationMessage))
+            {
+                <div class="alert alert-danger small-error" role="alert">
+                    @model.PhoneNumValidationMessage
+                </div>
+            }
+
+            <br />
+
             <div class="row mb-3">
                 @* /* PASSWORD */ *@
                 <label class="col-sm-3 col-form-label">
@@ -85,11 +131,18 @@
                     </div>
                 </div>
             </div>
+            <!-- Display password validation error -->
+            @if (!string.IsNullOrEmpty(model.PasswordValidationMessage))
+            {
+                <div class="alert alert-danger small-error" role="alert">
+                    @model.PasswordValidationMessage
+                </div>
+            }
 
             <div class="row mb-3">
                 @* /* CONFIRM PASSWORD */ *@
                 <label class="col-sm-3 col-form-label">
-                    <img src="/css/email-icon.png" alt="Email Icon" class="mr-2 small-icon"> Conmfirm password :
+                    <img src="/css/email-icon.png" alt="Email Icon" class="mr-2 small-icon"> Confirm password:
                 </label>
                 <div class="col-sm-6">
                     <div class="shadow-sm">
@@ -97,6 +150,13 @@
                     </div>
                 </div>
             </div>
+            <!-- Display confirm password validation error -->
+            @if (!string.IsNullOrEmpty(model.ConfirmPasswordValidationMessage))
+            {
+                <div class="alert alert-danger small-error" role="alert">
+                    @model.ConfirmPasswordValidationMessage
+                </div>
+            }
 
             <div class="text-center">
                 <button style="width: 100px" @onclick="RegisterUser" class="btn btn-dark">Register</button>
@@ -105,7 +165,6 @@
         </div>
     </div>
 </body>
-
 
 @code {
     [Parameter] public int UserId { get; set; }
@@ -116,21 +175,66 @@
     {
         try
         {
-            // Validate the password and confirm password match
-            if (model.Password != model.ConfirmPassword)
+            // Reset validation messages
+            model.EmailValidationMessage = string.Empty;
+            model.FirstNameValidationMessage = string.Empty;
+            model.LastNameValidationMessage = string.Empty;
+            model.BioValidationMessage = string.Empty;
+            model.PhoneNumValidationMessage = string.Empty;
+            model.PasswordValidationMessage = string.Empty;
+            model.ConfirmPasswordValidationMessage = string.Empty;
+            
+            // Validate the email
+            if (string.IsNullOrEmpty(model.Email) || !model.Email.Contains("@"))
             {
-                Console.WriteLine("Password and Confirm Password do not match.");
-                // You can display an error message to the user if needed
+                model.EmailValidationMessage = "Please enter a valid email address.";
                 return;
             }
-            Console.WriteLine($"Model data: {JsonSerializer.Serialize(model)}");
 
-            Console.WriteLine("Before API Call");
+            // Validate first name
+            if (string.IsNullOrEmpty(model.FirstName))
+            {
+                model.FirstNameValidationMessage = "Please enter your first name.";
+                return;
+            }
 
-            // Call your API endpoint here
+            // Validate last name
+            if (string.IsNullOrEmpty(model.LastName))
+            {
+                model.LastNameValidationMessage = "Please enter your last name.";
+                return;
+            }
+
+            // Validate bio
+            if (string.IsNullOrEmpty(model.Bio))
+            {
+                model.BioValidationMessage = "Please enter a bio/description.";
+                return;
+            }
+
+            // Validate phone number
+            if (string.IsNullOrEmpty(model.PhoneNum))
+            {
+                model.PhoneNumValidationMessage = "Please enter your phone number.";
+                return;
+            }
+
+            // Validate the password
+            if (string.IsNullOrEmpty(model.Password))
+            {
+                model.PasswordValidationMessage = "Please enter a password.";
+                return;
+            }
+
+            // Validate the confirm password
+            if (string.IsNullOrEmpty(model.ConfirmPassword) || model.ConfirmPassword != model.Password)
+            {
+                model.ConfirmPasswordValidationMessage = "Please confirm your password.";
+                return;
+            }
+
             var response = await httpClient.PostAsJsonAsync("api/Projects/register", model);
 
-            Console.WriteLine("After API Call");
             if (!response.IsSuccessStatusCode)
             {
                 var errorMessage = await response.Content.ReadAsStringAsync();
@@ -140,9 +244,18 @@
             if (response.IsSuccessStatusCode)
             {
                 Console.WriteLine("User registered successfully!");
+                var userIdResponse = await httpClient.GetStringAsync($"api/Projects/getUserId?email={model.Email}");
+                if (int.TryParse(userIdResponse, out var userId))
+                {
+                    UserService.SetUserId(userId);
 
-                UserService.SetUserId(UserId);
-                NavigationManager.NavigateTo($"/projects");
+                    // Reset model
+                    model = new UserRegistration();
+
+                    // Navigate to projects page
+                    NavigationManager.NavigateTo($"/projects");
+                    return;
+                }
             }
             else
             {
@@ -156,7 +269,7 @@
         }
     }
 }
-
+}
 
 <style>
     .main-logo {
@@ -201,4 +314,11 @@
             font-size: 14px;
             color: white;
         }
+
+    /* Style for small error messages */
+    .small-error {
+        font-size: 12px;
+        padding: 0.25rem 0.5rem;
+        margin-top: -0.5rem; /* Adjust the position if needed */
+    }
 </style>

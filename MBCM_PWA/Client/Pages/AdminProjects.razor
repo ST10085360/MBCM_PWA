@@ -1,22 +1,22 @@
 ﻿@page "/adminprojects"
-@using MBCM_PWA.Client.Shared.Models;
-@using System.Net.Http.Json;
-@using System.Text.Json;
+@using System.Net.Http.Json
+@using MBCM_PWA.Client.Shared.Models
+@using System.Net.Http.Json
+@using System.Text.Json
 @inject HttpClient HttpClient
 
-
-<h3>All Projects: </h3>
+<h3>All Projects:</h3>
 <div class="project-grid">
     @foreach (var project in projects)
     {
         <div class="project-cell">
             <h4>@project.prjTitle</h4>
-            <h4>@project.prjDescription</h4>
+            <p>@project.prjDescription</p>
         </div>
     }
 </div>
 
-<h3>Active Projects: </h3>
+<h3>Active Projects:</h3>
 <div class="project-grid">
     @{
         var groupedUserProjects = userProjects.GroupBy(up => up.projectID);
@@ -25,14 +25,13 @@
     {
         <div class="project-cell">
             <h4>@group.First().Project.prjTitle</h4>
-
             <div>
                 Members:
                 @foreach (var userProject in group)
                 {
                     <div>
                         - @userProject.User.firstName @userProject.User.lastName
-                        <button class="btn btn-danger" @onclick="() => ConfirmRemoveUserFromProject(userProject.userProjectID)">Remove</button>
+                        <button class="btn btn-danger btn-sm" @onclick="() => ConfirmRemoveUserFromProject(userProject.userProjectID)">Remove</button>
                     </div>
                 }
             </div>
@@ -40,6 +39,7 @@
     }
 </div>
 
+<!-- Confirmation Modal for Remove User From Project -->
 @if (showConfirmation)
 {
     <div class="modal" tabindex="-1" style="display: block;">
@@ -73,8 +73,8 @@
                 <div>Email: @request.User.userEmail</div>
             </div>
             <div>
-                <button class="btn btn-success" @onclick="() => AcceptRequest(request)">Accept</button>
-                <button class="btn btn-danger" @onclick="() => DeclineRequest(request)">Decline</button>
+                <button class="btn btn-success btn-sm" @onclick="() => AcceptRequest(request)">Accept</button>
+                <button class="btn btn-danger btn-sm" @onclick="() => DeclineRequest(request)">Decline</button>
             </div>
         </div>
     }
@@ -85,11 +85,36 @@
     @foreach (var user in users)
     {
         <div class="project-cell">
+            <h4>@user.UserID</h4>
             <h4>@user.firstName @user.lastName</h4>
-            <!-- Display other user details as needed -->
+            <h4>@user.userEmail</h4>
+            <h4>@user.userPhoneNumber</h4>
+            <button class="btn btn-danger btn-sm" @onclick="() => ConfirmRemoveUser(user.UserID)">Remove</button>
         </div>
     }
 </div>
+
+<!-- Confirmation Modal for Remove User -->
+@if (showUserRemoveConfirmation)
+{
+    <div class="modal" tabindex="-1" style="display: block;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Confirm User Removal</h5>
+                    <button type="button" class="btn-close" @onclick="CancelRemoveUser"></button>
+                </div>
+                <div class="modal-body">
+                    Are you sure you want to remove the user?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" @onclick="CancelRemoveUser">Cancel</button>
+                    <button type="button" class="btn btn-danger" @onclick="RemoveUser">Remove</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
 
 
 
@@ -102,7 +127,9 @@
 
     bool showConfirmation;
     int userProjectIdToRemove;
-
+    bool showUserRemoveConfirmation;
+    int userIdToRemove;
+    
     protected override async Task OnInitializedAsync()
     {
         projects = await HttpClient.GetFromJsonAsync<List<Project>>("api/projects");
@@ -140,6 +167,24 @@
     {
         showConfirmation = false;
     }
+
+    private void ConfirmRemoveUser(int userId)
+    {
+        userIdToRemove = userId;
+        showUserRemoveConfirmation = true;
+    }
+
+    private async Task RemoveUser()
+    {
+        await HttpClient.DeleteAsync($"api/projects/remove-user/{userIdToRemove}");
+        users.RemoveAll(u => u.UserID == userIdToRemove);
+        showUserRemoveConfirmation = false;
+    }
+
+    private void CancelRemoveUser()
+    {
+        showUserRemoveConfirmation = false;
+    }
 }
 
 <style>
@@ -156,5 +201,10 @@
         padding: 10px;
         text-align: center;
         margin: 10px;
+    }
+
+    .btn-sm {
+        padding: 5px 10px;
+        font-size: 12px;
     }
 </style>

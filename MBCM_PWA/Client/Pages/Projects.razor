@@ -29,8 +29,12 @@
                 <img class="info-img" src="/css/group.png"  />
                 <h5 class="info-text">Number of Participants</h5>
             </div>
+            <div class="participants">
+                <img class="members" src="/css/group.png" style="width:20px; height:20px" />
+                <h5 class="members-text"></h5>
+            </div>
             <div class="proj-btns">
-                <button class="primary" style="@projectState.ButtonColor" @onclick="() => SendRequest(projectState)">@projectState.ButtonText</button>
+                <button class="btn btn-primary" style="@projectState.ButtonColor" @onclick="() => SendRequest(projectState)">@projectState.ButtonText</button>
             </div>
         </div>
     </div>
@@ -40,7 +44,7 @@
 
 @code {
     List<ProjectState> projectStates = new List<ProjectState>();
-    UserLogin loginModel = new UserLogin();
+    UserLogin loginModel = new UserLogin(); 
 
     protected override async Task OnInitializedAsync()
     {
