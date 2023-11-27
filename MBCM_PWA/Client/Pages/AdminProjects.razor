@@ -10,7 +10,13 @@
 
     <div class="active-projects">
 
-<h3>Active Projects:</h3>
+<div class="add-proj-header">
+<h3 class="active-head">Active Projects:</h3>
+<div class="new-btn" @* @onclick="togglePopup" @onmouseover="showText" @onmouseout="hideText" *@>
+    <img class="new-img" src="/css/NewProject.png" alt="location" />
+    <div class="plus-text">Add new project</div>
+    </div>
+        </div>
 <div class="active-grid">
     @{
         var groupedUserProjects = userProjects.GroupBy(up => up.projectID);
@@ -35,6 +41,15 @@
         </div>
 
     </div>
+
+@*     <div class="popup" style="display: @(showPopup ? "block" : "none")">
+        <div class="popup-content">
+            <!-- Your popup content goes here -->
+            <h4>Add New Project</h4>
+            <!-- Additional form elements or content -->
+            <button @onclick="ClosePopup">Close</button>
+        </div>
+    </div> *@
 
 <!-- Confirmation Modal for Remove User From Project -->
 @if (showConfirmation)
@@ -80,14 +95,13 @@
 
 <div class="active-users">
 <h3>Users</h3>
-<div class="active-grid">
+<div class="user-grid">
     @foreach (var user in users)
     {
-        <div class="project-cell">
-            <h4>@user.UserID</h4>
-            <h4>@user.firstName @user.lastName</h4>
-            <h4>@user.userEmail</h4>
-            <h4>@user.userPhoneNumber</h4>
+        <div class="user-cell">
+            <p class="user-field">@user.firstName @user.lastName</p>
+            <p class="user-field">@user.userEmail</p>
+            <p class="user-field">@user.userPhoneNumber</p>
             <button class="btn btn-danger btn-sm" @onclick="() => ConfirmRemoveUser(user.UserID)">Remove</button>
         </div>
     }

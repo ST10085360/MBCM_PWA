@@ -98,6 +98,42 @@
         box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1), 2px 0 2px rgba(0, 0, 0, 0.1), -2px 0 2px rgba(0, 0, 0, 0.05);
     }
 
+    .add-proj-header {
+        display: flex;
+        position: relative;
+        width: 100%;
+        height: auto;
+    }
+
+    .add-proj-header {
+        margin: 5%;
+        display: grid;
+        grid-template-columns: 1.3fr 0.5fr;
+        grid-template-areas:
+            "active-head new-btn";
+    }
+
+    .active-head {
+        float: left;
+        grid-area: active-head;
+    }
+    .new-btn {
+        display: flex;
+        cursor: pointer;
+        float: right;
+        grid-area: new-btn;
+    }
+
+    .new-img {
+        margin-right: 5%;
+        margin-top: 0.5%;
+        position: relative;
+        width: fit-content;
+        display: flex;
+        align-content: flex-start;
+        width: 20px;
+        height: 20px
+    }
 
     .active-grid {
         display: grid;
@@ -107,7 +143,7 @@
 
     .user-grid {
         display: grid;
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(1, 1fr);
         gap: 10px; /* Adjust the gap between cells */
     }
 
@@ -147,6 +183,22 @@
         position: relative;
         overflow: hidden;
         z-index: 1;
+    }
+
+    .user-cell {
+        border: 1px solid #ccc;
+        border-radius: 20px;
+        box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1), 2px 0 2px rgba(0, 0, 0, 0.1), -2px 0 2px rgba(0, 0, 0, 0.05);
+        padding: 10px;
+        text-align: center;
+        margin: 2%;
+        display: flex;
+    }
+
+    .user-field {
+        font-size: 12px;
+        margin: auto;
+        margin-right: 20px;
     }
 }
 
