@@ -1,7 +1,7 @@
 @import url('open-iconic/font/css/open-iconic-bootstrap.min.css');
 
 html, body {
-    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-family: 'Google Sans',Roboto,Arial,sans-serif;
 }
 
 h1:focus {
@@ -23,7 +23,7 @@ a, .btn-link {
 }
 
 .content {
-    padding-top: 1.2rem;
+    padding-top: 0;
 }
 
 .valid.modified:not([type=checkbox]) {
@@ -103,56 +103,85 @@ a, .btn-link {
 
     /*CUSTOM STYLING*/
 
-    .splash-background {
-        background-image: url(../css/LINKING_ARMS_BLURRED.png);
-        background-size: cover;
-        position: relative;
-        width: auto;
-        height: auto;
-    }
-
-@media only screen and (min-width: 768px) {
     
+
+:root {
+    --primary-color: #233142;
+    --secondary-color: #455d7a;
+    --text-primary: #F9F9F9;
+    --text-secondary: #1E1E1E;
+    --error-primary: #f95959;
+
+    --background-primary : #e3e3e3;
+
+    --background-secondary: #f95959;
 }
 
 
-    @media only screen and (max-width: 768px) {
-        .info-text {
-            font-size: 15px;
-            color: #ffffff;
-        }
-
-        .project-tile {
-            width: 75%;
-            aspect-ratio: 5 / 7;
-            display: none;
-        }
-
-        .proj-left {
-            width: auto;
-            height: auto;
-            background-color: #ffffff;
-            border-bottom-left-radius: 14px;
-            border-top-left-radius: 14px;
-            box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1), 2px 0 2px rgba(0, 0, 0, 0.1), -2px 0 2px rgba(0, 0, 0, 0.05);
-            text-align: left;
-            top: 0;
-        }
-
-        .proj-right {
-            height: auto;
-            width: auto;
-            background-color: #333F50;
-            border-bottom-right-radius: 14px;
-            border-top-right-radius: 14px;
-            box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1), 2px 0 2px rgba(0, 0, 0, 0.1), -2px 0 2px rgba(0, 0, 0, 0.05);
-        }
-
-        .title-div {
-            background-color: aqua;
-        }
-
-        .primary {
-            font-size: 15px;
-        }
+    .primary {
+      align-items: center;
+      appearance: none;
+      background-color: #fff;
+      border-radius: 24px;
+      border-style: none;
+      box-sizing: border-box;
+      color: #3c4043;
+      cursor: pointer;
+      display: inline-flex;
+      fill: currentcolor;
+      font-family: "Google Sans",Roboto,Arial,sans-serif;
+      font-size: 14px;
+      font-weight: 500;
+      height: 48px;
+      justify-content: center;
+      letter-spacing: .25px;
+      line-height: normal;
+      max-width: 100%;
+      overflow: visible;
+      padding: 2px 24px;
+      position: relative;
+      text-align: center;
+      text-transform: none;
+      transition: box-shadow 280ms cubic-bezier(.4, 0, .2, 1),opacity 15ms linear 30ms,transform 270ms cubic-bezier(0, 0, .2, 1) 0ms;
+      user-select: none;
+      -webkit-user-select: none;
+      touch-action: manipulation;
+      width: auto;
+      will-change: transform,opacity;
+      z-index: 0;
     }
+    
+    .primary:hover {
+      background: #F6F9FE;
+      color: #174ea6;
+    }
+    
+    .primary:active {
+      box-shadow: 0 4px 4px 0 rgb(60 64 67 / 30%), 0 8px 12px 6px rgb(60 64 67 / 15%);
+      outline: none;
+    }
+    
+    .primary:focus {
+      outline: none;
+    }
+    
+    .primary:not(:disabled) {
+      box-shadow: rgba(60, 64, 67, .3) 0 1px 3px 0, rgba(60, 64, 67, .15) 0 4px 8px 3px;
+    }
+    
+    .primary:not(:disabled):hover {
+      box-shadow: rgba(60, 64, 67, .3) 0 2px 3px 0, rgba(60, 64, 67, .15) 0 6px 10px 4px;
+    }
+    
+    .primary:not(:disabled):focus {
+      box-shadow: rgba(60, 64, 67, .3) 0 1px 3px 0, rgba(60, 64, 67, .15) 0 4px 8px 3px;
+    }
+    
+    .primary:not(:disabled):active {
+      box-shadow: rgba(60, 64, 67, .3) 0 4px 4px 0, rgba(60, 64, 67, .15) 0 8px 12px 6px;
+    }
+    
+    .primary:disabled {
+      box-shadow: rgba(60, 64, 67, .3) 0 1px 3px 0, rgba(60, 64, 67, .15) 0 4px 8px 3px;
+    }
+

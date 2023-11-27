@@ -14,19 +14,19 @@
 {
     <div class="project-tile">
         <div class="proj-left">
-            <h3 class="title-div">@projectState.Project.prjTitle</h3>
+            <div class="title-div"><p>@projectState.Project.prjTitle</p></div>
         </div>
         <div class="proj-right">
             <div class="info-div">
-                <img class="info-img" src="/css/pin.png" alt="location" style="width:20px; height:20px" />
+                <img class="info-img" src="/css/calendar.png" alt="location"  />
                 <h5 class="info-text">@projectState.Project.prjStartDate.ToShortDateString()</h5>
             </div>
             <div class="info-div">
-                <img class="info-img" src="/css/pin.png" alt="location" style="width:20px; height:20px" />
+                <img class="info-img" src="/css/pin.png" alt="location"  />
                 <h5 class="info-text">@projectState.Project.prjLocation</h5>
             </div>
             <div class="info-div">
-                <img class="info-img" src="/css/group.png" style="width:20px; height:20px" />
+                <img class="info-img" src="/css/group.png"  />
                 <h5 class="info-text">Number of Participants</h5>
             </div>
             <div class="participants">
@@ -101,7 +101,7 @@
     private void SetRequestFailedStatus(ProjectState projectState)
     {
         projectState.ButtonText = "Request Failed";
-        projectState.ButtonColor = "background-color:#FF0000";
+        projectState.ButtonColor = "background-color: var(--error-primary)";
     }
 
 
@@ -114,166 +114,3 @@
     }
 }
 
-
-<style>
-
-    .popup {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        position: fixed;
-        margin: auto;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.1);
-        z-index: 1000;
-    }
-
-    .popup-content {
-        background: #fff;
-        border: 1px solid #e0e0e0;
-        padding: 20px;
-        width: auto;
-        height: auto;
-        overflow: auto;
-        position: relative;
-        text-align: left;
-    }
-
-    .popup button {
-        margin-top: 10px;
-    }
-
-    .main-container {
-        position: relative;
-        height: 80vh;
-        overflow: auto;
-    }
-
-    .splash-background {
-        background-size: cover;
-        position: absolute;
-        height: 100%;
-        width: 100%;
-    }
-
-    .main-logo {
-        padding: 20px;
-        position: relative;
-        text-align: center;
-        margin-top: 100px;
-    }
-
-    .info-tile {
-        background-color: #ffffff;
-        border: 1px solid #e0e0e0;
-        border-radius: 20px;
-        box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1), 2px 0 2px rgba(0, 0, 0, 0.1), -2px 0 2px rgba(0, 0, 0, 0.05);
-        padding: 20px;
-        width: 70%;
-        height: 300px;
-        margin: auto;
-        margin-top: 100px;
-        align-self: center;
-    }
-
-
-
-    /* PROJECT TILE TEMPLATE STYLING */
-    .project-tile {
-        background-color: #ffffff;
-        border: 1px solid #e0e0e0;
-        border-radius: 20px;
-        box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1), 2px 0 2px rgba(0, 0, 0, 0.1), -2px 0 2px rgba(0, 0, 0, 0.05);
-        width: 50;
-        padding: 5px;
-        height: 300px;
-        margin: auto;
-        margin-top: 100px;
-        align-self: center;
-        display: flex;
-    }
-
-
-    .projectInfo-tile {
-        background-color: #ffffff;
-        border: 0px solid #00000f;
-        font-size: 1rem;
-        border-radius: 20px;
-        box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1), 2px 0 2px rgba(0, 0, 0, 0.1), -2px 0 2px rgba(0, 0, 0, 0.05);
-        width: 5rem;
-        padding: auto;
-        height: 550px;
-        margin: auto;
-        display: flex;
-        position: fixed;
-        z-index: 1001;
-    }
-
-
-    .proj-left {
-        width: 40%;
-        height: auto;
-        background-color: #ffffff;
-        float: left;
-        border-bottom-left-radius: 14px;
-        border-top-left-radius: 14px;
-        box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1), 2px 0 2px rgba(0, 0, 0, 0.1), -2px 0 2px rgba(0, 0, 0, 0.05);
-        text-align: center;
-        padding-top: 40px;
-    }
-
-    .title-div {
-        width: 50%;
-        margin: auto;
-    }
-
-    .proj-right {
-        position: relative;
-        height: auto;
-        width: 60%;
-        background-color: #333F50;
-        float: right;
-        padding: 40px;
-        padding-left: 50px;
-        border-bottom-right-radius: 14px;
-        border-top-right-radius: 14px;
-        box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1), 2px 0 2px rgba(0, 0, 0, 0.1), -2px 0 2px rgba(0, 0, 0, 0.05);
-        display: inline-block;
-    }
-
-    .info-div {
-        position: relative;
-        color: #ffffff;
-        display: flex;
-        margin: 3%;
-    }
-
-
-    .info-img {
-        margin-right: 5%;
-        margin-top: 0.5%;
-        position: relative;
-        width: fit-content;
-        display: flex;
-        align-content: flex-start;
-    }
-
-    #info-text {
-        position: relative;
-        right: 0;
-        font-size: 20px;
-        color: #ffffff
-    }
-
-    .proj-btns {
-        margin-top: 20px;
-        position: relative;
-        width: fit-content;
-        display: flex;
-        align-content: flex-start
-    }
-
-</style>
