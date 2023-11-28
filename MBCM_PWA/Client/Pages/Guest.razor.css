@@ -52,6 +52,24 @@
     cursor: pointer;
 }
 
+.info-text-tile {
+    position: relative;
+    background-color: #ffffff;
+    border: 2px solid orange;
+    border-radius: 20px;
+    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1), 2px 0 2px rgba(0, 0, 0, 0.1), -2px 0 2px rgba(0, 0, 0, 0.05);
+    padding: 20px;
+    width: 50%;
+    height: 300px;
+    margin: auto;
+    backdrop-filter: blur(40px);
+    margin-top: 100px;
+    align-self: center;
+    background-size: cover;
+    transition: font-size 0.5s ease;
+    cursor: pointer;
+}
+
 .join-heading {
     font-size: 30px;
 }

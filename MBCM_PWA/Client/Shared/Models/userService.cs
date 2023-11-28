@@ -22,7 +22,7 @@
         public void ClearAuthentication()
         {
             SetUserId(-1); 
-            SetUserType(null);
+            SetUserType("Guest");
         }
     }
 }
