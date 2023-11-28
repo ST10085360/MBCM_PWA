@@ -10,17 +10,17 @@
 <div class="main-container">
     <div class="splash-background">
         <div class="main-logo" style="margin-bottom: 20px;">
-            <img id="logo" src="/css/MBCM_LOGO.png" alt="Logo" style="width:300px; height:auto" />
+            <img class="logo" src="/css/MBCM_LOGO.png" alt="Logo"/>
             <h2>Welcome to the MBCM volunteer portal.</h2>
         </div>
     </div>
 </div>
 
-<div class="info-tile" style="margin-top: 20px; position: relative; background-image: url('/css/volunteer.jpg'); background-size: cover;">
-    <div class="text-center">
-        <h3>Join Our Volunteer Community!</h3>
-        <p>Ready to make a difference? Register as a volunteer today!</p>
-        <button class="btn btn-primary" @onclick="GoToRegisterPage">Register as Volunteer</button>
+<div class="info-tile">
+    <div class="text-center" >
+        <p class="join-heading">Join Our Volunteer Community!</p>
+        <p class="join-text">Ready to make a difference? Click here to register as a volunteer today!</p>
+        <button class="btn btn-primary" style="margin-top: 20px; font-size: 25px;" @onclick="GoToRegisterPage">Register as Volunteer</button>
     </div>
 </div>
 
@@ -48,134 +48,6 @@
 }
 
 <style>
-    .main-container {
-        position: relative;
-        height: 80vh;
-        overflow: auto;
-    }
-    .splash-background {
-        background-size: cover;
-        position: absolute;
-        height: 100%;
-        width: 100%;
-    }
-    .main-logo {
-        padding: 20px;
-        position: relative;
-        text-align: center;
-        margin-top: 100px;
-    }
-
-    .info-tile {
-        position: relative;
-        background-color: #ffffff;
-        border: 1px solid #e0e0e0;
-        border-radius: 20px;
-        box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1), 2px 0 2px rgba(0, 0, 0, 0.1), -2px 0 2px rgba(0, 0, 0, 0.05);
-        padding: 20px;
-        width: 70%;
-        height: 300px;
-        margin: auto;
-        backdrop-filter: blur(40px);
-        margin-top: 100px;
-        align-self: center;
-    }
-
-
-    /* PROJECT TILE TEMPLATE STYLING */
-    .project-tile {
-        background-color: #ffffff;
-        border: 1px solid #e0e0e0;
-        border-radius: 20px;
-        box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1), 2px 0 2px rgba(0, 0, 0, 0.1), -2px 0 2px rgba(0, 0, 0, 0.05);
-        width: 50%;
-        padding: 5px;
-        height: 300px;
-        margin: auto;
-        margin-top: 100px;
-        align-self: center;
-        display: flex;
-    }
-
-    .proj-left {
-        width: 40%;
-        height:auto;
-        background-color: #ffffff;
-        float: left;
-        border-bottom-left-radius: 14px;
-        border-top-left-radius: 14px;
-        box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1), 2px 0 2px rgba(0, 0, 0, 0.1), -2px 0 2px rgba(0, 0, 0, 0.05);
-        text-align: center;
-        padding-top: 40px;
-
-    }
-    .title-div {
-        width: 50%;
-        margin: auto;
-
-    }
-
-    .proj-right {
-        position: relative;
-        height: auto;
-        width: 60%;
-        background-color: #333F50;
-        float: right;
-        padding: 40px;
-        padding-left: 50px;
-        border-bottom-right-radius: 14px;
-        border-top-right-radius: 14px;
-        box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1), 2px 0 2px rgba(0, 0, 0, 0.1), -2px 0 2px rgba(0, 0, 0, 0.05);
-        display: inline-block;
-    }
-
-    .event-div {
-        position: relative;
-        color: #ffffff;
-        
-    }
-
-    .date-div {
-        position: relative;
-        color: #ffffff
-    }
-
-    .location {
-        margin-top: 20px;
-        position: relative;
-        width: fit-content;
-        display: flex;
-        align-content: flex-start;
-    }
-
-    .pin{
-        margin-top: 4px;
-        margin-right: 20px;
-        left: 0;
-    }
-
-    .location-text {        
-        right: 0;
-        color: #ffffff
-    }
-    
-    .participants {
-        margin-top: 20px;
-        position: relative;
-        width: fit-content;
-        display: flex;
-        align-content: flex-start;
-    }
-
-    .members {
-        margin-top: 4px;
-        margin-right: 20px;
-        left: 0;
-    }
-
-    .location-text {
-        right: 0;
-        color: #ffffff
-    }
+   
 
 </style>
