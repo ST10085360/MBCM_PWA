@@ -58,15 +58,15 @@
         height: 800px;
         margin-right: 10%;
         right: 0;
-        overflow-y: auto; /* Add a vertical scrollbar */
+        overflow-y: auto; 
     }
 
     .project-card {
-        margin-bottom: 20px; /* Add some margin between project cards */
+        margin-bottom: 20px;
         padding: 15px;
-        border: 1px solid orange; /* Add a border for better separation */
+        border: 1px solid orange; 
         border-radius: 10px;
-        background-color: #333F50; /* Add a light background color */
+        background-color: #333F50; 
         color: white
     }
 

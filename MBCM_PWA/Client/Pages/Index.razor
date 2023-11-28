@@ -3,6 +3,8 @@
 @using Microsoft.AspNetCore.Components.Web.Extensions
 @using System.Net.Http.Json
 @inject HttpClient HttpClient
+@inject NavigationManager navigationManager
+
 
 <PageTitle>Home</PageTitle>
 
@@ -14,10 +16,16 @@
         </div>
     </div>
 </div>
-
+<div class="info-text-tile" style="margin-top: 20px; position: relative; background-image: url('/css/volunteer.jpg'); background-size: cover;">
+    <div class="text-center" style="margin-bottom:0px; margin-top:30px">
+        <h1 style="font-weight:bold; color:white;">Join Our Community!</h1>
+        <p style="color:white;">Ready to make a difference? Register as a volunteer today!</p>
+        <button class="btn btn-primary" style="padding:10px; margin-top:20px; background-color: orange; border: 1px solid white; color: black" @onclick="GoToRegisterPage">Register as Volunteer</button>
+    </div>
+</div>
 <div class="about-section" style="text-align: center; margin-top: 70px;">
     <h1>About MBCM</h1>
-    <div class="info-tile" style="font-size: 15px; margin-top: 20px; text-align: left; display: flex; align-items: center;">
+    <div class="info-text-tile" style="font-size: 15px; margin-top: 20px; text-align: left; display: flex; align-items: center;">
         <div class="info-text">
             <h3>Our Establishment</h3>
             <p>MBCM was established toward the end of June 2021 by a group of men and women from various and diverse communities in Nelson Mandela Bay, who recognized the need for dedicated citizens to step in and start functioning in the sphere of local governance to effect the change needed to turn the Metro around. This sphere of governance has historically been reserved for members of political parties only.</p>
@@ -26,7 +34,7 @@
         </div>
     </div>
     <h1 style="margin-top: 50px; text-align: center;">Join Us</h1>
-    <div class="info-tile" style="font-size: 15px; margin-top: 30px; display: flex; align-items: center;">
+    <div class="info-text-tile" style="font-size: 15px; margin-top: 30px; display: flex; align-items: center;">
         <div class="info-text" style="text-align: left;">
             <h3 style="margin-top: 30px;">Become a Part of MBCM</h3>
             <p>MBCM invites individuals and groups from various sectors such as business, academia, community forums, spiritual leaders, etc., to participate in the strategic planning and guidance for Independent Candidates representing their respective wards.</p>
@@ -39,6 +47,9 @@
 </div>
 
 @code {
-    
+    private void GoToRegisterPage()
+    {
+        navigationManager.NavigateTo("/registerpage");
+    }
 }
 
