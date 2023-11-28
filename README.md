@@ -16,7 +16,7 @@ Welcome to the MBCM Volunteer Portal, a Progressive Web Application designed to 
 - [Active Community Projects](#active-community-projects)
 - [Community Feed](#community-feed)
 - [Account Dashboard Page](#account-dashboard-page)
-- [Frequently Asked Questions (FAQ) Page](#frequently-asked-question-faq-page)
+- [Frequently Asked Questions (FAQ) Page](#frequently-asked-questions-faq-page)
 - [Admin Dashboard Page](#admin-dashboard-page)
 - [License](#license)
 - [Contact](#contact)
