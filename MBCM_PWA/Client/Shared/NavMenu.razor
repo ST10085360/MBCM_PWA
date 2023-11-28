@@ -43,14 +43,6 @@
                 <span class="oi oi-list-rich" aria-hidden="true"></span> Community Feed
             </NavLink>
         </div>
-        @if (UserService.UserType == "Admin" || UserService.UserType == "Volunteer")
-        {
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="calendar">
-                <span class="oi oi-calendar" aria-hidden="true"></span> Calendar
-            </NavLink>
-        </div>
-        }
         @if (UserService.UserType == "Admin")
         {
             <div class="nav-item px-3">
