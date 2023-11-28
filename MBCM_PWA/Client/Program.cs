@@ -19,8 +19,6 @@ namespace MBCM_PWA.Client
             builder.Services.AddSingleton<userService>();
             
             await builder.Build().RunAsync();
-
-
         }
     }
 }

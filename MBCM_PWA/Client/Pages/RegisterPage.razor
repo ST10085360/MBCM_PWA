@@ -87,7 +87,8 @@
                 </label>
                 <div class="col-sm-6">
                     <div class="shadow-sm">
-                        <textarea id="Bio" name="Bio" @bind="model.Bio" rows="5" cols="43">...</textarea>
+                        <!-- Set the width of the textarea to match the other input fields -->
+                        <textarea id="Bio" name="Bio" @bind="model.Bio" rows="5" class="form-control form-control-sm"></textarea>
                     </div>
                 </div>
             </div>
