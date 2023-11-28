@@ -19,11 +19,14 @@
                 <span class="oi oi-home" aria-hidden="true"></span> Home
             </NavLink>
         </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="projects">
+        @if (UserService.UserType == "Volunteer" || UserService.UserType == "Guest")
+        {
+            <div class="nav-item px-3">
+                <NavLink class="nav-link" href="projects">
                 <span class="oi oi-clipboard" aria-hidden="true"></span> Projects Feed
             </NavLink>
         </div>
+        }
         <div class="nav-item px-3">
             <NavLink class="nav-link" href="suggestions">
                 <span class="oi oi-list-rich" aria-hidden="true"></span> Community Feed

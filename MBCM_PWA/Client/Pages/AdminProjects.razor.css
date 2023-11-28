@@ -209,7 +209,7 @@
         display: grid;
         grid-auto-columns: 1fr;
         grid-template-columns: 1.3fr, 1.3fr, 1.3fr;
-        gap: 50px 90px;
+        gap: 50px ;
         grid-template-areas:
             "active-projects"
             "requests"
@@ -220,6 +220,7 @@
         padding: 2%;
         grid-area: active-projects;
         margin: auto;
+        width: 90%;
         border: 1px solid #ccc;
         border-radius: 20px;
         box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1), 2px 0 2px rgba(0, 0, 0, 0.1), -2px 0 2px rgba(0, 0, 0, 0.05);
@@ -227,6 +228,8 @@
 
     .requests {
         padding: 5%;
+        margin: auto;
+        width: 90%;
         grid-area: requests;
         border: 1px solid #ccc;
         border-radius: 20px;
@@ -236,6 +239,8 @@
     .active-users {
         padding: 5%;
         grid-area: active-users;
+        margin: auto;
+        width: 90%;
         margin: auto;
         border: 1px solid #ccc;
         border-radius: 20px;
@@ -287,16 +292,11 @@
         display: flex;
         align-content: flex-start;
         width: 20px;
-        height: 20px
+        height: 20px;
     }
 
     .plus-text {
-        position: relative;
-        left: 20%;
-        white-space: nowrap;
-        background-color: none;
-        opacity: 0;
-        transition: left 0.1s ease-in-out, opacity 0.1s ease-in-out;
+        display: none;
     }
 
     .add-btn:hover .plus-text {
@@ -363,7 +363,7 @@
         padding: 10px;
         text-align: center;
         margin: 2%;
-        display: flex;
+        display: block;
     }
 
         .user-cell .primary {
@@ -372,7 +372,7 @@
         }
 
     .user-field {
-        font-size: 12px;
+        font-size: 15px;
         margin: auto;
         margin-right: 20px;
     }

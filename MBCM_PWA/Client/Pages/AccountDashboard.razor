@@ -38,6 +38,7 @@
                 <h6 class="right-t">@FullUserInfo?.userPhoneNumber</h6>
             </div>
         </div>
+        @if (UserService.UserType == "Volunteer"){
         <div class="proj-section">
             <br />
             <h2>Your Projects</h2>
@@ -60,6 +61,7 @@
                 <p>You are not currently a part of any projects.</p>
             }
         </div>
+        }
     </div>
 }
 else
