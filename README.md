@@ -65,10 +65,6 @@ This page allows users (admin or volunteers) to view and manage community projec
    - A confirmation modal will appear.
    - Confirm deletion to remove the suggestion.
 
-### Code Integration
-
-The code for this page involves fetching and displaying project suggestions. Admins can also add and delete suggestions.
-
 ## Account Dashboard Page
 
 This page provides an overview of the user's account details and, for volunteers, their associated projects.
@@ -90,9 +86,24 @@ This page provides an overview of the user's account details and, for volunteers
 3. **Viewing Associated Projects (For Volunteers):**
    - For volunteers, a section displays projects they are part of.
 
-### Code Integration
+## Frequently Asked Questions (FAQ) Page
 
-The C# code fetches and displays user details and associated projects.
+This page provides answers to common questions users may have about the community project portal.
+
+#### Features
+
+- Display of frequently asked questions.
+- Accordion-style interface for easy navigation.
+
+#### Usage
+
+1. **Accessing the FAQ Page:**
+   - Navigate to the "FAQ" page from the main portal navigation.
+
+2. **Viewing Questions and Answers:**
+   - The page presents a list of frequently asked questions.
+   - Click on a question to reveal its answer.
+   - The accordion-style interface allows for easy navigation.
 
 ### License
 This project is licensed under the MIT License - see the LICENSE file for details.
