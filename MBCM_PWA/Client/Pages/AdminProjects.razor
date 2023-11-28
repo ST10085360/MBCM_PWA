@@ -17,12 +17,12 @@
                 <h2 class="active-head">Active Projects:</h2>
                 <div class="new-btn">
                     <button class="add-btn" @onclick="ShowAddActiveProjectPage">
-                        <span class="icon" style="margin-left:-150px; margin-right:10px; width:30px; height:30px"><img class="new-img" src="/css/NewProject.png" alt="location" /></span>
+                        <span class="icon"><img class="new-img" src="/css/NewProject.png" alt="location" /></span>
                         <span class="text-body">Add New Active Project</span>
                     </button>
                 </div>
             </div>
-            <div class="active-grid" style="width:700px">
+            <div class="active-grid">
                 @{
                     var groupedUserProjects = userProjects.GroupBy(up => up.projectID);
                 }
