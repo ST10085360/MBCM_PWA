@@ -20,7 +20,7 @@
         padding: 5%;
         margin:auto;
         grid-area: active-projects;
-        border: 1px solid #ccc;
+        border: 2px solid orange;
         border-radius: 20px;
         background-color: #ffffff;
         box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1), 2px 0 2px rgba(0, 0, 0, 0.1), -2px 0 2px rgba(0, 0, 0, 0.05);
@@ -30,7 +30,7 @@
         padding-top: 14%;
         padding-left: 14%;
         grid-area: requests;
-        border: 1px solid #ccc;
+        border: 2px solid orange;
         border-radius: 20px;
         background-color: #ffffff;
         box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1), 2px 0 2px rgba(0, 0, 0, 0.1), -2px 0 2px rgba(0, 0, 0, 0.05);
@@ -40,7 +40,7 @@
         padding: 5%;
         grid-area: active-users;
         margin: auto;
-        border: 1px solid #ccc;
+        border: 2px solid orange;
         border-radius: 20px;
         background-color: #ffffff;
         box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1), 2px 0 2px rgba(0, 0, 0, 0.1), -2px 0 2px rgba(0, 0, 0, 0.05);
@@ -128,7 +128,7 @@
     }
 
     .member {
-        border: 1px solid #ccc;
+        border: 1px solid orange;
         border-radius: 20px;
         box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1), 2px 0 2px rgba(0, 0, 0, 0.1), -2px 0 2px rgba(0, 0, 0, 0.05);
         height: 50px;
@@ -145,7 +145,7 @@
     }
 
     .project-cell {
-        border: 1px solid #ccc;
+        border: 1px solid orange;
         border-radius: 20px;
         box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1), 2px 0 2px rgba(0, 0, 0, 0.1), -2px 0 2px rgba(0, 0, 0, 0.05);
         padding: 10px;
@@ -158,7 +158,7 @@
     }
 
     .user-cell {
-        border: 1px solid #ccc;
+        border: 1px solid orange;
         border-radius: 20px;
         box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1), 2px 0 2px rgba(0, 0, 0, 0.1), -2px 0 2px rgba(0, 0, 0, 0.05);
         padding: 10px;
@@ -199,8 +199,8 @@
         padding: 2%;
         grid-area: active-projects;
         margin: auto;
-        width: 80%;
-        border: 1px solid #ccc;
+        width: 90%;
+        border: 2px solid orange;
         border-radius: 20px;
         background-color: #ffffff;
         box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1), 2px 0 2px rgba(0, 0, 0, 0.1), -2px 0 2px rgba(0, 0, 0, 0.05);
@@ -211,7 +211,7 @@
         margin: auto;
         width: 90%;
         grid-area: requests;
-        border: 1px solid #ccc;
+        border: 2px solid orange;
         border-radius: 20px;
         background-color: #ffffff;
         box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1), 2px 0 2px rgba(0, 0, 0, 0.1), -2px 0 2px rgba(0, 0, 0, 0.05);
@@ -223,7 +223,7 @@
         margin: auto;
         width: 90%;
         margin: auto;
-        border: 1px solid #ccc;
+        border: 2px solid orange;
         border-radius: 20px;
         background-color: #ffffff;
         box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1), 2px 0 2px rgba(0, 0, 0, 0.1), -2px 0 2px rgba(0, 0, 0, 0.05);
@@ -307,13 +307,13 @@
     }
 
     .member {
-        border: 1px solid #ccc;
+        border: 1px solid orange;
         border-radius: 20px;
         box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1), 2px 0 2px rgba(0, 0, 0, 0.1), -2px 0 2px rgba(0, 0, 0, 0.05);
         height: 50px;
         padding: 8px;
         width: 250px;
-        margin:auto;
+        margin: auto;
     }
 
     .primary {
@@ -326,7 +326,7 @@
 
 
     .project-cell {
-        border: 1px solid #ccc;
+        border: 1px solid orange;
         border-radius: 20px;
         box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1), 2px 0 2px rgba(0, 0, 0, 0.1), -2px 0 2px rgba(0, 0, 0, 0.05);
         padding: 10px;
@@ -339,7 +339,7 @@
     }
 
     .user-cell {
-        border: 1px solid #ccc;
+        border: 1px solid orange;
         border-radius: 20px;
         box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1), 2px 0 2px rgba(0, 0, 0, 0.1), -2px 0 2px rgba(0, 0, 0, 0.05);
         padding: 10px;
