@@ -1,0 +1,88 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1" GroupingSetting="Access">
+  <Class Name="MBCM_PWA.Client.Shared.Models.DayEvent">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAJAlBAAA=</HashCode>
+      <FileName>Shared\Models\DayEvent.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MBCM_PWA.Client.Shared.Models.Project">
+    <Position X="4.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAgAAAAAAAAAAAAAABIAAAAAAABAAABAAIAA=</HashCode>
+      <FileName>Shared\Models\Project.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MBCM_PWA.Client.Shared.Models.ProjectRequest">
+    <Position X="6" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAAEAAAAAAAQAAAAACAgABAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Shared\Models\ProjectRequest.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MBCM_PWA.Client.Shared.Models.SuggestedProject">
+    <Position X="0.5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAgAEAAAAIAAAAABAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Shared\Models\SuggestedProject.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MBCM_PWA.Client.Shared.Models.User">
+    <Position X="2.25" Y="3.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAABAAAAAQAAAAAgIAACAAAAAQIgACAAAAAg=</HashCode>
+      <FileName>Shared\Models\User.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MBCM_PWA.Client.Shared.Models.UserCredentials">
+    <Position X="6" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAAAAAAAAAAAAAAAAggAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Shared\Models\UserCredentials.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MBCM_PWA.Client.Shared.Models.UserLogin">
+    <Position X="4.25" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAAAAAAgAAAAAAAACAAAAAAAAAAA=</HashCode>
+      <FileName>Shared\Models\UserLogin.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MBCM_PWA.Client.Shared.Models.UserProjects">
+    <Position X="10.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAAAEAAAAAACAAECAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Shared\Models\UserProjects.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MBCM_PWA.Client.Shared.Models.UserRegistration">
+    <Position X="7.75" Y="0.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>gAAAAEAAACAAABABCAAAAAAAAACAAUADAAAAIAAAIAg=</HashCode>
+      <FileName>Shared\Models\UserRegistration.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MBCM_PWA.Client.Shared.Models.userService">
+    <Position X="2.25" Y="0.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAACAAAAAgAAAAgCAgAAAAgAAAAAAA=</HashCode>
+      <FileName>Shared\Models\userService.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MBCM_PWA.Client.Shared.Models.WeekClass">
+    <Position X="4.25" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAA=</HashCode>
+      <FileName>Shared\Models\WeekClass.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MBCM_PWA.Client.Program">
+    <Position X="10.25" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAAAA=</HashCode>
+      <FileName>Program.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

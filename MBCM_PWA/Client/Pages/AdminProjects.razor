@@ -13,15 +13,15 @@
 
         <div class="active-projects">
 
-<div class="add-proj-header">
-<h3 class="active-head">Active Projects:</h3>
-<div class="new-btn">
-    <button class="add-btn" @onclick="ShowAddActiveProjectPage">
-        <span class="icon"><img class="new-img" src="/css/NewProject.png" alt="location" /></span>
-        <span class="plus-text">Add New Active Project</span>
-    </button>
-</div>
-        </div>
+            <div class="add-proj-header">
+                <h3 class="active-head">Active Projects:</h3>
+                <div class="new-btn">
+                    <button class="add-btn" @onclick="ShowAddActiveProjectPage">
+                        <span class="icon"><img class="new-img" src="/css/NewProject.png" alt="location" /></span>
+                        <span class="plus-text">Add New Active Project</span>
+                    </button>
+                </div>
+            </div>
             <div class="active-grid">
                 @{
                     var groupedUserProjects = userProjects.GroupBy(up => up.projectID);
@@ -31,6 +31,7 @@
                     <div class="project-cell">
                         <h4>@projectState.Project.prjTitle</h4>
                         <p>@projectState.Project.prjDescription</p>
+                        <button class="primary" style="width: fit-content;" title="Remove this volunteer from the member group" @onclick="() => ConfirmRemoveProject(projectState.Project.ProjectID)">Delete Project</button>
                         <div class="members-dropdown">
                             Members:
                             @if (groupedUserProjects.Any())
@@ -76,6 +77,27 @@
                 </div>
             </div>
         }
+        <!-- Confirmation Modal for Remove User From Project -->
+        @if (showConfirmation)
+        {
+            <div class="modal" tabindex="-1" style="display: block;">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Confirm Removal</h5>
+                            <button type="button" class="btn-close" @onclick="CancelRemoveProject"></button>
+                        </div>
+                        <div class="modal-body">
+                            Are you sure you want to delete this project
+                        </div>
+                        <div class="modal-footer">
+                            <button title="Cancel this action" type="button" class="btn btn-secondary" @onclick="CancelRemoveProject">Cancel</button>
+                            <button title="Remove this user" type="button" class="btn btn-danger" @onclick="RemoveProject">Remove</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
         <div class="requests">
             <h3>Project Requests</h3>
             <div class="request-grid">
@@ -97,22 +119,21 @@
             </div>
         </div>
 
-<div class="active-users">
-<h3>Users</h3>
-<div class="user-grid">
-    @foreach (var user in users)
-    {
-        <div class="user-cell">
-            <p class="user-field" >@user.firstName @user.lastName</p>
-            <p class="user-field">@user.userEmail</p>
-            <p class="user-field">@user.userPhoneNumber</p>
-            <button title="Delete Account" class="primary" @onclick="() => ConfirmRemoveUser(user.UserID)">X</button>
-            
-            
+        <div class="active-users">
+            <h3>Users</h3>
+            <div class="user-grid">
+                @foreach (var user in users)
+                {
+                    <div class="user-cell">
+                        <p class="user-field">@user.firstName @user.lastName</p>
+                        <p class="user-field">@user.userEmail</p>
+                        <p class="user-field">@user.userPhoneNumber</p>
+                        <button title="Delete Account" class="primary" @onclick="() => ConfirmRemoveUser(user.UserID)">X</button>
+
+                    </div>
+                }
+            </div>
         </div>
-    }
-</div>
-</div>
 
 
         <!-- Confirmation Modal for Remove User -->
@@ -153,7 +174,9 @@ else
 
     bool showConfirmation;
     int userProjectIdToRemove;
+    int projectIdToRemove;
     bool showUserRemoveConfirmation;
+    bool showProjectRemoveConfirmation;
     int userIdToRemove;
 
 
@@ -194,6 +217,11 @@ else
         userProjectIdToRemove = userProjectID;
         showConfirmation = true;
     }
+    private void ConfirmRemoveProject(int projectID)
+    {
+        projectIdToRemove = projectID;
+        showConfirmation = true;
+    }
 
     private async Task RemoveUserFromProject()
     {
@@ -202,7 +230,18 @@ else
         showConfirmation = false;
     }
 
+    private async Task RemoveProject()
+    {
+        await HttpClient.DeleteAsync($"api/projects/delete-project/{projectIdToRemove}");
+        projects.RemoveAll(up => up.ProjectID == projectIdToRemove);
+        showConfirmation = false;
+    }
+
     private void CancelRemoveUserFromProject()
+    {
+        showConfirmation = false;
+    }
+    private void CancelRemoveProject()
     {
         showConfirmation = false;
     }
@@ -231,4 +270,3 @@ else
         public int UserId { get; set; } // Add this property
     }
 }
-
