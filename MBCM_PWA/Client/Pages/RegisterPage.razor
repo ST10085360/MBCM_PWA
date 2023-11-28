@@ -177,6 +177,7 @@
     [Parameter] public int UserId { get; set; }
 
     private UserRegistration model = new UserRegistration();
+    
 
     private async Task RegisterUser()
     {
@@ -190,7 +191,7 @@
             model.PhoneNumValidationMessage = string.Empty;
             model.PasswordValidationMessage = string.Empty;
             model.ConfirmPasswordValidationMessage = string.Empty;
-            
+
             // Validate the email
             if (string.IsNullOrEmpty(model.Email) || !model.Email.Contains("@"))
             {
@@ -260,8 +261,7 @@
                 var userIdResponse = await httpClient.GetStringAsync($"api/Projects/getUserId?email={model.Email}");
                 if (int.TryParse(userIdResponse, out var userId))
                 {
-                    UserService.SetUserId(userId);
-
+                    UserService.SetUserId(userId);    
                     // Reset model
                     model = new UserRegistration();
 
@@ -272,7 +272,6 @@
             }
             else
             {
-                // Handle the error as needed, e.g., display an error message to the user
             }
         }
         catch (Exception ex)

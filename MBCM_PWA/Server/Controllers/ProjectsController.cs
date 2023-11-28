@@ -172,7 +172,6 @@ namespace MBCM_PWA.Server.Controllers
         {
             try
             {
-                // Validate input (add your validation logic here)
 
                 // Check if the user already exists
                 var existingUser = _dbContext.tblUser.FirstOrDefault(u => u.userEmail == model.Email);
@@ -209,6 +208,9 @@ namespace MBCM_PWA.Server.Controllers
                     UserID = generatedUserId, // Use the auto increment generated ID
                     HashedPassword = hashedPassword // Store hashed password in tblUserCredentials
                 };
+
+                userService userService = new();
+                userService.SetUserType(newUser.userType);
 
                 _dbContext.tblUserCredentials.Add(newUserCredentials);
                 _dbContext.SaveChanges();
@@ -279,8 +281,7 @@ namespace MBCM_PWA.Server.Controllers
                     // Password is incorrect, return BadRequest
                     return BadRequest("Invalid email or password.");
                 }
-
-                // Authentication successful
+                
 
                 // Retrieve user type
                 string userType = user.userType;
@@ -557,8 +558,7 @@ public IActionResult DeleteProject(int projectId)
         // Remove user-project associations for the project
         var userProjectsToRemove = _dbContext.tblUserProject.Where(up => up.projectID == projectId);
         _dbContext.tblUserProject.RemoveRange(userProjectsToRemove);
-
-        // Now, you can safely remove the project
+                
         _dbContext.tblProject.Remove(project);
         _dbContext.SaveChanges();
 

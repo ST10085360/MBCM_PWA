@@ -10,8 +10,7 @@ namespace MBCM_PWA.Client.Shared.Models
         public int UserID { get; set; }
 
         public string HashedPassword { get; set; }
-
-        // Navigation property
+        
         public User User { get; set; }
     }
 }

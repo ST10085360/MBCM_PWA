@@ -9,8 +9,7 @@
         public string PhoneNum { get; set; }
         public string Password { get; set; }
         public string ConfirmPassword { get; set; }
-
-        // Validation messages for each field
+        
         public string EmailValidationMessage { get; set; }
         public string FirstNameValidationMessage { get; set; }
         public string LastNameValidationMessage { get; set; }
