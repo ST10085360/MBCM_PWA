@@ -89,7 +89,7 @@ The "Projects Feed" page displays active community projects available for volunt
    - Click the "Request to Join" button for a project to express your interest (volunteers only).
    - If already joined or a request is pending, appropriate status indicators will be displayed.
 
-## Suggestion Page
+## Community Feed
 
 This page allows users (admin or volunteers) to view and manage community project suggestions.
 
