@@ -38,7 +38,7 @@
 
 	.suggestion-tile {
 		background-color: #ffffff;
-		border: 1px solid #e0e0e0;
+		border: 2px solid orange;
 		border-radius: 20px;
 		box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1), 2px 0 2px rgba(0, 0, 0, 0.1), -2px 0 2px rgba(0, 0, 0, 0.05);
 		width: 50%;
@@ -163,7 +163,7 @@
 		}
 
 	.suggestion-tile {
-		border: 1px solid #e0e0e0;
+		border: 1px solid orange;
 		border-radius: 20px;
 		box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1), 2px 0 2px rgba(0, 0, 0, 0.1), -2px 0 2px rgba(0, 0, 0, 0.05);
 		width: 70%;

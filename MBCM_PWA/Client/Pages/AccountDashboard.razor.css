@@ -7,8 +7,8 @@
 
     .info-tile {
         position: absolute;
-        background-color: #ffffff;
-        border: 1px solid #e0e0e0;
+        background-color: #333F50;
+        border: 4px solid orange;
         border-radius: 20px;
         box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1), 2px 0 2px rgba(0, 0, 0, 0.1), -2px 0 2px rgba(0, 0, 0, 0.05);
         padding: 20px;
@@ -18,6 +18,7 @@
         margin-right: 100px;
         align-self: center;
         float: left;
+        color: white;
     }
 
     .pfp {
@@ -49,7 +50,7 @@
     .proj-section {
         position: absolute;
         background-color: #ffffff;
-        border: 1px solid #e0e0e0;
+       border: 4px solid orange;
         border-radius: 20px;
         box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1), 2px 0 2px rgba(0, 0, 0, 0.1), -2px 0 2px rgba(0, 0, 0, 0.05);
         padding: 20px;
@@ -63,9 +64,10 @@
     .project-card {
         margin-bottom: 20px; /* Add some margin between project cards */
         padding: 15px;
-        border: 1px solid #ddd; /* Add a border for better separation */
+        border: 1px solid orange; /* Add a border for better separation */
         border-radius: 10px;
-        background-color: #f9f9f9; /* Add a light background color */
+        background-color: #333F50; /* Add a light background color */
+        color: white
     }
 
     .left-t {
@@ -87,8 +89,8 @@
     }
 
     .info-tile {
-        background-color: #ffffff;
-        border: 1px solid #e0e0e0;
+        background-color: #333F50;
+        border: 4px solid orange;
         border-radius: 20px;
         box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1), 2px 0 2px rgba(0, 0, 0, 0.1), -2px 0 2px rgba(0, 0, 0, 0.05);
         padding: 20px;
@@ -96,6 +98,7 @@
         height: auto;
         margin: auto;
         align-self: center;
+        color: white;
     }
 
     .pfp {
@@ -126,12 +129,12 @@
 
     .proj-section {
         background-color: #ffffff;
-        border: 1px solid #e0e0e0;
+        border: 2px solid orange;
         border-radius: 20px;
         box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1), 2px 0 2px rgba(0, 0, 0, 0.1), -2px 0 2px rgba(0, 0, 0, 0.05);
         padding: 20px;
         width: 90%;
-        margin:auto;
+        margin: auto;
         margin-top: 10%;
         height: auto;
         overflow-y: auto; /* Add a vertical scrollbar */
@@ -140,9 +143,10 @@
     .project-card {
         margin-bottom: 20px; /* Add some margin between project cards */
         padding: 15px;
-        border: 1px solid #ddd; /* Add a border for better separation */
+        border: 1px solid orange; /* Add a border for better separation */
         border-radius: 10px;
-        background-color: #f9f9f9; /* Add a light background color */
+        background-color: #333F50; /* Add a light background color */
+        color: white;   
     }
 
     .left-t {

@@ -1,5 +1,5 @@
 ﻿@layout LoginLayout
-@page "/loginpage"
+@page "/"
 @inject HttpClient httpClient
 @using MBCM_PWA.Client.Shared.Models
 @inject NavigationManager NavigationManager
@@ -102,6 +102,7 @@
 
     private void ContinueAsGuest()
     {
+        UserService.SetUserType("Guest");
         NavigationManager.NavigateTo($"/guest");
     }
 
