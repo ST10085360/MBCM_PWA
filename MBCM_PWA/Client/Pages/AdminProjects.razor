@@ -3,6 +3,7 @@
 @using MBCM_PWA.Client.Shared.Models
 @using System.Net.Http.Json
 @using System.Text.Json
+@inject NavigationManager NavigationManager
 @inject HttpClient HttpClient
 @inject userService UserService
 
@@ -15,34 +16,42 @@
 <div class="add-proj-header">
 <h3 class="active-head">Active Projects:</h3>
 <div class="new-btn">
-    <button class="add-btn">
+    <button class="add-btn" @onclick="ShowAddActiveProjectPage">
         <span class="icon"><img class="new-img" src="/css/NewProject.png" alt="location" /></span>
-        <span class="plus-text" @*ADD THE ONCLICK METHOD TO SHOW THE POPUP HERE"*@>Add new project</span>
+        <span class="plus-text">Add New Active Project</span>
     </button>
-    </div>
+</div>
         </div>
-<div class="active-grid">
-    @{
-        var groupedUserProjects = userProjects.GroupBy(up => up.projectID);
-    }
-    @foreach (var group in groupedUserProjects)
-    {
-        <div class="project-cell">
-            <h4>@group.First().Project.prjTitle</h4>
-            <p>@group.First().Project.prjDescription</p>
-            <div class="members-dropdown">
-                Members:
-                @foreach (var userProject in group)
+            <div class="active-grid">
+                @{
+                    var groupedUserProjects = userProjects.GroupBy(up => up.projectID);
+                }
+                @foreach (var projectState in projectStates)
                 {
-                    <div class="member"  style="margin-top: 10px;">
-                        @userProject.User.firstName @userProject.User.lastName
-                        <button class="primary" title="Remove this volunteer from the member group" @onclick="() => ConfirmRemoveUserFromProject(userProject.userProjectID)">X</button>
+                    <div class="project-cell">
+                        <h4>@projectState.Project.prjTitle</h4>
+                        <p>@projectState.Project.prjDescription</p>
+                        <div class="members-dropdown">
+                            Members:
+                            @if (groupedUserProjects.Any())
+                            {
+                                var projectUsers = groupedUserProjects.SingleOrDefault(group => group.Key == projectState.Project.ProjectID)?.ToList();
+
+                                if (projectUsers != null)
+                                {
+                                    foreach (var user in projectUsers)
+                                    {
+                                        <div class="member" style="margin-top: 10px;">
+                                            @user.User.firstName @user.User.lastName
+                                            <button class="primary" title="Remove this volunteer from the member group" @onclick="() => ConfirmRemoveUserFromProject(user.userProjectID)">X</button>
+                                        </div>
+                                    }
+                                }
+                            }
+                        </div>
                     </div>
                 }
             </div>
-        </div>
-    }
-        </div>
 
         </div>
 
@@ -134,10 +143,11 @@ else
 
 
 @code {
+    List<ProjectState> projectStates = new List<ProjectState>();
     List<Project> projects;
     List<ProjectRequest> projectRequests;
     List<User> users;
-    List<UserProjects> userProjects;
+    private List<UserProjects> userProjects;
 
     bool showConfirmation;
     int userProjectIdToRemove;
@@ -147,10 +157,17 @@ else
 
     protected override async Task OnInitializedAsync()
     {
+        int? userId = UserService.UserId;
         projects = await HttpClient.GetFromJsonAsync<List<Project>>("api/projects");
         projectRequests = await HttpClient.GetFromJsonAsync<List<ProjectRequest>>("api/projects/project-requests");
         users = await HttpClient.GetFromJsonAsync<List<User>>("api/projects/users");
         userProjects = await HttpClient.GetFromJsonAsync<List<UserProjects>>("api/projects/user-projects");
+
+        projectStates = projects.Select(project => new ProjectState
+            {
+                Project = project,
+                UserId = userId.GetValueOrDefault()
+            }).ToList();
     }
 
     private async Task AcceptRequest(ProjectRequest request)
@@ -163,6 +180,11 @@ else
     {
         await HttpClient.PostAsync($"api/projects/decline-request/{request.RequestID}", null);
         projectRequests.Remove(request);
+    }
+
+    private void ShowAddActiveProjectPage()
+    {
+        NavigationManager.NavigateTo("/addactiveprojectpage");
     }
 
     private void ConfirmRemoveUserFromProject(int userProjectID)
@@ -199,6 +221,12 @@ else
     private void CancelRemoveUser()
     {
         showUserRemoveConfirmation = false;
+    }
+
+    public class ProjectState
+    {
+        public Project Project { get; set; }
+        public int UserId { get; set; } // Add this property
     }
 }
 

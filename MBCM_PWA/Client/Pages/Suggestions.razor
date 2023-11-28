@@ -8,7 +8,7 @@
 <PageTitle>Suggestions</PageTitle>
 <div class="main-container">
     <div class="splash-background">
-        <h1>Community Project Suggestions</h1>
+        <h1 style="margin-top: 7%;">Community Project Suggestions</h1>
 
         @if (UserService.UserType != null && UserService.UserType.ToLower() == "admin" || UserService.UserType != null && UserService.UserType.ToLower() == "volunteer")
         {
@@ -30,11 +30,7 @@
                     </div>
                     <div class="sugg-right">
                         <div class="event-div">
-                            @* Add null check for project *@
-                            @if (project != null)
-                            {
-                                <p class="ev" style="word-wrap: inherit">Project ID: @project.ProjectID</p>
-                            }
+                            
                         </div>
                         <div class="desc-div">
                             @* Add null check for project *@

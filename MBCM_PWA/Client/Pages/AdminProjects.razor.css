@@ -22,48 +22,14 @@
     box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1), 2px 0 2px rgba(0, 0, 0, 0.1), -2px 0 2px rgba(0, 0, 0, 0.05);
 }
 
-.container {
-    margin: 5%;
-    display: grid;
-    grid-template-columns: 1.3fr 0.5fr;
-    grid-template-rows: 2fr  1.7fr;
-    gap: 50px 90px;
-    grid-template-areas:
-        "active-projects requests"
-        "active-projects requests"
-        "active-users requests";
-}
-
-.active-projects {
-    padding: 5%;
-    grid-area: active-projects;
-    margin: auto;
-    border: 1px solid #ccc;
-    border-radius: 20px;
-    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1), 2px 0 2px rgba(0, 0, 0, 0.1), -2px 0 2px rgba(0, 0, 0, 0.05);
-}
-
-.requests {
-    grid-area: requests;
-    border: 1px solid #ccc;
-    border-radius: 20px;
-    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1), 2px 0 2px rgba(0, 0, 0, 0.1), -2px 0 2px rgba(0, 0, 0, 0.05);
-}
-
-.active-users {
-    grid-area: active-users;
-    margin: auto;
-    border: 1px solid #ccc;
-    border-radius: 20px;
-    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1), 2px 0 2px rgba(0, 0, 0, 0.1), -2px 0 2px rgba(0, 0, 0, 0.05);
-}
 
 @media only screen and (min-width: 768px) {
 
     .container {
         margin: 5%;
         display: grid;
-        grid-template-columns: 1.3fr 0.5fr;
+        grid-auto-columns: 1fr;
+        grid-template-columns: 1.3fr 0.9fr;
         grid-template-rows: 2fr 1.7fr;
         gap: 50px 90px;
         grid-template-areas:
@@ -74,15 +40,16 @@
 
     .active-projects {
         padding: 5%;
+        margin:auto;
         grid-area: active-projects;
-        margin: auto;
         border: 1px solid #ccc;
         border-radius: 20px;
         box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1), 2px 0 2px rgba(0, 0, 0, 0.1), -2px 0 2px rgba(0, 0, 0, 0.05);
     }
 
     .requests {
-        padding: 5%;
+        padding-top: 14%;
+        padding-left: 14%;
         grid-area: requests;
         border: 1px solid #ccc;
         border-radius: 20px;
@@ -186,6 +153,7 @@
         height: 50px;
         padding: 8px;
         width: 250px;
+        margin: auto;
     }
 
     .primary {
@@ -224,9 +192,6 @@
         font-size: 12px;
         padding: 15px;
     }
-    
-   
-
 
     .user-field {
         font-size: 12px;
@@ -235,7 +200,110 @@
     }
 }
 
+
+
 @media only screen and (max-width: 768px) {
+
+    .container {
+        margin-top: 5%;
+        display: grid;
+        grid-auto-columns: 1fr;
+        grid-template-columns: 1.3fr, 1.3fr, 1.3fr;
+        gap: 50px 90px;
+        grid-template-areas:
+            "active-projects"
+            "requests"
+            "active-users";
+    }
+
+    .active-projects {
+        padding: 2%;
+        grid-area: active-projects;
+        margin: auto;
+        border: 1px solid #ccc;
+        border-radius: 20px;
+        box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1), 2px 0 2px rgba(0, 0, 0, 0.1), -2px 0 2px rgba(0, 0, 0, 0.05);
+    }
+
+    .requests {
+        padding: 5%;
+        grid-area: requests;
+        border: 1px solid #ccc;
+        border-radius: 20px;
+        box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1), 2px 0 2px rgba(0, 0, 0, 0.1), -2px 0 2px rgba(0, 0, 0, 0.05);
+    }
+
+    .active-users {
+        padding: 5%;
+        grid-area: active-users;
+        margin: auto;
+        border: 1px solid #ccc;
+        border-radius: 20px;
+        box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1), 2px 0 2px rgba(0, 0, 0, 0.1), -2px 0 2px rgba(0, 0, 0, 0.05);
+    }
+
+    .add-proj-header {
+        display: flex;
+        position: relative;
+        width: 100%;
+        height: auto;
+    }
+
+    .add-proj-header {
+        margin: 5%;
+        display: grid;
+        grid-template-columns: 1.3fr 0.5fr;
+        grid-template-areas:
+            "active-head new-btn";
+    }
+
+    .active-head {
+        float: left;
+        grid-area: active-head;
+    }
+
+    .new-btn {
+        display: inline-block;
+        float: right;
+        grid-area: new-btn;
+        background-color: none;
+    }
+
+    .add-btn {
+        display: inline-flex;
+        align-items: center;
+        padding: 10px;
+        background-color: #ffffff;
+        border: none;
+        cursor: pointer;
+        transition: all 0.3s ease-in-out;
+    }
+
+    .icon {
+        position: relative;
+        background-color: none;
+        width: fit-content;
+        cursor: pointer;
+        display: flex;
+        align-content: flex-start;
+        width: 20px;
+        height: 20px
+    }
+
+    .plus-text {
+        position: relative;
+        left: 20%;
+        white-space: nowrap;
+        background-color: none;
+        opacity: 0;
+        transition: left 0.1s ease-in-out, opacity 0.1s ease-in-out;
+    }
+
+    .add-btn:hover .plus-text {
+        left: 10px;
+        opacity: 1;
+    }
+
 
     .active-grid {
         display: grid;
@@ -245,9 +313,118 @@
 
     .user-grid {
         display: grid;
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(1, 1fr);
         gap: 10px; /* Adjust the gap between cells */
     }
+
+    .members-dropdown {
+        display: block;
+        padding-top: 10px;
+        width: 100%;
+        background-color: #ffffff;
+    }
+
+    .member {
+        border: 1px solid #ccc;
+        border-radius: 20px;
+        box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1), 2px 0 2px rgba(0, 0, 0, 0.1), -2px 0 2px rgba(0, 0, 0, 0.05);
+        height: 50px;
+        padding: 8px;
+        width: 250px;
+        margin:auto;
+    }
+
+    .primary {
+        background-color: var(--error-primary);
+        color: var(--text-primary);
+        height: 30px;
+        width: 20px;
+    }
+
+
+
+    .project-cell {
+        border: 1px solid #ccc;
+        border-radius: 20px;
+        box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1), 2px 0 2px rgba(0, 0, 0, 0.1), -2px 0 2px rgba(0, 0, 0, 0.05);
+        padding: 10px;
+        text-align: center;
+        margin: 5%;
+        display: inline-block;
+        position: relative;
+        overflow: hidden;
+        z-index: 1;
+    }
+
+    .user-cell {
+        border: 1px solid #ccc;
+        border-radius: 20px;
+        box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1), 2px 0 2px rgba(0, 0, 0, 0.1), -2px 0 2px rgba(0, 0, 0, 0.05);
+        padding: 10px;
+        text-align: center;
+        margin: 2%;
+        display: flex;
+    }
+
+        .user-cell .primary {
+            font-size: 12px;
+            padding: 15px;
+        }
+
+    .user-field {
+        font-size: 12px;
+        margin: auto;
+        margin-right: 20px;
+    }
+}
+
+
+/*@media only screen and (max-width: 768px) {
+
+    .container {
+        display: grid;
+        grid-template-columns: 1.3fr;
+        grid-template-rows: 2fr 1.7fr;
+        grid-template-areas:
+            "active-projects"
+            "requests"
+            "active-users";
+    }
+
+    .active-projects {
+        padding: 5%;
+        grid-area: active-projects;
+        border: 1px solid #ccc;
+        border-radius: 20px;
+        box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1), 2px 0 2px rgba(0, 0, 0, 0.1), -2px 0 2px rgba(0, 0, 0, 0.05);
+    }
+
+    .requests {
+        grid-area: requests;
+        border: 1px solid #ccc;
+        border-radius: 20px;
+        box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1), 2px 0 2px rgba(0, 0, 0, 0.1), -2px 0 2px rgba(0, 0, 0, 0.05);
+    }
+
+    .active-users {
+        grid-area: active-users;
+        margin: auto;
+        border: 1px solid #ccc;
+        border-radius: 20px;
+        box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1), 2px 0 2px rgba(0, 0, 0, 0.1), -2px 0 2px rgba(0, 0, 0, 0.05);
+    }
+
+    .active-grid {
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+        gap: 0px;*/ /* Adjust the gap between cells */
+    /*}
+
+    .user-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;*/ /* Adjust the gap between cells */
+    /*}
 
     .members-dropdown {
         display: block;
@@ -280,4 +457,4 @@
         overflow: hidden;
         z-index: 1;
     }
-}
+}*/

@@ -471,6 +471,39 @@ public IActionResult RemoveUser(int userId)
                     return Ok(suggestedProjects);
                 }
 
+                [HttpPost("AddActiveProject")]
+                public IActionResult AddActiveProject([FromBody] Project model)
+                {
+                    try
+                    {
+                        if (model == null)
+                        {
+                            return BadRequest("Invalid project data.");
+                        }
+
+                        var newActiveProject = new Project
+                        {
+                            prjOwnerID = model.prjOwnerID,
+                            prjTitle = model.prjTitle,
+                            prjDescription = model.prjDescription,
+                            prjLocation = model.prjLocation,
+                            prjStartDate = model.prjStartDate
+                        };
+
+                        _dbContext.tblProject.Add(newActiveProject);
+                        _dbContext.SaveChanges();
+
+                        return Ok("New Active Project added successfully.");
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine($"Error adding active project: {ex.Message}");
+                        return BadRequest($"Error adding active project. {ex.Message}");
+                    }
+                }
+
+
+
                 [HttpPost("AddProject")]
                 public IActionResult AddProject([FromBody] SuggestedProject model)
                 {

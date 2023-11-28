@@ -31,8 +31,9 @@
 		background-size: cover;
 		background-attachment: fixed;
 		position: absolute;
-		height: 100%;
+		height: auto;
 		width: 100%;
+		overflow: auto;
 	}
 
 	.suggestion-tile {
@@ -45,6 +46,7 @@
 		height: 300px;
 		margin: auto;
 		margin-top: 100px;
+		margin-bottom: 50px;
 		align-self: center;
 		display: flex;
 	}
