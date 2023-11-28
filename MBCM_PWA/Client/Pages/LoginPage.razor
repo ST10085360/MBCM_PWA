@@ -56,8 +56,9 @@
                 <p style="color: white;">Don't have an account? <a href="/registerpage">Register here</a>.</p>
             </div>
 
-            <br />
-
+            <div class="text-center">
+                <button style="width: 180px; background-color: orange; color: black; font-weight: 600; margin-top: 10px; margin-bottom: 10px;" @onclick="ContinueAsGuest" class="btn btn-dark">Continue as Guest</button>
+            </div>
         </div>
     </div>
 </body>
@@ -97,6 +98,11 @@
             Console.WriteLine($"Error: {ex.Message}");
             errorMessage = "An unexpected error occurred. Please try again later.";
         }
+    }
+
+    private void ContinueAsGuest()
+    {
+        NavigationManager.NavigateTo($"/guest");
     }
 
     // Define a class to represent the login result
