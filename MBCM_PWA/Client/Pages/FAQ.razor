@@ -4,10 +4,10 @@
 <div class="container py-5">
     <h1 class="text-center mb-4">Frequently Asked Questions</h1>
 
-    <div class="faq-accordion">
+    <div class="faq-accordion" style="margin-bottom:40px">
         @foreach (var faqItem in FAQContent)
         {
-            <div class="faq-item">
+            <div class="faq-item" style="margin-top:5px">
                 <button class="faq-question" onclick="toggleAccordion(this)">
                     @faqItem[0]
                     <span class="icon">&plus;</span>
@@ -24,16 +24,16 @@
     private List<string[]> FAQContent = new List<string[]>
     {
         new string[] { "Am I allowed to suggest a project as a guest?", "Not at first, but once you have completed the brief account registration to become a volunteer you are allowed to contribute to the suggested projects page by recommending a initiative of your choice." },
-        new string[] { "How does ABC work?", "ABC works by..." },
+        new string[] { "Do I need to register to join or request projects?", "Yes you do. We need to be able to keep track of all join requests and project requests and therefore an account is needed." },
         // Add more FAQ items as needed
-        new string[] { "Can I do XYZ?", "Yes, you can..." },
-        new string[] { "How do I get started?", "To get started..." },
-        new string[] { "Is it free to use?", "Yes, it is..." },
-        new string[] { "What are the benefits?", "The benefits include..." }
+        new string[] { "How long does it take for projects to be accepted?", "There are a few factors to consider in this regard including, our operating hours, the amount of requests ahead of your own and the complexity of the requested project. This leaves a variation in response time. We will however do everything we can to make sure that your request is processed as soon as possible. Normally it should not exceed a day or two." },
+        new string[] { "How do I get started?", "To get started you will need to register as a volunteer and then you will be able to see all the available projecs you can join and you can even request your own." },
+        new string[] { "Is this app free to use?", "Yes, it is completely free to use. However you may need to provide your own supplies for the project you join depending on the nature of the project." },
+        new string[] { "What are the benefits of being a volunteer?", "The benefits include, having instant access to all community projects, including a description and the times for the project. You can also suggest a new project if you feel the need to fix something in your community." }
     };
 }
 
-@*<script>
+<script>
 
 function toggleAccordion(button) {
     const faqItem = button.parentNode;
@@ -42,7 +42,7 @@ function toggleAccordion(button) {
     faqItem.classList.toggle('active');
     answer.style.display = answer.style.display === 'block' ? 'none' : 'block';
 }
-</script>*@
+</script>
 
 
 

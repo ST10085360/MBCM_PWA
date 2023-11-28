@@ -5,7 +5,14 @@
 
 <div class="top-row ps-3 navbar navbar-dark">
     <div class="container-fluid">
-        <a class="navbar-brand" href="">Volunteer</a>
+        @if (UserService.UserType == "Admin")
+        {
+            <a class="navbar-brand" href="">Administrator</a>
+        }
+        else if (UserService.UserType == "Volunteer")
+        {
+            <a class="navbar-brand" href="">Volunteer</a>
+        }
         <button title="Navigation menu" class="navbar-toggler" @onclick="ToggleNavMenu">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -14,11 +21,15 @@
 
 <div class="@NavMenuCssClass nav-scrollable" @onclick="ToggleNavMenu">
     <nav class="flex-column">
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="/volunteer" Match="NavLinkMatch.All">
-                <span class="oi oi-home" aria-hidden="true"></span> Home
-            </NavLink>
-        </div>
+       
+        @if(UserService.UserType != "Admin")
+        {
+            <div class="nav-item px-3">
+                <NavLink class="nav-link" href="/volunteer" Match="NavLinkMatch.All">
+                    <span class="oi oi-home" aria-hidden="true"></span> Home
+                </NavLink>
+            </div>
+        }
         @if (UserService.UserType == "Volunteer" || UserService.UserType == "Guest")
         {
             <div class="nav-item px-3">
@@ -56,7 +67,7 @@
             </NavLink>
         </div>
         } 
-        @if (UserService.UserType == "Volunteer" || UserService.UserType == "Guest")
+        @if (UserService.UserType != "Admin")
         {
             <div class="nav-item px-3">
                 <NavLink class="nav-link" href="/faq">

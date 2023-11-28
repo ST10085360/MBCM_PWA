@@ -3,12 +3,12 @@
 @inject userService UserService
 @inject HttpClient httpClient
 
-@if (UserService.UserType == "Admin" || UserService.UserType == "Volunteer")
+@if (UserService.UserType != "Guest")
 {
     <div class="main-area">
         <br />
         <br />
-        <h1>Your Account</h1>
+        <h1 style="margin-left:40px">Your Account</h1>
         <br />
 
         <hr />
@@ -19,22 +19,22 @@
             <h2>Your Details</h2>
             <br />
             <div class="details-con">
-                <h6 class="left-t">First Name</h6>
+                <h6 class="left-t" style="font-weight:600">First Name</h6>
                 <h6 class="right-t">@FullUserInfo?.firstName</h6>
             </div>
             <hr />
             <div class="details-con">
-                <h6 class="left-t">Surname</h6>
+                <h6 class="left-t" style="font-weight:600">Surname</h6>
                 <h6 class="right-t">@FullUserInfo?.lastName</h6>
             </div>
             <hr />
             <div class="details-con">
-                <h6 class="left-t">Email</h6>
+                <h6 class="left-t" style="font-weight:600">Email</h6>
                 <h6 class="right-t">@FullUserInfo?.userEmail</h6>
             </div>
             <hr />
             <div class="details-con">
-                <h6 class="left-t">Cellphone Number</h6>
+                <h6 class="left-t" style="font-weight:600">Cellphone Number</h6>
                 <h6 class="right-t">@FullUserInfo?.userPhoneNumber</h6>
             </div>
         </div>
