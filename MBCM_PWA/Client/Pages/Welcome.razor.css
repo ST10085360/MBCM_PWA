@@ -1,0 +1,67 @@
+﻿
+@media only screen and (min-width: 768px) {
+    .welcome-card {
+        background-color: #333F50;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        border: none;
+        border-radius: 8px;
+        color: white;
+        margin-top: 300px;
+        width: 250px;
+        margin-left: 20px;
+        margin-right: 20px;
+        margin-bottom: 20px; /* Adjust as needed */
+    }
+
+        .welcome-card:hover {
+            transform: scale(1.05); /* Enlarge the card on hover */
+            cursor: pointer;
+        }
+
+    .text-center {
+        margin: auto;
+    }
+
+    .btn-welcome {
+        background-color: #2C3E50;
+        color: white;
+        border: none;
+    }
+
+        .btn-welcome:hover {
+            background-color: #006699; /* Darker blue color on hover */
+        }
+}
+
+@media only screen and (max-width: 768px) {
+    .welcome-card {
+        background-color: #333F50;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+        border: none;
+        border-radius: 8px;
+        color: white;
+        width: 250px; /* Adjust as needed */
+        
+        margin: auto;
+        margin-top: 20px;
+    }
+
+        .welcome-card:hover {
+            transform: scale(1.05); /* Enlarge the card on hover */
+            cursor: pointer;
+        }
+
+    .text-center {
+        margin: auto;
+    }
+
+    .btn-welcome {
+        background-color: #2C3E50;
+        color: white;
+        border: none;
+    }
+
+        .btn-welcome:hover {
+            background-color: #006699; /* Darker blue color on hover */
+        }
+}
