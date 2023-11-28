@@ -1,0 +1,109 @@
+﻿
+@page "/faq"
+<PageTitle>FAQ</PageTitle>
+<div class="container py-5">
+    <h1 class="text-center mb-4">Frequently Asked Questions</h1>
+
+    <div class="faq-accordion">
+        @foreach (var faqItem in FAQContent)
+        {
+            <div class="faq-item">
+                <button class="faq-question" onclick="toggleAccordion(this)">
+                    @faqItem[0]
+                    <span class="icon">&plus;</span>
+                </button>
+                <div class="faq-answer">
+                    <p>@faqItem[1]</p>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+@code {
+    private List<string[]> FAQContent = new List<string[]>
+    {
+        new string[] { "Am I allowed to suggest a project as a guest?", "Not at first, but once you have completed the brief account registration to become a volunteer you are allowed to contribute to the suggested projects page by recommending a initiative of your choice." },
+        new string[] { "How does ABC work?", "ABC works by..." },
+        // Add more FAQ items as needed
+        new string[] { "Can I do XYZ?", "Yes, you can..." },
+        new string[] { "How do I get started?", "To get started..." },
+        new string[] { "Is it free to use?", "Yes, it is..." },
+        new string[] { "What are the benefits?", "The benefits include..." }
+    };
+}
+
+<script>
+
+function toggleAccordion(button) {
+    const faqItem = button.parentNode;
+    const answer = faqItem.querySelector('.faq-answer');
+
+    faqItem.classList.toggle('active');
+    answer.style.display = answer.style.display === 'block' ? 'none' : 'block';
+}
+</script>
+
+
+
+<style>
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.faq-accordion {
+    border-radius: 5px;
+    overflow: hidden;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+}
+
+.faq-item {
+    border-bottom: 1px solid #ddd;
+}
+
+.faq-question {
+    width: 100%;
+    padding: 15px;
+    background-color: #f5f5f5;
+    text-align: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    position: relative;
+    font-weight: bold;
+}
+
+.faq-answer {
+    display: none;
+    padding: 10px 15px;
+    background-color: #eee;
+    font-size: 14px;
+}
+
+.faq-answer p {
+    margin: 0;
+}
+
+.faq-question:focus {
+    outline: none;
+}
+
+.icon {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    transition: transform 0.3s ease;
+}
+
+.faq-question.active .icon {
+    transform: translateY(-50%) rotate(45deg);
+}
+
+</style>
+
+
+
