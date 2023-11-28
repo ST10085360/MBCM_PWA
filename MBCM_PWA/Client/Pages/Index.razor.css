@@ -70,6 +70,11 @@
         cursor: pointer;
     }
 
+    .small-icon {
+        width: 25px;
+        height: 25px;
+        margin-right: 5px;
+    }
     
 }
 
@@ -78,6 +83,13 @@
     .info-text {
         overflow: auto;
         max-height: 100%;
+    }
+
+
+    .small-icon {
+        width: 25px;
+        height: 25px;
+        margin-right: 5px;
     }
 
     .main-container {
