@@ -1,27 +1,5 @@
 ﻿
 
-.active-section {
-    width: 60%;
-    padding: 5%;
-    float: left;
-    height: 60vh;
-    background-color: aqua;
-    border: 1px solid #ccc;
-    border-radius: 20px;
-    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1), 2px 0 2px rgba(0, 0, 0, 0.1), -2px 0 2px rgba(0, 0, 0, 0.05);
-    position: absolute;
-}
-
-.request-section {
-    width: 30%;
-    padding: 5%;
-    float: right;
-    background-color: aqua;
-    border: 1px solid #ccc;
-    border-radius: 20px;
-    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1), 2px 0 2px rgba(0, 0, 0, 0.1), -2px 0 2px rgba(0, 0, 0, 0.05);
-}
-
 
 @media only screen and (min-width: 768px) {
 
@@ -44,6 +22,7 @@
         grid-area: active-projects;
         border: 1px solid #ccc;
         border-radius: 20px;
+        background-color: #ffffff;
         box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1), 2px 0 2px rgba(0, 0, 0, 0.1), -2px 0 2px rgba(0, 0, 0, 0.05);
     }
 
@@ -53,6 +32,7 @@
         grid-area: requests;
         border: 1px solid #ccc;
         border-radius: 20px;
+        background-color: #ffffff;
         box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1), 2px 0 2px rgba(0, 0, 0, 0.1), -2px 0 2px rgba(0, 0, 0, 0.05);
     }
 
@@ -62,6 +42,7 @@
         margin: auto;
         border: 1px solid #ccc;
         border-radius: 20px;
+        background-color: #ffffff;
         box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1), 2px 0 2px rgba(0, 0, 0, 0.1), -2px 0 2px rgba(0, 0, 0, 0.05);
     }
 
@@ -221,6 +202,7 @@
         width: 80%;
         border: 1px solid #ccc;
         border-radius: 20px;
+        background-color: #ffffff;
         box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1), 2px 0 2px rgba(0, 0, 0, 0.1), -2px 0 2px rgba(0, 0, 0, 0.05);
     }
 
@@ -231,6 +213,7 @@
         grid-area: requests;
         border: 1px solid #ccc;
         border-radius: 20px;
+        background-color: #ffffff;
         box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1), 2px 0 2px rgba(0, 0, 0, 0.1), -2px 0 2px rgba(0, 0, 0, 0.05);
     }
 
@@ -242,6 +225,7 @@
         margin: auto;
         border: 1px solid #ccc;
         border-radius: 20px;
+        background-color: #ffffff;
         box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1), 2px 0 2px rgba(0, 0, 0, 0.1), -2px 0 2px rgba(0, 0, 0, 0.05);
     }
 

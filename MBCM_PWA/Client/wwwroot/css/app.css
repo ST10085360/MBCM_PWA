@@ -24,6 +24,10 @@ a, .btn-link {
 
 .content {
     padding-top: 0;
+    background-image: url(../css/LINKING_ARMS_BLURRED.png);
+    background-size: cover;
+    background-attachment: fixed;
+    height: 100%;
 }
 
 .valid.modified:not([type=checkbox]) {
