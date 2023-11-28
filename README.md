@@ -35,8 +35,67 @@ Welcome to the MBCM Volunteer Portal, a Progressive Web Application designed to 
 2. Build and run the project.
 3. Open your web browser and visit http://localhost:5000 to access the MBCM Volunteer Portal.
 
+## Suggestion Page
+
+This page allows users (admin or volunteers) to view and manage community project suggestions.
+
+### Features
+
+- View a list of project suggestions.
+- Add a new project suggestion.
+- Delete project suggestions (admin only).
+
+### Usage
+
+1. **Viewing Suggestions:**
+   - Access the "Suggestions" page from the main portal navigation.
+   - Browse through the list of suggested projects.
+   - If you're an admin or volunteer, you can see additional options:
+     - "Add Project Suggestion" button.
+     - "Delete" button for each suggestion (admin only).
+
+2. **Adding a Project Suggestion:**
+   - Click on the "Add Project Suggestion" button.
+   - Fill in the required details (Title, Description, Location) in the form.
+   - Click the "Add Project" button.
+   - The new project suggestion will be added to the list.
+
+3. **Deleting a Project Suggestion (Admin Only):**
+   - Click the "Delete" button next to the project suggestion you want to delete.
+   - A confirmation modal will appear.
+   - Confirm deletion to remove the suggestion.
+
+### Code Integration
+
+The code for this page involves fetching and displaying project suggestions. Admins can also add and delete suggestions.
+
+## Account Dashboard Page
+
+This page provides an overview of the user's account details and, for volunteers, their associated projects.
+
+### Features
+
+- Display of user details (Name, Email, Phone Number).
+- Display of projects associated with the user (for volunteers).
+
+### Usage
+
+1. **Accessing the Page:**
+   - Navigate to the "Account Dashboard" page by clicking "Account" from the main portal navigation.
+   - Ensure you are logged in as a registered user (not a guest).
+
+2. **Viewing Account Details:**
+   - User details such as name, email, and phone number are displayed.
+
+3. **Viewing Associated Projects (For Volunteers):**
+   - For volunteers, a section displays projects they are part of.
+
+### Code Integration
+
+The C# code fetches and displays user details and associated projects.
+
 ### License
 This project is licensed under the MIT License - see the LICENSE file for details.
 
 ### Contact
-If you have any questions or suggestions, feel free to reach out to us at 
+If you have any questions or suggestions, feel free to reach out to us at 083 444 1618 or info@mbcm.org.za
