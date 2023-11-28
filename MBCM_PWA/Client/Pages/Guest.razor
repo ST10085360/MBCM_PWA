@@ -3,24 +3,26 @@
 @using MBCM_PWA.Client.Shared.Models
 @using Microsoft.AspNetCore.Components.Web.Extensions
 @using System.Net.Http.Json
+@inject NavigationManager navigationManager
 @inject HttpClient HttpClient
 
 <PageTitle>Home</PageTitle>
 <div class="main-container">
     <div class="splash-background">
-        <div class="main-logo">
+        <div class="main-logo" style="margin-bottom: 20px;">
             <img id="logo" src="/css/MBCM_LOGO.png" alt="Logo" style="width:300px; height:auto" />
             <h2>Welcome to the MBCM volunteer portal.</h2>
         </div>
-    </div>    
+    </div>
 </div>
 
-<div class="info-tile">
+<div class="info-tile" style="margin-top: 20px; position: relative; background-image: url('/css/volunteer.jpg'); background-size: cover;">
+    <div class="text-center">
+        <h3>Join Our Volunteer Community!</h3>
+        <p>Ready to make a difference? Register as a volunteer today!</p>
+        <button class="btn btn-primary" @onclick="GoToRegisterPage">Register as Volunteer</button>
+    </div>
 </div>
-
-<div class="info-tile">
-</div>
-
 
 <br>
 <br>
@@ -37,6 +39,11 @@
         projects = await HttpClient.GetFromJsonAsync<List<Project>>("api/projects");
         var responseContent = await HttpClient.GetStringAsync("api/Projects");
         Console.WriteLine(responseContent);
+    }
+
+    private void GoToRegisterPage()
+    {
+        navigationManager.NavigateTo("/registerpage");
     }
 }
 
@@ -60,6 +67,7 @@
     }
 
     .info-tile {
+        position: relative;
         background-color: #ffffff;
         border: 1px solid #e0e0e0;
         border-radius: 20px;
@@ -68,10 +76,10 @@
         width: 70%;
         height: 300px;
         margin: auto;
+        backdrop-filter: blur(40px);
         margin-top: 100px;
         align-self: center;
     }
-
 
 
     /* PROJECT TILE TEMPLATE STYLING */
