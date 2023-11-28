@@ -33,7 +33,7 @@ namespace MBCM_PWA.Client.Shared
             modelBuilder.Entity<SuggestedProject>().HasNoKey();
             
             modelBuilder.Entity<SuggestedProject>().HasKey(p => p.ProjectID);
-            // Rest of your configurations...
+            
         }
     }
 }

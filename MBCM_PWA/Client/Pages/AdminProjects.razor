@@ -24,7 +24,7 @@
             </div>
             <div class="active-grid">
                 @{
-                    var groupedUserProjects = userProjects.GroupBy(up => up.projectID);
+                    var groupedUserProjects = userProjects?.Where(up => up != null)?.GroupBy(up => up.projectID);
                 }
                 @foreach (var projectState in projectStates)
                 {
@@ -103,20 +103,23 @@
         <div class="requests">
             <h2>Project Requests: </h2>
             <div class="request-grid">
-                @foreach (var request in projectRequests)
+                @if (projectRequests != null)
                 {
-                    <div class="project-cell">
-                        <h4>Project: @request.Project.prjTitle</h4>
-                        <div>
-                            <div>User: @request.User.firstName @request.User.lastName</div>
-                            <div>Bio: @request.User.userBio</div>
-                            <div>Email: @request.User.userEmail</div>
+                    @foreach (var request in projectRequests)
+                    {
+                        <div class="project-cell">
+                            <h4>Project: @request.Project.prjTitle</h4>
+                            <div>
+                                <div>User: @request.User.firstName @request.User.lastName</div>
+                                <div>Bio: @request.User.userBio</div>
+                                <div>Email: @request.User.userEmail</div>
+                            </div>
+                            <div>
+                                <button title="Accept this user's request" class="btn btn-success btn-sm" @onclick="() => AcceptRequest(request)">Accept</button>
+                                <button title="Decline this user's request" class="btn btn-danger btn-sm" @onclick="() => DeclineRequest(request)">Decline</button>
+                            </div>
                         </div>
-                        <div>
-                            <button title="Accept this user's request" class="btn btn-success btn-sm" @onclick="() => AcceptRequest(request)">Accept</button>
-                            <button title="Decline this user's request" class="btn btn-danger btn-sm" @onclick="() => DeclineRequest(request)">Decline</button>
-                        </div>
-                    </div>
+                    }
                 }
             </div>
         </div>
@@ -124,15 +127,18 @@
         <div class="active-users">
             <h2>Active Users: </h2>
             <div class="user-grid">
-                @foreach (var user in users)
+                @if (users != null)
                 {
-                    <div class="user-cell">
-                        <p class="user-field">@user.firstName @user.lastName</p>
-                        <p class="user-field">@user.userEmail</p>
-                        <p class="user-field">@user.userPhoneNumber</p>
-                        <button title="Delete Account" class="primary" @onclick="() => ConfirmRemoveUser(user.UserID)">X</button>
+                    @foreach (var user in users)
+                    {
+                        <div class="user-cell">
+                            <p class="user-field">@user.firstName @user.lastName</p>
+                            <p class="user-field">@user.userEmail</p>
+                            <p class="user-field">@user.userPhoneNumber</p>
+                            <button title="Delete Account" class="primary" @onclick="() => ConfirmRemoveUser(user.UserID)">X</button>
 
-                    </div>
+                        </div>
+                    }
                 }
             </div>
         </div>
@@ -188,7 +194,7 @@ else
         projects = await HttpClient.GetFromJsonAsync<List<Project>>("api/projects");
         projectRequests = await HttpClient.GetFromJsonAsync<List<ProjectRequest>>("api/projects/project-requests");
         users = await HttpClient.GetFromJsonAsync<List<User>>("api/projects/users");
-        userProjects = await HttpClient.GetFromJsonAsync<List<UserProjects>>("api/projects/user-projects");
+        userProjects = (await HttpClient.GetFromJsonAsync<List<UserProjects>>("api/projects/user-projects")) ?? new List<UserProjects>();
 
         projectStates = projects.Select(project => new ProjectState
             {
@@ -269,6 +275,6 @@ else
     public class ProjectState
     {
         public Project Project { get; set; }
-        public int UserId { get; set; } // Add this property
+        public int UserId { get; set; }
     }
 }

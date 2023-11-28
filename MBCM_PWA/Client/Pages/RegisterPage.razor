@@ -253,12 +253,10 @@
             if (!response.IsSuccessStatusCode)
             {
                 var errorMessage = await response.Content.ReadAsStringAsync();
-                Console.WriteLine($"Error: {response.ReasonPhrase}, {errorMessage}");
             }
 
             if (response.IsSuccessStatusCode)
             {
-                Console.WriteLine("User registered successfully!");
                 var userIdResponse = await httpClient.GetStringAsync($"api/Projects/getUserId?email={model.Email}");
                 if (int.TryParse(userIdResponse, out var userId))
                 {
@@ -274,13 +272,11 @@
             }
             else
             {
-                Console.WriteLine($"Error: {response.ReasonPhrase}");
                 // Handle the error as needed, e.g., display an error message to the user
             }
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"Error: {ex.Message}");
         }
     }
 }

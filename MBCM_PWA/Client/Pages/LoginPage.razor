@@ -76,7 +76,6 @@
 
             if (response.IsSuccessStatusCode)
             {
-                Console.WriteLine("User logged in successfully!");
 
                 // Deserialize the response to get UserId and UserType
                 var loginResult = await response.Content.ReadFromJsonAsync<LoginResult>();
@@ -89,13 +88,11 @@
             }
             else
             {
-                Console.WriteLine($"Error: {response.ReasonPhrase}");
                 errorMessage = "Login failed. Please check your credentials and try again.";
             }
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"Error: {ex.Message}");
             errorMessage = "An unexpected error occurred. Please try again later.";
         }
     }

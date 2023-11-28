@@ -56,7 +56,6 @@
     {
         projects = await HttpClient.GetFromJsonAsync<List<Project>>("api/projects");
         var responseContent = await HttpClient.GetStringAsync("api/Projects");
-        Console.WriteLine(responseContent);
     }
 
     private void GoToRegisterPage()

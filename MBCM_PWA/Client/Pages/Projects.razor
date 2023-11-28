@@ -16,7 +16,6 @@
         @foreach (var projectState in projectStates)
         {
             bool isJoined = userProjects.Any(up => up.projectID == projectState.Project.ProjectID && up.userID == projectState.UserId);
-            Console.WriteLine($"Project ID: {projectState.Project.ProjectID}, Is User Joined: {isJoined}");
 
                 <div class="project-tile">
                     <div class="proj-left">
@@ -67,7 +66,6 @@
     protected override async Task OnInitializedAsync()
     {
         int? userId = UserService.UserId;
-        Console.WriteLine($"UserId: {userId}");
 
         userProjects = await HttpClient.GetFromJsonAsync<List<UserProjects>>($"api/Projects/getUserProjects/{userId}");
 

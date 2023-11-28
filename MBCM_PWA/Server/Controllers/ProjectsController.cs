@@ -66,7 +66,6 @@ namespace MBCM_PWA.Server.Controllers
         [HttpPost("send-request/{projectId}")]
         public IActionResult SendRequest(int projectId, [FromQuery] int userId)
         {
-            Console.WriteLine($"Received request - ProjectId: {projectId}, UserId: {userId}");
 
             using (var transaction = _dbContext.Database.BeginTransaction())
             {
@@ -108,7 +107,6 @@ namespace MBCM_PWA.Server.Controllers
                 catch (Exception ex)
                 {
                     transaction.Rollback();
-                    Console.WriteLine($"Error sending request: {ex.Message}");
                     return BadRequest("Error sending request. Please try again.");
                 }
             }
@@ -219,7 +217,6 @@ namespace MBCM_PWA.Server.Controllers
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Registration failed. Error: {ex.ToString()}");
                 return BadRequest($"Registration failed. Error: {ex.Message}");
 
             }
@@ -294,7 +291,6 @@ namespace MBCM_PWA.Server.Controllers
             catch (Exception ex)
             {
                 // Log the error and return BadRequest
-                Console.WriteLine($"Login failed. Error: {ex.Message}");
                 return BadRequest("Login failed. Please try again.");
             }
         }
@@ -305,7 +301,6 @@ namespace MBCM_PWA.Server.Controllers
         {
             try
             {
-                Console.WriteLine($"GetUserId called with email: {email}");
                 var user = await _dbContext.tblUser
                     .Where(u => u.userEmail == email)
                     .Select(u => u.UserID)
@@ -322,7 +317,6 @@ namespace MBCM_PWA.Server.Controllers
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error in GetUserId: {ex.Message}");
                 return BadRequest($"Error getting user ID: {ex.Message}");
             }
         }
@@ -360,13 +354,11 @@ namespace MBCM_PWA.Server.Controllers
         {
             try
             {
-                Console.WriteLine($"Removing user with ID: {userId}");
 
                 var user = _dbContext.tblUser.Find(userId);
 
                 if (user == null)
                 {
-                    Console.WriteLine($"User with ID {userId} not found.");
                     return NotFound();
                 }
 
@@ -395,21 +387,18 @@ namespace MBCM_PWA.Server.Controllers
                         _dbContext.SaveChanges();
 
                         transaction.Commit();
-
-                        Console.WriteLine($"User with ID {userId} removed successfully.");
+                        
                         return Ok();
                     }
                     catch (Exception ex)
                     {
                         transaction.Rollback();
-                        Console.WriteLine($"Error removing user: {ex.Message}");
                         return BadRequest($"Error removing user. {ex.Message}");
                     }
                 }
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error in RemoveUser: {ex.Message}");
                 return BadRequest($"Error in RemoveUser. {ex.Message}");
             }
         }
@@ -435,7 +424,6 @@ namespace MBCM_PWA.Server.Controllers
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error in GetUserDetails: {ex.Message}");
                 return BadRequest($"Error getting user details: {ex.Message}");
             }
         }
@@ -497,7 +485,6 @@ namespace MBCM_PWA.Server.Controllers
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error adding active project: {ex.Message}");
                 return BadRequest($"Error adding active project. {ex.Message}");
             }
         }
@@ -528,7 +515,6 @@ namespace MBCM_PWA.Server.Controllers
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error adding project: {ex.Message}");
                 return BadRequest($"Error adding project. {ex.Message}");
             }
         }
@@ -552,39 +538,37 @@ namespace MBCM_PWA.Server.Controllers
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error deleting suggestion: {ex.Message}");
                 return BadRequest($"Error deleting suggestion. {ex.Message}");
             }
         }
 
         [HttpDelete("delete-project/{projectId}")]
-        public IActionResult DeleteProject(int projectId)
+public IActionResult DeleteProject(int projectId)
+{
+    try
+    {
+        var project = _dbContext.tblProject.Find(projectId);
+
+        if (project == null)
         {
-            try
-            {
-                var project = _dbContext.tblProject.Find(projectId);
-
-                if (project == null)
-                {
-                    return NotFound("Project not found.");
-                }
-
-                // Remove user-project associations for the project
-                var userProjectsToRemove = _dbContext.tblUserProject.Where(up => up.projectID == projectId);
-                _dbContext.tblUserProject.RemoveRange(userProjectsToRemove);
-
-                // Now, you can safely remove the project
-                _dbContext.tblProject.Remove(project);
-                _dbContext.SaveChanges();
-
-                return Ok("Project deleted successfully.");
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Error deleting project: {ex.Message}");
-                return BadRequest($"Error deleting project. {ex.Message}");
-            }
+            return NotFound("Project not found.");
         }
+
+        // Remove user-project associations for the project
+        var userProjectsToRemove = _dbContext.tblUserProject.Where(up => up.projectID == projectId);
+        _dbContext.tblUserProject.RemoveRange(userProjectsToRemove);
+
+        // Now, you can safely remove the project
+        _dbContext.tblProject.Remove(project);
+        _dbContext.SaveChanges();
+
+        return Ok("Project deleted successfully.");
+    }
+    catch (Exception ex)
+    {
+        return BadRequest($"Error deleting project. {ex.Message}");
+    }
+}
 
 
     }
