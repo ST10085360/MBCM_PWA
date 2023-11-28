@@ -10,8 +10,14 @@ Welcome to the MBCM Volunteer Portal, a Progressive Web Application designed to 
 - [Getting Started](#getting-started)
   - [Prerequisites](#prerequisites)
   - [Installation](#installation)
-- [Usage](#usage)
-- [Contributing](#contributing)
+- [User Registration Page](#user-registration-page)
+- [User Login Page](#user-login-page)
+- [Volunteer Portal Home Page](#volunteer-portal-home-page)
+- [Active Community Projects](#active-community-projects)
+- [Community Feed](#community-feed)
+- [Account Dashboard Page](#account-dashboard-page)
+- [Frequently Asked Questions (FAQ) Page](#frequently-asked-question-(faq)-page)
+- [Admin Dashboard Page](#admin-dashboard-page)
 - [License](#license)
 - [Contact](#contact)
 
@@ -214,7 +220,7 @@ This page provides answers to common questions users may have about the communit
    - Click on a question to reveal its answer.
    - The accordion-style interface allows for easy navigation.
 
-## Admin Projects Page
+## Admin Dashboard Page
 
 The "Admin Dashboard" page is accessible only to administrators (users with the "Admin" role) and serves as an administrative panel to manage active projects, project requests, and user accounts. Administrators can view and delete projects, handle project requests, and manage user accounts.
 
