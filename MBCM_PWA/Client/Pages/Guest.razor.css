@@ -1,56 +1,58 @@
-﻿.main-container {
-    position: relative;
-    height: 80vh;
-    overflow: auto;
-}
+﻿
+@media only screen and (min-width: 768px) {
+    .main-container {
+        position: relative;
+        height: 80vh;
+        overflow: auto;
+    }
 
-.splash-background {
-    background-image: url(../css/LINKING_ARMS_BLURRED.png);
-    align-self: center;
-    background-size: cover;
-    background-attachment: fixed;
-    position: absolute;
-    height: 100%;
-    width: 100%;
-}
-
-
-.main-logo {
-    padding: 20px;
-    position: relative;
-    text-align: center;
-    margin-top: 15%;
-}
-
-.logo {
-    width: 500px;
-    height: auto;
-}
+    .splash-background {
+        background-image: url(../css/LINKING_ARMS_BLURRED.png);
+        align-self: center;
+        background-size: cover;
+        background-attachment: fixed;
+        position: absolute;
+        height: 100%;
+        width: 100%;
+    }
 
 
-.welcome-text {
-    font-size: 40px;
-    margin: 5%;
-}
+    .main-logo {
+        padding: 20px;
+        position: relative;
+        text-align: center;
+        margin-top: 15%;
+    }
 
-.info-tile {
-    position: relative;
-    background-color: #ffffff;
-    border: 1px solid #e0e0e0;
-    border-radius: 20px;
-    box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1), 2px 0 2px rgba(0, 0, 0, 0.1), -2px 0 2px rgba(0, 0, 0, 0.05);
-    padding: 20px;
-    width: 50%;
-    height: 300px;
-    margin: auto;
-    backdrop-filter: blur(40px);
-    margin-top: 100px;
-    align-self: center;
-    background-image: url('/css/volunteer.jpg');
-    background-size: cover;
-    transition: font-size 0.5s ease;
-    cursor: pointer;
-}
+    .logo {
+        width: 500px;
+        height: auto;
+    }
+
+
+    .welcome-text {
+        font-size: 40px;
+        margin: 5%;
+    }
+
+    .info-tile {
+        position: relative;
+        background-color: #ffffff;
+        border: 1px solid #e0e0e0;
+        border-radius: 20px;
+        box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1), 2px 0 2px rgba(0, 0, 0, 0.1), -2px 0 2px rgba(0, 0, 0, 0.05);
+        padding: 20px;
+        width: 50%;
+        height: 300px;
+        margin: auto;
+        backdrop-filter: blur(40px);
+        margin-top: 100px;
+        align-self: center;
+        background-image: url('/css/volunteer.jpg');
+        background-size: cover;
+        transition: font-size 0.5s ease;
+        cursor: pointer;
+    }
 
 .info-text-tile {
     position: relative;
@@ -74,18 +76,82 @@
     font-size: 30px;
 }
 
-.info-tile:hover .join-heading{
-    font-size: 2.5rem;
+    .info-tile:hover .join-heading {
+        font-size: 2.5rem;
+    }
+
+    .join-text {
+        font-size: 20px;
+    }
+
+
+    .info-tile:hover .join-text {
+        font-size: 1.5rem;
+    }
 }
-.join-text {
-    font-size: 20px;
+
+@media only screen and (max-width: 768px) {
+    .main-container {
+        position: relative;
+        height: 60vh;
+        overflow: auto;
+    }
+
+    .splash-background {
+        background-image: url(../css/LINKING_ARMS_BLURRED.png);
+        align-self: center;
+        background-size: cover;
+        background-attachment: fixed;
+        position: absolute;
+        height: 100%;
+        width: 100%;
+    }
+
+
+    .main-logo {
+        padding: 20px;
+        position: relative;
+        text-align: center;
+        margin-top: 15%;
+    }
+
+    .logo {
+        width: 500px;
+        height: auto;
+    }
+
+
+    .welcome-text {
+        font-size: 40px;
+        margin: 5%;
+    }
+
+    .info-tile {
+        position: relative;
+        background-color: #ffffff;
+        border: 1px solid #e0e0e0;
+        border-radius: 20px;
+        box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1), 2px 0 2px rgba(0, 0, 0, 0.1), -2px 0 2px rgba(0, 0, 0, 0.05);
+        padding: 20px;
+        width: 90%;
+        height: 300px;
+        margin: auto;
+        margin-top: 100px;
+        align-self: center;
+        background-image: url('/css/volunteer.jpg');
+        background-size: cover;
+        transition: font-size 0.5s ease;
+        cursor: pointer;
+    }
+
+    .join-heading {
+        font-size: 30px;
+    }
+
+   
+
+    .join-text {
+        font-size: 20px;
+    }
+
 }
-
-
-.info-tile:hover .join-text{
-    font-size: 1.5rem;
-}
-
-
-
-

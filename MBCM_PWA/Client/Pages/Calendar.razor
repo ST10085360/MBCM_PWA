@@ -49,7 +49,7 @@
                             <label>Start Date: </label>
                         </div>
                         <div class="col-md-8">
-                            <input type="date" style="width:100%;" />
+                            <input type="date" style="width:100%;" @bind="selectedDateEvent.StartDate" />
                         </div>
                     </div>
                 </div>
@@ -58,7 +58,7 @@
                         <label>Time: </label>
                     </div>
                     <div class="col-md-8">
-                        <input type="time" style="width:100%;" />
+                        <input type="time" style="width:100%;" @bind="selectedDateEvent.Time" />
                     </div>
                 </div>
                 <div class="row">
@@ -66,14 +66,14 @@
                         <label>Note: </label>
                     </div>
                     <div class="col-md-8">
-                        <input type="text" placeholder="Type here..." />
+                        <input type="text" placeholder="Type here..." @bind="selectedDateEvent.Note" />
                     </div>
                 </div>
                 <div class="row" style="margin-bottom:10px;">
                     <div class="col-md-6">
                     </div>
                     <div class="col-md-6" style="text-align:right;">
-                        <button class="btn btn-success" style="float:left; margin-right:5px">Save</button>
+                        <button class="btn btn-success" @onclick="SaveEvent" style="float:left; margin-right:5px">Save</button>
                         <button class="btn btn-danger" @onclick="CloseModel" style="float:left;">Close</button>
                     </div>
                 </div>
@@ -127,6 +127,7 @@
     List<string> monthNames = new List<string>();
     List<string> days = new List<string>();
     List<WeekClass> weeks = new List<WeekClass>();
+    DayEvent selectedDateEvent;
     DateTime startDate = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1);
     DateTime endDate = (new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1)).AddMonths(1).AddDays(-1);
 
@@ -201,5 +202,10 @@
     private void OpenModel(int wIndex, int dIndex)
     {
         displayModel = true;
+        selectedDateEvent = weeks[wIndex].Dates[dIndex];
+    }
+    private void SaveEvent()
+    {
+        CloseModel();
     }
 }
