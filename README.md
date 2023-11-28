@@ -35,6 +35,60 @@ Welcome to the MBCM Volunteer Portal, a Progressive Web Application designed to 
 2. Build and run the project.
 3. Open your web browser and visit http://localhost:5000 to access the MBCM Volunteer Portal.
 
+## Volunteer Portal Home Page
+
+The page provides information about MBCM (Mandela Bay Community Movement) and invites individuals and groups to become volunteers (guests only). This page serves as a gateway for those interested in contributing to the community, learning about and joining the MBCM movement.
+
+### Features
+
+- Display of MBCM's establishment and mission.
+- Information on community transformation and the impact of volunteer participation.
+- Invitation to join MBCM and become part of the community transformation process.
+
+### Usage
+
+1. **Accessing the Volunteer Portal:**
+   - Navigate to the "Home" page from the main portal navigation.
+
+2. **About MBCM:**
+   - Learn about MBCM's establishment, mission, and the need for dedicated citizens in local governance.
+
+3. **Community Transformation:**
+   - Explore the potential impact of diverse individuals and groups coming together for community transformation.
+
+4. **Join Us:**
+   - Understand the invitation to join MBCM and become actively involved in strategic planning and guidance for Independent Candidates.
+
+5. **Our Belief:**
+   - Discover MBCM's belief in the power of committed private citizens to provide solutions to challenges facing the Metro.
+
+6. **Empowering Stakeholders:**
+   - Learn about MBCM's advocacy for stakeholders to lead the decision-making process in the city.
+
+## Active Community Projects
+
+The "Projects Feed" page displays active community projects available for volunteers to join. Users can view project details and send requests to join projects they are interested in.
+
+### Features
+
+- List of active community projects.
+- Project details including title, start date, location, and member count.
+- Ability for users to send requests to join projects.
+- Visual indication of the request status for each project.
+
+### Usage
+
+1. **Accessing the Projects Page:**
+   - Navigate to the "Projects Feed" page from the main portal navigation.
+
+2. **Viewing Projects:**
+   - Explore the list of active community projects (guests and volunteers).
+   - Review project details, including title, start date, location, and member count.
+
+3. **Sending Join Requests:**
+   - Click the "Request to Join" button for a project to express your interest (volunteers only).
+   - If already joined or a request is pending, appropriate status indicators will be displayed.
+
 ## Suggestion Page
 
 This page allows users (admin or volunteers) to view and manage community project suggestions.
