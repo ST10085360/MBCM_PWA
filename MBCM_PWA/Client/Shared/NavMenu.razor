@@ -14,11 +14,14 @@
 
 <div class="@NavMenuCssClass nav-scrollable" @onclick="ToggleNavMenu">
     <nav class="flex-column">
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="/volunteer" Match="NavLinkMatch.All">
-                <span class="oi oi-home" aria-hidden="true"></span> Home
-            </NavLink>
-        </div>
+        @if (UserService.UserType == "Guest")
+        {
+            <div class="nav-item px-3">
+                <NavLink class="nav-link" href="/volunteer" Match="NavLinkMatch.All">
+                    <span class="oi oi-home" aria-hidden="true"></span> Home
+                </NavLink>
+            </div>
+        }
         <div class="nav-item px-3">
             <NavLink class="nav-link" href="projects">
                 <span class="oi oi-clipboard" aria-hidden="true"></span> Projects Feed
