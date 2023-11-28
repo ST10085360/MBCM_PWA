@@ -112,7 +112,7 @@
         height: 20px
     }
 
-    .plus-text {
+    .text-body {
         position: relative;
         left: 20%;
         white-space: nowrap;
@@ -121,7 +121,7 @@
         transition: left 0.1s ease-in-out, opacity 0.1s ease-in-out;
     }
 
-    .add-btn:hover .plus-text{
+    .add-btn:hover .text-body {
         left: 10px;
         opacity: 1;
     }
@@ -218,7 +218,7 @@
         padding: 2%;
         grid-area: active-projects;
         margin: auto;
-        width: 90%;
+        width: 80%;
         border: 1px solid #ccc;
         border-radius: 20px;
         box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1), 2px 0 2px rgba(0, 0, 0, 0.1), -2px 0 2px rgba(0, 0, 0, 0.05);
@@ -293,11 +293,11 @@
         height: 20px;
     }
 
-    .plus-text {
+    .text-body {
         display: none;
     }
 
-    .add-btn:hover .plus-text {
+    .add-btn:hover .text-body {
         left: 10px;
         opacity: 1;
     }

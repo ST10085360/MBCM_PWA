@@ -9,7 +9,6 @@
     .main-container {
         position: relative;
         height: 40vh;
-        overflow: auto;
     }
 
     .splash-background {
@@ -64,7 +63,7 @@
 
     .main-container {
         position: relative;
-        height: 40vh;
+        height: 60vh;
         overflow: auto;
     }
 
