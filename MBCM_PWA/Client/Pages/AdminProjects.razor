@@ -22,58 +22,6 @@
     </button>
 </div>
         </div>
-@* <div class="active-grid">
-    @{
-        var groupedUserProjects = userProjects.GroupBy(up => up.projectID);
-    }
-    @foreach (var group in groupedUserProjects)
-    {
-        <div class="project-cell">
-            <h4>@group.First().Project.prjTitle</h4>
-            <p>@group.First().Project.prjDescription</p>
-            <div class="members-dropdown">
-                Members:
-                @foreach (var userProject in group)
-                {
-                    <div class="member"  style="margin-top: 10px;">
-                        @userProject.User.firstName @userProject.User.lastName
-                        <button class="primary" title="Remove this volunteer from the member group" @onclick="() => ConfirmRemoveUserFromProject(userProject.userProjectID)">X</button>
-                    </div>
-                }
-            </div>
-        </div>
-    }
-        </div> *@
-
-            @* <div class="active-grid">
-                @{
-                    var groupedUserProjects = projects.GroupBy(up => up.ProjectID);
-                }
-                @foreach (var projectState in projectStates)
-                {
-                    <div class="project-cell">
-                        <h4>@projectState.Project.prjTitle</h4>
-                        <p>@projectState.Project.prjDescription</p>
-                        <div class="members-dropdown">
-                            Members:
-                            @foreach (var user in userProjects)
-                            {
-                                bool isJoined = userProjects.Any(up => up.projectID == projectState.Project.ProjectID && up.userID == projectState.UserId);
-
-                                @if (isJoined)
-                                {
-                                    <div class="member" style="margin-top: 10px;">
-                                        @user.User.firstName @user.User.lastName
-                                        <button class="primary" title="Remove this volunteer from the member group" @onclick="() => ConfirmRemoveUserFromProject(user.userProjectID)">X</button>
-                                    </div>
-                                }
-                                
-                            }
-                        </div>
-                    </div>
-                }
-            </div> *@
-
             <div class="active-grid">
                 @{
                     var groupedUserProjects = userProjects.GroupBy(up => up.projectID);
