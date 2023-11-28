@@ -39,11 +39,11 @@
 
                             @if (isJoined)
                         {
-                            <span class="disabled-btn">Already Joined</span>
+                            <span class="btn btn-primary" style="background-color:grey; color:white; border-color:darkgray" disabled>Already Joined</span>
                         }
                         else
                         {
-                            <button class="btn btn-primary" style="@projectState.ButtonColor" @onclick="() => SendRequest(projectState)">
+                            <button class="btn btn-primary" style="background-color:orange; border-color:orange"@onclick="() => SendRequest(projectState)">
                                 @projectState.ButtonText
                             </button>
                         }

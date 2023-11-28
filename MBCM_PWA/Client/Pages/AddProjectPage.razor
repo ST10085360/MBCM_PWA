@@ -9,7 +9,8 @@
 {
 <div class="add-project-container">
     <div class="add-project-form">
-        <h1 class="text-center" style="color: white">Please enter project details</h1>
+            <h1 class="text-center" style="color: white; margin-bottom:30px; margin-top:20px;">Add Project Suggestion</h1>
+            <h5 class="text-center" style="color: white; margin-bottom:20px; margin-top:20px;">Please enter your project details:</h5>
 
         <br />
 
@@ -52,14 +53,14 @@
         <br />
 
         <div class="text-center">
-            <button style="width: 100px" @onclick="addProject" class="btn btn-dark">Add Project</button>
+            <button style="width:130px; height:40px; background-color:orange; color:black; font-weight:600" @onclick="addProject" class="btn btn-dark">Add Project</button>
             @if (isBusy)
             {
                 <p class="text-info">Adding project...</p>
             }
             @if (!string.IsNullOrWhiteSpace(errorMessage))
             {
-                <p class="text-danger">@errorMessage</p>
+                <p class="text-danger" style="margin-top:10px">@errorMessage</p>
             }
         </div>
 
