@@ -10,8 +10,14 @@ Welcome to the MBCM Volunteer Portal, a Progressive Web Application designed to 
 - [Getting Started](#getting-started)
   - [Prerequisites](#prerequisites)
   - [Installation](#installation)
-- [Usage](#usage)
-- [Contributing](#contributing)
+- [User Registration Page](#user-registration-page)
+- [User Login Page](#user-login-page)
+- [Volunteer Portal Home Page](#volunteer-portal-home-page)
+- [Active Community Projects](#active-community-projects)
+- [Community Feed](#community-feed)
+- [Account Dashboard Page](#account-dashboard-page)
+- [Frequently Asked Questions (FAQ) Page](#frequently-asked-questions-faq-page)
+- [Admin Dashboard Page](#admin-dashboard-page)
 - [License](#license)
 - [Contact](#contact)
 
@@ -34,6 +40,61 @@ Welcome to the MBCM Volunteer Portal, a Progressive Web Application designed to 
 1. Clone the repository:
 2. Build and run the project.
 3. Open your web browser and visit http://localhost:5000 to access the MBCM Volunteer Portal.
+
+## User Registration Page
+
+This page allows users to register for an account on the MBCM volunteer portal. Users can enter their information, including email, name, bio, phone number, and password, to create an account.
+
+### Features
+
+- User-friendly registration form.
+- Input validation for email, name, bio, phone number, and password.
+- South African phone number validation using regex pattern.
+- Registration button to create a new user account.
+- Redirect to the "/projects" page upon successful registration.
+
+### Usage
+
+1. **Accessing the Registration Page:**
+   - Navigate to Register link in Login page to load registration page and enter required details.
+
+2. **Completing the Registration Form:**
+   - Enter your email, first name, last name, bio/description, phone number, and password.
+   - Ensure that all fields are filled correctly, and validation messages are addressed.
+
+3. **Registering a New Account:**
+   - Click the "Register" button to create a new user account.
+   - Upon successful registration, you will be redirected to the "Home" page.
+
+4. **Handling Errors:**
+   - If there are any registration errors, appropriate error messages will be displayed.
+
+## User Login Page
+
+This page allows users to log in to the MBCM volunteer portal. Users can enter their email and password to access their accounts. Additionally, there is an option to continue as a guest.
+
+### Features
+
+- User-friendly login form with input fields for email and password.
+- Error message display for failed login attempts.
+- "Login" button to authenticate users and redirect them to the "Home" page upon successful login.
+- "Continue as Guest" button to access the portal without logging in.
+
+### Usage
+
+1. **Accessing the Login Page:**
+   - The application will load this page upon startup.
+
+2. **Logging In:**
+   - Enter your email and password in the respective input fields.
+   - Click the "Login" button to authenticate your account.
+   - Upon successful login, you will be redirected to the "Home" page.
+
+3. **Guest Access:**
+   - If you prefer not to log in, you can click the "Continue as Guest" button to access the portal as a guest.
+
+4. **Handling Errors:**
+   - If there are any login errors, an appropriate error message will be displayed.
 
 ## Volunteer Portal Home Page
 
@@ -158,6 +219,51 @@ This page provides answers to common questions users may have about the communit
    - The page presents a list of frequently asked questions.
    - Click on a question to reveal its answer.
    - The accordion-style interface allows for easy navigation.
+
+## Admin Dashboard Page
+
+The "Admin Dashboard" page is accessible only to administrators (users with the "Admin" role) and serves as an administrative panel to manage active projects, project requests, and user accounts. Administrators can view and delete projects, handle project requests, and manage user accounts.
+
+### Features
+
+1. **Active Projects:**
+   - View a list of active projects, including project title, description, and members.
+   - Remove a user from a project.
+   - Delete a project.
+
+2. **Project Requests:**
+   - View pending project requests.
+   - Accept or decline project requests.
+
+3. **User Management:**
+   - View a list of users with their names, emails, and phone numbers.
+   - Delete user accounts.
+
+### Usage
+
+1. **Accessing the Admin Projects Page:**
+   - Only users with the "Admin" role can access the "Admin Dashboard" page.
+
+2. **Active Projects Section:**
+   - View a list of active projects.
+   - Click "Add New Active Project" to navigate to the page for adding a new project.
+
+3. **Removing User from Project:**
+   - Click the "X" button next to a user's name in the "Members" section to remove them from the project.
+   - Confirm the action in the displayed modal.
+
+4. **Deleting Project:**
+   - Click the "Delete Project" button to delete a project.
+   - Confirm the action in the displayed modal.
+
+5. **Handling Project Requests:**
+   - View project requests in the "Project Requests" section.
+   - Click "Accept" or "Decline" to handle a request.
+
+6. **User Management:**
+   - View user accounts in the "Users" section.
+   - Click the "X" button to delete a user account.
+   - Confirm the action in the displayed modal.
 
 ### License
 This project is licensed under the MIT License - see the LICENSE file for details.
