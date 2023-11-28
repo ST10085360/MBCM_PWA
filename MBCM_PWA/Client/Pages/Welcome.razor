@@ -1,5 +1,7 @@
 ﻿@layout WelcomeLayout
 @page "/"
+@using MBCM_PWA.Client.Shared.Models
+@inject userService UserService
 
 <PageTitle>Welcome</PageTitle>
 <div class="text-center">
@@ -11,7 +13,7 @@
                 <div class="card-body">
                     <h5 class="card-title">Guest</h5>
                     <p class="card-text">Click below if you are a guest.</p>
-                    <a href="/guest" class="btn btn-welcome">Choose Guest</a>
+                    <a href="/guest" class="btn btn-welcome" onclick="@setGuest()">Choose Guest</a>
                 </div>
             </div>
         </div>
@@ -37,7 +39,12 @@
         </div>
     </div>
 </div>
-
+@code {
+    private async Task setGuest()
+    {
+        UserService.SetUserType("Guest");
+    }
+}
 
 <style>
     .welcome-card {

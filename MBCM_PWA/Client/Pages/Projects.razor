@@ -4,6 +4,8 @@
 @using Microsoft.AspNetCore.Components.Web.Extensions
 @inject HttpClient HttpClient
 @inject userService UserService;
+@inject NavigationManager NavigationManager
+
 
 <PageTitle>Projects</PageTitle>
 <div class="main-container">
@@ -81,6 +83,10 @@
 
     public async Task SendRequest(ProjectState projectState)
     {
+        if (UserService.UserType == "Guest")
+        {
+            NavigationManager.NavigateTo("/registerpage");
+        }
         // Check if the user is already part of the project
         var userProjects = await HttpClient.GetFromJsonAsync<List<UserProjects>>($"api/projects/user-projects");
         if (userProjects.Any(up => up.userID == UserService.UserId && up.projectID == projectState.Project.ProjectID))

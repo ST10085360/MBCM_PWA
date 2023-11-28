@@ -5,7 +5,8 @@
 @inject userService UserService
 
 <PageTitle>Add Project</PageTitle>
-
+@if (UserService.UserType != "Guest")
+{
 <div class="add-project-container">
     <div class="add-project-form">
         <h1 class="text-center" style="color: white">Please enter project details</h1>
@@ -64,7 +65,12 @@
 
         <br />
     </div>
-</div>
+    </div>
+}
+else
+{
+    <div>You do not have access to this page.</div>
+}
 
 @code {
     private SuggestedProject model = new SuggestedProject();

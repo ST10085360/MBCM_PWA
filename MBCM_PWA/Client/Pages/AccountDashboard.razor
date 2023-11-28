@@ -3,63 +3,69 @@
 @inject userService UserService
 @inject HttpClient httpClient
 
+@if (UserService.UserType == "Admin" || UserService.UserType == "Volunteer")
+{
+    <div class="main-area">
+        <br />
+        <br />
+        <h1>Your Account</h1>
+        <br />
 
-<div class="main-area">
-    <br />
-    <br />
-    <h1>Your Account</h1>
-    <br />
-
-    <hr />
-    <br />
-    <br />
-    <div class="info-tile">
-        <br />
-        <h2>Your Details</h2>
-        <br />
-        <div class="details-con">
-            <h6 class="left-t">First Name</h6>
-            <h6 class="right-t">@FullUserInfo?.firstName</h6>
-        </div>
         <hr />
-        <div class="details-con">
-            <h6 class="left-t">Surname</h6>
-            <h6 class="right-t">@FullUserInfo?.lastName</h6>
-        </div>
-        <hr />
-        <div class="details-con">
-            <h6 class="left-t">Email</h6>
-            <h6 class="right-t">@FullUserInfo?.userEmail</h6>
-        </div>
-        <hr />
-        <div class="details-con">
-            <h6 class="left-t">Cellphone Number</h6>
-            <h6 class="right-t">@FullUserInfo?.userPhoneNumber</h6>
-        </div>
-    </div>
-    <div class="proj-section">
         <br />
-        <h2>Your Projects</h2>
         <br />
-        @if (UserProjects != null && UserProjects.Any())
-        {
-            foreach (var userProject in UserProjects)
+        <div class="info-tile">
+            <br />
+            <h2>Your Details</h2>
+            <br />
+            <div class="details-con">
+                <h6 class="left-t">First Name</h6>
+                <h6 class="right-t">@FullUserInfo?.firstName</h6>
+            </div>
+            <hr />
+            <div class="details-con">
+                <h6 class="left-t">Surname</h6>
+                <h6 class="right-t">@FullUserInfo?.lastName</h6>
+            </div>
+            <hr />
+            <div class="details-con">
+                <h6 class="left-t">Email</h6>
+                <h6 class="right-t">@FullUserInfo?.userEmail</h6>
+            </div>
+            <hr />
+            <div class="details-con">
+                <h6 class="left-t">Cellphone Number</h6>
+                <h6 class="right-t">@FullUserInfo?.userPhoneNumber</h6>
+            </div>
+        </div>
+        <div class="proj-section">
+            <br />
+            <h2>Your Projects</h2>
+            <br />
+            @if (UserProjects != null && UserProjects.Any())
             {
-                var project = userProject.Project;
+                foreach (var userProject in UserProjects)
+                {
+                    var project = userProject.Project;
 
-                <div class="project-card">
-                    <h4>@project.prjTitle</h4>
-                    <p>@project.prjDescription</p>
-                    <!-- Add more details as needed -->
-                </div>
+                    <div class="project-card">
+                        <h4>@project.prjTitle</h4>
+                        <p>@project.prjDescription</p>
+                        <!-- Add more details as needed -->
+                    </div>
+                }
             }
-        }
-        else
-        {
-            <p>You are not currently a part of any projects.</p>
-        }
+            else
+            {
+                <p>You are not currently a part of any projects.</p>
+            }
+        </div>
     </div>
-</div>
+}
+else
+{
+    <div>You do not have access to this page.</div>
+}
 
 @code {
     private User FullUserInfo;

@@ -5,79 +5,84 @@
 @inject userService UserService
 
 <PageTitle>Add Active Project</PageTitle>
+@if (UserService.UserType =="Admin")
+{
+    <div class="add-project-container">
+        <div class="add-project-form">
+            <h1 class="text-center" style="color: white">Please enter new active project details</h1>
 
-<div class="add-project-container">
-    <div class="add-project-form">
-        <h1 class="text-center" style="color: white">Please enter new active project details</h1>
+            <br />
 
-        <br />
-
-        <!-- Title -->
-        <div class="row mb-3">
-            <label class="col-sm-3 col-form-label">
-                Title:
-            </label>
-            <div class="col-sm-6">
-                <div class="shadow-sm">
-                    <input type="text" class="form-control form-control-sm" name="Title" id="Title" @bind="model.prjTitle" />
+            <!-- Title -->
+            <div class="row mb-3">
+                <label class="col-sm-3 col-form-label">
+                    Title:
+                </label>
+                <div class="col-sm-6">
+                    <div class="shadow-sm">
+                        <input type="text" class="form-control form-control-sm" name="Title" id="Title" @bind="model.prjTitle" />
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <!-- Description -->
-        <div class="row mb-3">
-            <label class="col-sm-3 col-form-label">
-                Description:
-            </label>
-            <div class="col-sm-6">
-                <div class="shadow-sm">
-                    <textarea class="form-control" rows="3" name="Description" id="Description" @bind="model.prjDescription"></textarea>
+            <!-- Description -->
+            <div class="row mb-3">
+                <label class="col-sm-3 col-form-label">
+                    Description:
+                </label>
+                <div class="col-sm-6">
+                    <div class="shadow-sm">
+                        <textarea class="form-control" rows="3" name="Description" id="Description" @bind="model.prjDescription"></textarea>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <!-- Location -->
-        <div class="row mb-3">
-            <label class="col-sm-3 col-form-label">
-                Location:
-            </label>
-            <div class="col-sm-6">
-                <div class="shadow-sm">
-                    <input type="text" class="form-control form-control-sm" name="Location" id="Location" @bind="model.prjLocation" />
+            <!-- Location -->
+            <div class="row mb-3">
+                <label class="col-sm-3 col-form-label">
+                    Location:
+                </label>
+                <div class="col-sm-6">
+                    <div class="shadow-sm">
+                        <input type="text" class="form-control form-control-sm" name="Location" id="Location" @bind="model.prjLocation" />
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <!-- Start Date-->
-        <div class="row mb-3">
-            <label class="col-sm-3 col-form-label">
-                Start Date:
-            </label>
-            <div class="col-sm-6">
-                <div class="shadow-sm">
-                    <input type="date" class="form-control form-control-sm" name="StartDate" id="StartDate" @bind="model.prjStartDate" />
+            <!-- Start Date-->
+            <div class="row mb-3">
+                <label class="col-sm-3 col-form-label">
+                    Start Date:
+                </label>
+                <div class="col-sm-6">
+                    <div class="shadow-sm">
+                        <input type="date" class="form-control form-control-sm" name="StartDate" id="StartDate" @bind="model.prjStartDate" />
+                    </div>
                 </div>
             </div>
+
+            <br />
+
+            <div class="text-center">
+                <button style="width: 100px" @onclick="addActiveProject" class="btn btn-dark">Add Project</button>
+                @if (isBusy)
+                {
+                    <p class="text-info">Adding new active project...</p>
+                }
+                @if (!string.IsNullOrWhiteSpace(errorMessage))
+                {
+                    <p class="text-danger">@errorMessage</p>
+                }
+            </div>
+
+            <br />
         </div>
-
-        <br />
-
-        <div class="text-center">
-            <button style="width: 100px" @onclick="addActiveProject" class="btn btn-dark">Add Project</button>
-            @if (isBusy)
-            {
-                <p class="text-info">Adding new active project...</p>
-            }
-            @if (!string.IsNullOrWhiteSpace(errorMessage))
-            {
-                <p class="text-danger">@errorMessage</p>
-            }
-        </div>
-
-        <br />
     </div>
-</div>
-
+}
+else
+{
+    <div>You do not have access to this page.</div>
+}
 @code {
     private Project model = new Project();
     private bool isBusy = false;
@@ -128,6 +133,7 @@
         justify-content: center;
         align-items: center;
         height: 30vh;
+        margin-top: 200px;
     }
 
     .add-project-form {
