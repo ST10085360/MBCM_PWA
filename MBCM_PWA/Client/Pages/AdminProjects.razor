@@ -14,15 +14,15 @@
         <div class="active-projects">
 
             <div class="add-proj-header">
-                <h3 class="active-head">Active Projects:</h3>
+                <h2 class="active-head">Active Projects:</h2>
                 <div class="new-btn">
                     <button class="add-btn" @onclick="ShowAddActiveProjectPage">
-                        <span class="icon"><img class="new-img" src="/css/NewProject.png" alt="location" /></span>
-                        <span class="plus-text">Add New Active Project</span>
+                        <span class="icon" style="margin-left:-150px; margin-right:10px; width:30px; height:30px"><img class="new-img" src="/css/NewProject.png" alt="location" /></span>
+                        <span class="text-body">Add New Active Project</span>
                     </button>
                 </div>
             </div>
-            <div class="active-grid">
+            <div class="active-grid" style="width:700px">
                 @{
                     var groupedUserProjects = userProjects.GroupBy(up => up.projectID);
                 }
@@ -31,7 +31,6 @@
                     <div class="project-cell">
                         <h4>@projectState.Project.prjTitle</h4>
                         <p>@projectState.Project.prjDescription</p>
-                        <button class="primary" style="width: fit-content;" title="Remove this volunteer from the member group" @onclick="() => ConfirmRemoveProject(projectState.Project.ProjectID)">Delete Project</button>
                         <div class="members-dropdown">
                             Members:
                             @if (groupedUserProjects.Any())
@@ -44,11 +43,14 @@
                                     {
                                         <div class="member" style="margin-top: 10px;">
                                             @user.User.firstName @user.User.lastName
-                                            <button class="primary" title="Remove this volunteer from the member group" @onclick="() => ConfirmRemoveUserFromProject(user.userProjectID)">X</button>
+                                            <button class="primary" style="margin-left:10px; float:right" title="Remove this volunteer from the member group" @onclick="() => ConfirmRemoveUserFromProject(user.userProjectID)">X</button>
                                         </div>
                                     }
                                 }
                             }
+                        </div>
+                        <div style="display: flex; justify-content: center; align-items: flex-end;">
+                            <button class="primary" style="width: fit-content; margin-top: 40px; margin-bottom:20px; background-color:Orange; color:black" title="Remove this volunteer from the member group" @onclick="() => ConfirmRemoveProject(projectState.Project.ProjectID)">Delete Project</button>
                         </div>
                     </div>
                 }
@@ -99,7 +101,7 @@
             </div>
         }
         <div class="requests">
-            <h3>Project Requests</h3>
+            <h2>Project Requests</h2>
             <div class="request-grid">
                 @foreach (var request in projectRequests)
                 {
@@ -120,7 +122,7 @@
         </div>
 
         <div class="active-users">
-            <h3>Users</h3>
+            <h2>Users</h2>
             <div class="user-grid">
                 @foreach (var user in users)
                 {
